@@ -1,0 +1,3891 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOEIC Quest: Cyber Office</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: #273549;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-emerald: #059669;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-blue: #3b82f6;
+      --border-color: #334155;
+      --border-light: #475569;
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-card: #f8fafc;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #94a3b8;
+      --accent-cyan: #0891b2;
+      --accent-green: #059669;
+      --accent-emerald: #047857;
+      --accent-amber: #d97706;
+      --accent-rose: #e11d48;
+      --accent-blue: #2563eb;
+      --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+    header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+    }
+    .brand-icon {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      display: block;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .role-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .role-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+    }
+    .icon-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover { border-color: var(--accent-cyan); }
+    .layout-container {
+      display: flex;
+      flex: 1;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem;
+      gap: 1.25rem;
+    }
+    nav.sidebar {
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--bg-surface);
+      color: var(--text-main);
+    }
+    .nav-btn.active {
+      background: var(--bg-surface);
+      color: var(--accent-cyan);
+      border-color: var(--border-color);
+      border-left: 4px solid var(--accent-cyan);
+    }
+    main.view-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      min-width: 0;
+    }
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: var(--card-shadow);
+    }
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .stat-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .stat-tile .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-tile .value { font-size: 1.6rem; font-weight: 800; color: var(--text-main); }
+    .stat-tile .sub { font-size: 0.75rem; color: var(--accent-cyan); }
+    .btn {
+      background: var(--accent-cyan);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.98); }
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover { border-color: var(--accent-cyan); }
+    .btn-outline-danger {
+      background: transparent;
+      border: 1px solid var(--accent-rose);
+      color: var(--accent-rose);
+    }
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .quiz-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+    }
+    .timer-badge {
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--accent-amber);
+      font-size: 1.1rem;
+    }
+    .badge-tag {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+    .passage-box {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-cyan);
+      padding: 1.2rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .question-stem {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .choices-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+    .choice-item {
+      background: var(--bg-card);
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .choice-item:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.05);
+    }
+    .choice-item .key {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .choice-item.selected {
+      border-color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .choice-item.correct {
+      border-color: var(--accent-green) !important;
+      background: rgba(16, 185, 129, 0.15) !important;
+    }
+    .choice-item.wrong {
+      border-color: var(--accent-rose) !important;
+      background: rgba(244, 63, 94, 0.15) !important;
+    }
+    .explanation-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      border-top: 4px solid var(--accent-green);
+    }
+    .trap-box {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px dashed var(--accent-amber);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--accent-amber);
+    }
+    .flashcard {
+      min-height: 260px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 260px;
+    }
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      align-items: flex-start;
+      text-align: left;
+      overflow-y: auto;
+      justify-content: flex-start;
+    }
+    .word-title { font-size: 2rem; font-weight: 800; color: var(--accent-cyan); }
+    .word-ipa { font-family: monospace; color: var(--accent-amber); margin: 0.4rem 0 1rem; }
+    .word-meaning { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .word-example { font-style: italic; color: var(--text-sub); border-left: 3px solid var(--accent-cyan); padding-left: 0.75rem; margin-bottom: 0.75rem; }
+    .tab-bar {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: var(--text-sub);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--accent-cyan);
+    }
+    .leitner-boxes {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .l-box {
+      flex: 1;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+    .l-box.active { border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.1); }
+    .canvas-container {
+      width: 100%;
+      height: 240px;
+      position: relative;
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .error-item {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-rose);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      max-width: 500px;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+    /* Listening & Trap Hunter UI */
+    .audio-control-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+    .audio-playing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+    .sound-wave-bar {
+      width: 3px;
+      height: 14px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+      animation: soundWave 0.8s infinite ease-in-out alternate;
+    }
+    .sound-wave-bar:nth-child(2) { animation-delay: 0.2s; height: 18px; }
+    .sound-wave-bar:nth-child(3) { animation-delay: 0.4s; height: 10px; }
+    @keyframes soundWave {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.3); }
+    }
+    .svg-illustration-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .svg-illustration-box svg {
+      max-width: 100%;
+      height: auto;
+      max-height: 260px;
+      border-radius: 8px;
+    }
+    .transcript-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 4px solid var(--accent-amber);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .transcript-box mark {
+      background: rgba(6, 182, 212, 0.25);
+      color: var(--accent-cyan);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .trap-hunter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .trap-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+    .trap-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+    /* Boss Battle HUD & Cyber Arena */
+    .boss-arena {
+      background: radial-gradient(circle at top, rgba(244, 63, 94, 0.15), var(--bg-surface) 75%);
+      border: 2px solid var(--accent-rose);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 0 25px rgba(244, 63, 94, 0.25);
+    }
+    .boss-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      padding: 1.25rem;
+      border-radius: 12px;
+    }
+    .boss-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .boss-avatar-svg {
+      width: 76px;
+      height: 76px;
+      filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.6));
+    }
+    .boss-meters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      flex: 1;
+      min-width: 280px;
+    }
+    .meter-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .meter-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .meter-track {
+      height: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .meter-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.4s ease;
+    }
+    .boss-hp-bar {
+      background: linear-gradient(90deg, #f43f5e, #fb7185);
+    }
+    .player-integrity-bar {
+      background: linear-gradient(90deg, #10b981, #06b6d4);
+    }
+    .promotion-card {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border: 2px solid #f59e0b;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.3);
+    }
+    .rank-insignia {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1.2rem;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: #000;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+    }
+    @media (max-width: 768px) {
+      .layout-container { flex-direction: column; padding: 0.75rem; }
+      nav.sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      .nav-btn { white-space: nowrap; padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+      .header-actions .role-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand" onclick="app.navigate('dashboard')">
+      <div class="brand-icon">TQ</div>
+      <div>
+        <div class="brand-title">TOEIC Quest</div>
+        <span class="brand-sub">Cyber Office v1.0</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="role-badge" id="roleBadge">
+        <span class="dot"></span>
+        <span id="roleTitle">Intern</span> (Lv.<span id="userLevel">1</span>)
+      </div>
+      <button class="icon-btn" onclick="app.toggleSound()" id="soundBtn" title="Bật/Tắt âm thanh">🔊</button>
+      <button class="icon-btn" onclick="app.toggleTheme()" id="themeBtn" title="Chuyển theme">🌓</button>
+      <button class="icon-btn" onclick="app.openSettings()" title="Cài đặt & Sao lưu">⚙️</button>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <div class="layout-container">
+    <nav class="sidebar">
+      <button class="nav-btn active" onclick="app.navigate('dashboard')" data-view="dashboard">📊 Tổng quan (Dashboard)</button>
+      <button class="nav-btn" onclick="app.navigate('placement')" data-view="placement">🎯 Placement Check</button>
+      <button class="nav-btn" onclick="app.navigate('daily')" data-view="daily">⚡ Nhiệm vụ ngày (Daily)</button>
+      <button class="nav-btn" onclick="app.navigate('part1')" data-view="part1">🎧 Luyện Part 1 (Photographs)</button>
+      <button class="nav-btn" onclick="app.navigate('part2')" data-view="part2">🗣️ Luyện Part 2 (Q&A Response)</button>
+      <button class="nav-btn" onclick="app.navigate('part5')" data-view="part5">📝 Luyện Part 5 (Incomplete)</button>
+      <button class="nav-btn" onclick="app.navigate('part7')" data-view="part7">📑 Luyện Part 7 (Passages)</button>
+      <button class="nav-btn" onclick="app.navigate('traphunter')" data-view="traphunter">🏹 Thợ săn bẫy (Trap Hunter)</button>
+      <button class="nav-btn" onclick="app.navigate('boss')" data-view="boss" style="color: var(--accent-rose);">👾 Boss Level (Sự cố Cyber)</button>
+      <button class="nav-btn" onclick="app.navigate('vocab')" data-view="vocab">🧠 Đấu trường Từ vựng</button>
+      <button class="nav-btn" onclick="app.navigate('errors')" data-view="errors">📕 Sổ tay lỗi sai</button>
+    </nav>
+
+    <main class="view-stage" id="stageContent">
+      <!-- Dynamic Views injected here -->
+    </main>
+  </div>
+
+  <!-- MODAL CONTAINER -->
+  <div id="modalSlot" hidden></div>
+
+  <!-- APPLICATION SCRIPT & DATA -->
+  <script>
+/**
+ * =====================================================================
+ * DATA SCHEMA: QUESTIONS & VOCABULARY
+ * 25-30% IT / Cyber Security context, balance standard TOEIC business
+ * =====================================================================
+ */
+const QUESTIONS = [
+  // --- PART 1: PHOTOGRAPHS (4 SVG ILLUSTRATED QUESTIONS) ---
+  {
+    id: "p1-001", part: 1, level: 2, topic: "IT & Server Room",
+    skillTags: ["listening", "photographs", "it-equipment"],
+    stem: "Look at the photograph and choose the statement that best describes what you see.",
+    svgArt: `<svg viewBox="0 0 400 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="srvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1e293b"/>
+          <stop offset="100%" stop-color="#0f172a"/>
+        </linearGradient>
+      </defs>
+      <!-- Background Wall & Floor -->
+      <rect width="400" height="170" fill="#1e293b"/>
+      <rect y="170" width="400" height="70" fill="#334155"/>
+      <line x1="0" y1="170" x2="400" y2="170" stroke="#475569" stroke-width="2"/>
+      <!-- Server Rack Cabinet -->
+      <rect x="50" y="30" width="110" height="150" rx="4" fill="url(#srvGrad)" stroke="#06b6d4" stroke-width="2"/>
+      <!-- Server Units inside -->
+      <rect x="60" y="45" width="90" height="18" rx="2" fill="#334155"/>
+      <circle cx="70" cy="54" r="3" fill="#10b981"/>
+      <circle cx="80" cy="54" r="3" fill="#10b981"/>
+      <circle cx="90" cy="54" r="2" fill="#f59e0b"/>
+      <rect x="60" y="70" width="90" height="18" rx="2" fill="#334155"/>
+      <circle cx="70" cy="79" r="3" fill="#10b981"/>
+      <circle cx="80" cy="79" r="3" fill="#06b6d4"/>
+      <rect x="60" y="95" width="90" height="18" rx="2" fill="#334155"/>
+      <circle cx="70" cy="104" r="3" fill="#10b981"/>
+      <circle cx="80" cy="104" r="3" fill="#10b981"/>
+      <rect x="60" y="120" width="90" height="18" rx="2" fill="#334155"/>
+      <circle cx="70" cy="129" r="3" fill="#f59e0b"/>
+      <rect x="60" y="145" width="90" height="22" rx="2" fill="#1e293b" stroke="#475569"/>
+      <!-- Colored Network Cables looping -->
+      <path d="M145,54 C175,70 175,120 145,130" fill="none" stroke="#06b6d4" stroke-width="3"/>
+      <path d="M145,79 C185,90 185,140 145,155" fill="none" stroke="#3b82f6" stroke-width="3"/>
+      <path d="M145,104 C190,110 190,160 145,160" fill="none" stroke="#10b981" stroke-width="2"/>
+      <!-- Technician Standing Beside Rack -->
+      <circle cx="250" cy="65" r="18" fill="#cbd5e1"/> <!-- Head -->
+      <rect x="232" y="85" width="36" height="65" rx="6" fill="#0284c7"/> <!-- Torso/Shirt -->
+      <path d="M232,95 L200,120" stroke="#0284c7" stroke-width="10" stroke-linecap="round"/> <!-- Left arm reaching to rack -->
+      <circle cx="196" cy="122" r="5" fill="#fbcfe8"/> <!-- Hand connecting cable -->
+      <path d="M268,95 L285,125" stroke="#0284c7" stroke-width="10" stroke-linecap="round"/> <!-- Right arm -->
+      <rect x="235" y="150" width="14" height="65" fill="#1e293b"/> <!-- Left leg -->
+      <rect x="253" y="150" width="14" height="65" fill="#1e293b"/> <!-- Right leg -->
+      <rect x="230" y="210" width="22" height="10" rx="3" fill="#0f172a"/> <!-- Shoes -->
+      <rect x="250" y="210" width="22" height="10" rx="3" fill="#0f172a"/>
+      <!-- ID Badge on chest -->
+      <rect x="244" y="98" width="10" height="14" rx="2" fill="#f8fafc" stroke="#3b82f6"/>
+    </svg>`,
+    choices: [
+      "A technician is connecting a cable to the server rack.",
+      "The computer monitors are stacked on the floor.",
+      "A worker is installing a glass window.",
+      "The office chairs are being disassembled."
+    ],
+    answer: 0,
+    explanation_vi: "Phương án (A) mô tả chính xác hành động: Người kỹ thuật viên đang cắm dây cáp vào tủ máy chủ (server rack).",
+    trap: "Bẫy thì bị động tiếp diễn: 'are being disassembled' (đang được tháo dỡ) là bẫy kinh điển Part 1 khi trong tranh không có ai tháo ghế.",
+    transcript: "(A) A technician is connecting a cable to the server rack.\n(B) The computer monitors are stacked on the floor.\n(C) A worker is installing a glass window.\n(D) The office chairs are being disassembled.",
+    vocab: ["technician", "connecting", "server rack"]
+  },
+  {
+    id: "p1-002", part: 1, level: 2, topic: "Office Conference & Presentation",
+    skillTags: ["listening", "photographs", "presentation"],
+    stem: "Look at the photograph and choose the statement that best describes what you see.",
+    svgArt: `<svg viewBox="0 0 400 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+      <!-- Conference Room Wall -->
+      <rect width="400" height="175" fill="#1e293b"/>
+      <rect y="175" width="400" height="65" fill="#334155"/>
+      <!-- Presentation Display Screen on Wall -->
+      <rect x="35" y="30" width="160" height="95" rx="6" fill="#0f172a" stroke="#06b6d4" stroke-width="3"/>
+      <!-- Chart Graphic on Screen -->
+      <polyline points="50,105 80,85 110,95 140,60 175,50" fill="none" stroke="#10b981" stroke-width="4"/>
+      <circle cx="175" cy="50" r="4" fill="#06b6d4"/>
+      <line x1="50" y1="110" x2="180" y2="110" stroke="#475569" stroke-width="2"/>
+      <!-- Presenter Woman Standing Pointing -->
+      <circle cx="230" cy="55" r="16" fill="#cbd5e1"/>
+      <path d="M218,73 L242,73 L246,140 L214,140 Z" fill="#0369a1"/> <!-- Business Suit -->
+      <path d="M218,80 L180,68" stroke="#0369a1" stroke-width="8" stroke-linecap="round"/> <!-- Arm pointing to screen -->
+      <path d="M242,80 L255,115" stroke="#0369a1" stroke-width="8" stroke-linecap="round"/>
+      <rect x="220" y="140" width="10" height="70" fill="#1e293b"/>
+      <rect x="234" y="140" width="10" height="70" fill="#1e293b"/>
+      <!-- Conference Table & Attendees -->
+      <ellipse cx="320" cy="185" rx="70" ry="25" fill="#475569" stroke="#64748b" stroke-width="2"/>
+      <!-- Attendee 1 -->
+      <circle cx="310" cy="135" r="13" fill="#94a3b8"/>
+      <rect x="298" y="150" width="24" height="30" rx="4" fill="#334155"/>
+      <!-- Attendee 2 -->
+      <circle cx="355" cy="140" r="13" fill="#94a3b8"/>
+      <rect x="345" y="155" width="22" height="28" rx="4" fill="#1e293b"/>
+      <!-- Laptop on table -->
+      <rect x="300" y="175" width="22" height="12" rx="2" fill="#0f172a" stroke="#06b6d4"/>
+    </svg>`,
+    choices: [
+      "The conference room is completely unoccupied.",
+      "A woman is gesturing toward a presentation screen.",
+      "Some confidential papers are being shredded.",
+      "The meeting participants are leaving the building."
+    ],
+    answer: 1,
+    explanation_vi: "Phương án (B) chính xác: Người phụ nữ đang chỉ tay về phía màn hình thuyết trình (gesturing toward a presentation screen).",
+    trap: "Bẫy phủ định: 'unoccupied' (không có người) mâu thuẫn trực tiếp với các nhân vật hiện diện trong tranh.",
+    transcript: "(A) The conference room is completely unoccupied.\n(B) A woman is gesturing toward a presentation screen.\n(C) Some confidential papers are being shredded.\n(D) The meeting participants are leaving the building.",
+    vocab: ["gesturing", "presentation screen", "unoccupied"]
+  },
+  {
+    id: "p1-003", part: 1, level: 2, topic: "Reception & Visitor Access",
+    skillTags: ["listening", "photographs", "reception"],
+    stem: "Look at the photograph and choose the statement that best describes what you see.",
+    svgArt: `<svg viewBox="0 0 400 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="160" fill="#1e293b"/>
+      <rect y="160" width="400" height="80" fill="#334155"/>
+      <!-- Reception Counter Desk -->
+      <rect x="60" y="110" width="280" height="65" rx="6" fill="#475569" stroke="#64748b" stroke-width="2"/>
+      <rect x="70" y="120" width="260" height="12" fill="#334155"/>
+      <!-- Visitor Signing Registry Book -->
+      <circle cx="140" cy="65" r="16" fill="#cbd5e1"/>
+      <rect x="122" y="83" width="36" height="60" rx="4" fill="#2563eb"/>
+      <path d="M138,95 L160,115" stroke="#2563eb" stroke-width="7" stroke-linecap="round"/> <!-- Hand holding pen -->
+      <!-- Registry Logbook on Counter -->
+      <rect x="155" y="112" width="38" height="24" rx="2" fill="#f8fafc" stroke="#94a3b8"/>
+      <line x1="160" y1="120" x2="185" y2="120" stroke="#64748b" stroke-width="2"/>
+      <line x1="160" y1="126" x2="180" y2="126" stroke="#64748b" stroke-width="2"/>
+      <!-- Receptionist Sitting Behind Desk -->
+      <circle cx="280" cy="80" r="15" fill="#cbd5e1"/>
+      <rect x="264" y="97" width="32" height="30" rx="4" fill="#0d9488"/>
+      <!-- Computer Monitor on Desk -->
+      <rect x="220" y="85" width="32" height="25" rx="2" fill="#0f172a" stroke="#06b6d4"/>
+      <rect x="232" y="110" width="8" height="6" fill="#0f172a"/>
+      <!-- Digital Security Badge Scanner on desk -->
+      <rect x="100" y="105" width="20" height="15" rx="2" fill="#0f172a" stroke="#10b981"/>
+      <circle cx="110" cy="112" r="3" fill="#10b981"/>
+    </svg>`,
+    choices: [
+      "A visitor is writing in a registry at the front desk.",
+      "A desktop computer is being repaired by a technician.",
+      "The counter is covered with potted plants.",
+      "All the entrance doors have been locked."
+    ],
+    answer: 0,
+    explanation_vi: "Phương án (A) mô tả chính xác: Khách viếng thăm đang ghi thông tin vào sổ đăng ký tại bàn tiếp tân (writing in a registry at the front desk).",
+    trap: "Bẫy hành động không tồn tại: 'is being repaired' không có hành động sửa chữa nào diễn ra.",
+    transcript: "(A) A visitor is writing in a registry at the front desk.\n(B) A desktop computer is being repaired by a technician.\n(C) The counter is covered with potted plants.\n(D) All the entrance doors have been locked.",
+    vocab: ["registry", "front desk", "visitor"]
+  },
+  {
+    id: "p1-004", part: 1, level: 3, topic: "Logistics & Warehouse Operations",
+    skillTags: ["listening", "photographs", "logistics"],
+    stem: "Look at the photograph and choose the statement that best describes what you see.",
+    svgArt: `<svg viewBox="0 0 400 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="170" fill="#1e293b"/>
+      <rect y="170" width="400" height="70" fill="#334155"/>
+      <!-- Warehouse Storage Shelves in Background -->
+      <rect x="20" y="25" width="16" height="160" fill="#475569"/>
+      <rect x="180" y="25" width="16" height="160" fill="#475569"/>
+      <line x1="20" y1="70" x2="196" y2="70" stroke="#64748b" stroke-width="4"/>
+      <line x1="20" y1="120" x2="196" y2="120" stroke="#64748b" stroke-width="4"/>
+      <!-- Pallet with Cardboard Boxes -->
+      <rect x="50" y="165" width="110" height="12" fill="#d97706"/> <!-- Wooden Pallet -->
+      <rect x="55" y="115" width="48" height="50" rx="3" fill="#b45309" stroke="#78350f"/> <!-- Box 1 -->
+      <rect x="105" y="115" width="48" height="50" rx="3" fill="#b45309" stroke="#78350f"/> <!-- Box 2 -->
+      <rect x="75" y="70" width="54" height="45" rx="3" fill="#b45309" stroke="#78350f"/> <!-- Box on top -->
+      <rect x="85" y="85" width="18" height="12" fill="#f8fafc"/> <!-- Barcode label -->
+      <!-- Warehouse Worker with Barcode Scanner -->
+      <circle cx="260" cy="70" r="17" fill="#cbd5e1"/>
+      <path d="M242,90 L278,90 L278,160 L242,160 Z" fill="#ea580c"/> <!-- Hi-Vis Safety Vest -->
+      <path d="M242,100 L205,95" stroke="#ea580c" stroke-width="9" stroke-linecap="round"/> <!-- Arm scanning -->
+      <rect x="195" y="90" width="15" height="10" rx="2" fill="#0f172a"/> <!-- Scanner Gun -->
+      <line x1="195" y1="95" x2="105" y2="92" stroke="#ef4444" stroke-dasharray="4" stroke-width="2"/> <!-- Red Laser -->
+      <rect x="246" y="160" width="12" height="55" fill="#1e293b"/>
+      <rect x="262" y="160" width="12" height="55" fill="#1e293b"/>
+    </svg>`,
+    choices: [
+      "A forklift is transporting heavy machinery.",
+      "Merchandise is being unloaded into a delivery van.",
+      "An employee is scanning a label on a package.",
+      "The warehouse storage shelves are completely empty."
+    ],
+    answer: 2,
+    explanation_vi: "Phương án (C) đúng: Nhân viên đang quét mã vạch trên kiện hàng (scanning a label on a package).",
+    trap: "Bẫy từ vựng suy đoán: Trong tranh có kho hàng nhưng không có xe nâng (forklift) hay xe tải giao hàng (delivery van).",
+    transcript: "(A) A forklift is transporting heavy machinery.\n(B) Merchandise is being unloaded into a delivery van.\n(C) An employee is scanning a label on a package.\n(D) The warehouse storage shelves are completely empty.",
+    vocab: ["scanning", "label", "package"]
+  },
+
+  // --- PART 2: QUESTION & RESPONSE (12 AUDIO TRAP QUESTIONS) ---
+  {
+    id: "p2-001", part: 2, level: 2, topic: "Office Requests & Audit",
+    skillTags: ["listening", "q-and-a", "sound-trap"],
+    trapCategory: "sound",
+    stem: "Could you make five copies of the network security audit report?",
+    choices: [
+      "Black coffee with sugar, please.",
+      "Sure, I'll print them out right away.",
+      "Yes, it was very loud."
+    ],
+    answer: 1,
+    explanation_vi: "Lời đề nghị lịch sự: 'Could you make five copies...?' -> Phương án (B) đồng ý nhận in tài liệu ngay lập tức.",
+    trap: "Bẫy từ gần âm (Similar Sound): Đáp án (A) dùng từ 'coffee' phát âm gần giống với 'copies'.",
+    transcript: "Q: Could you make five copies of the network security audit report?\n(A) Black coffee with sugar, please.\n(B) Sure, I'll print them out right away.\n(C) Yes, it was very loud.",
+    vocab: ["copies", "audit report", "print out"]
+  },
+  {
+    id: "p2-002", part: 2, level: 3, topic: "IT Operations & Scheduling",
+    skillTags: ["listening", "q-and-a", "repeated-word"],
+    trapCategory: "repeated-word",
+    stem: "When will the firewall configuration be finalized?",
+    choices: [
+      "By the end of this afternoon.",
+      "Because the wall needs painting.",
+      "Yes, it is very final."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi bắt đầu bằng 'When' (Khi nào) hỏi mốc thời gian -> (A) 'By the end of this afternoon' (Trước cuối chiều nay) là câu trả lời trực tiếp chính xác.",
+    trap: "Bẫy lặp từ (Repeated word): (B) lặp từ 'wall' từ 'firewall', (C) lặp 'final' và bẫy Yes/No đối với câu hỏi Wh-.",
+    transcript: "Q: When will the firewall configuration be finalized?\n(A) By the end of this afternoon.\n(B) Because the wall needs painting.\n(C) Yes, it is very final.",
+    vocab: ["finalized", "firewall", "configuration"]
+  },
+  {
+    id: "p2-003", part: 2, level: 3, topic: "Management & HR",
+    skillTags: ["listening", "q-and-a", "indirect-response"],
+    trapCategory: "indirect",
+    stem: "Who was selected as the new project manager for the cloud migration?",
+    choices: [
+      "They haven't announced the decision yet.",
+      "Yes, I selected it yesterday.",
+      "At the downtown conference hall."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi 'Who' (Ai) nhưng người trả lời đưa ra câu trả lời gián tiếp: 'Họ vẫn chưa công bố quyết định'. Đây là dạng câu trả lời cực kỳ hay gặp trong đề TOEIC hiện đại.",
+    trap: "Bẫy Yes/No đối với câu hỏi 'Who' (B), và bẫy trả lời địa điểm cho câu hỏi người (C).",
+    transcript: "Q: Who was selected as the new project manager for the cloud migration?\n(A) They haven't announced the decision yet.\n(B) Yes, I selected it yesterday.\n(C) At the downtown conference hall.",
+    vocab: ["cloud migration", "announced", "selected"]
+  },
+  {
+    id: "p2-004", part: 2, level: 2, topic: "Emergency Planning",
+    skillTags: ["listening", "q-and-a", "sound-trap"],
+    trapCategory: "sound",
+    stem: "Has the safety committee finished the evacuation plan?",
+    choices: [
+      "Flight 204 departs at seven o'clock.",
+      "No, they're still reviewing the emergency exits.",
+      "It is a very plain design."
+    ],
+    answer: 1,
+    explanation_vi: "Câu hỏi Yes/No hỏi tiến độ kế hoạch thoát hiểm -> (B) trả lời họ vẫn đang xem xét lối thoát hiểm.",
+    trap: "Bẫy từ đồng âm / gần âm: 'plan' (kế hoạch) bị bẫy với 'plane' (máy bay) ở câu (A) và 'plain' (đơn giản) ở câu (C).",
+    transcript: "Q: Has the safety committee finished the evacuation plan?\n(A) Flight 204 departs at seven o'clock.\n(B) No, they're still reviewing the emergency exits.\n(C) It is a very plain design.",
+    vocab: ["evacuation", "emergency exits", "safety committee"]
+  },
+  {
+    id: "p2-005", part: 2, level: 3, topic: "IT Hardware & Procurement",
+    skillTags: ["listening", "q-and-a", "indirect-response"],
+    trapCategory: "indirect",
+    stem: "Where can I find the spare USB security dongles?",
+    choices: [
+      "Ask Michael in the IT procurement department.",
+      "About fifteen gigabytes.",
+      "No, I don't have one."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi 'Where' hỏi vị trí đồ vật -> Câu trả lời gián tiếp chỉ dẫn hỏi người phụ trách: 'Ask Michael in IT...'",
+    trap: "Bẫy Yes/No với câu hỏi Where (C); bẫy liên tưởng sai đơn vị lưu trữ (B).",
+    transcript: "Q: Where can I find the spare USB security dongles?\n(A) Ask Michael in the IT procurement department.\n(B) About fifteen gigabytes.\n(C) No, I don't have one.",
+    vocab: ["spare", "procurement", "dongle"]
+  },
+  {
+    id: "p2-006", part: 2, level: 3, topic: "Training Options",
+    skillTags: ["listening", "q-and-a", "sound-trap"],
+    trapCategory: "sound",
+    stem: "Would you prefer to conduct the security training online or in person?",
+    choices: [
+      "Whichever is more convenient for the team.",
+      "Yes, I prefer both.",
+      "The express train arrives at nine."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi lựa chọn 'A or B' (online hay trực tiếp) -> (A) 'Cách nào thuận tiện hơn cho nhóm thì làm' là câu trả lời kinh điển trong giao tiếp công sở.",
+    trap: "Bẫy Yes/No với câu hỏi lựa chọn 'or' (B); bẫy từ gần âm 'training' (đào tạo) với 'train' (tàu hỏa) ở (C).",
+    transcript: "Q: Would you prefer to conduct the security training online or in person?\n(A) Whichever is more convenient for the team.\n(B) Yes, I prefer both.\n(C) The express train arrives at nine.",
+    vocab: ["convenient", "in person", "conduct"]
+  },
+  {
+    id: "p2-007", part: 2, level: 4, topic: "Incident Investigation",
+    skillTags: ["listening", "q-and-a", "indirect-response"],
+    trapCategory: "indirect",
+    stem: "Mr. Henderson reviewed the penetration testing logs, didn't he?",
+    choices: [
+      "Actually, he was out sick yesterday.",
+      "He is doing very well, thank you.",
+      "To test the internet bandwidth."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi đuôi kiểm tra sự việc -> (A) Phủ định ngầm tiền đề bằng cách nêu lý do ông ấy nghỉ ốm hôm qua nên chưa thể xem.",
+    trap: "Bẫy trả lời cho câu hỏi thăm sức khỏe 'How is he doing?' (B); bẫy trả lời mục đích 'To test...' (C).",
+    transcript: "Q: Mr. Henderson reviewed the penetration testing logs, didn't he?\n(A) Actually, he was out sick yesterday.\n(B) He is doing very well, thank you.\n(C) To test the internet bandwidth.",
+    vocab: ["penetration testing", "out sick", "reviewed"]
+  },
+  {
+    id: "p2-008", part: 2, level: 3, topic: "Accounting & Expenses",
+    skillTags: ["listening", "q-and-a", "indirect-response"],
+    trapCategory: "indirect",
+    stem: "Didn't you submit the travel reimbursement voucher already?",
+    choices: [
+      "I'm still waiting for one restaurant receipt.",
+      "Yes, I didn't.",
+      "The flight was canceled."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi phủ định 'Didn't you...?' -> (A) Giải thích lý do gián tiếp vì sao chưa nộp: đang đợi 1 hóa đơn nhà hàng.",
+    trap: "Bẫy logic câu trả lời tiếng Anh: Tiếng Anh không dùng 'Yes, I didn't' vì mâu thuẫn khẳng định/phủ định.",
+    transcript: "Q: Didn't you submit the travel reimbursement voucher already?\n(A) I'm still waiting for one restaurant receipt.\n(B) Yes, I didn't.\n(C) The flight was canceled.",
+    vocab: ["voucher", "reimbursement", "receipt"]
+  },
+  {
+    id: "p2-009", part: 2, level: 3, topic: "System Administration",
+    skillTags: ["listening", "q-and-a", "sound-trap"],
+    trapCategory: "sound",
+    stem: "You have administrative access to the database, right?",
+    choices: [
+      "I will write a detailed report shortly.",
+      "Turn right at the end of the hallway.",
+      "Only on the staging test server."
+    ],
+    answer: 2,
+    explanation_vi: "Hỏi xác nhận quyền quản trị -> (C) Trả lời làm rõ phạm vi: chỉ có quyền trên máy chủ kiểm thử (test server).",
+    trap: "Bẫy từ đồng âm & đa nghĩa: (A) dùng từ đồng âm 'write' (viết); (B) dùng từ 'right' với nghĩa rẽ phải.",
+    transcript: "Q: You have administrative access to the database, right?\n(A) I will write a detailed report shortly.\n(B) Turn right at the end of the hallway.\n(C) Only on the staging test server.",
+    vocab: ["administrative access", "database", "staging"]
+  },
+  {
+    id: "p2-010", part: 2, level: 3, topic: "Project Management",
+    skillTags: ["listening", "q-and-a", "repeated-word"],
+    trapCategory: "repeated-word",
+    stem: "Why don't we postpone the software rollout until next Monday?",
+    choices: [
+      "That sounds like a sensible suggestion.",
+      "Because I couldn't find it.",
+      "At the post office down the street."
+    ],
+    answer: 0,
+    explanation_vi: "'Why don't we...' là câu đề xuất (suggestion) làm gì -> (A) 'Nghe có vẻ là gợi ý hợp lý' là câu phản hồi phù hợp nhất.",
+    trap: "Bẫy máy móc nghe 'Why' vội chọn 'Because' (B); bẫy lặp từ gần âm 'postpone' thành 'post office' (C).",
+    transcript: "Q: Why don't we postpone the software rollout until next Monday?\n(A) That sounds like a sensible suggestion.\n(B) Because I couldn't find it.\n(C) At the post office down the street.",
+    vocab: ["postpone", "rollout", "sensible"]
+  },
+  {
+    id: "p2-011", part: 2, level: 3, topic: "Procurement & Licensing",
+    skillTags: ["listening", "q-and-a", "indirect-response"],
+    trapCategory: "indirect",
+    stem: "How much did the vendor quote for the firewall license renewal?",
+    choices: [
+      "The invoice is still on Rachel's desk.",
+      "About ten miles south of here.",
+      "Yes, it was quite expensive."
+    ],
+    answer: 0,
+    explanation_vi: "Câu hỏi 'How much' hỏi giá tiền nhưng câu trả lời gián tiếp chỉ nơi xem tài liệu: 'Hóa đơn vẫn ở trên bàn Rachel'.",
+    trap: "Bẫy trả lời khoảng cách 'ten miles' (B); bẫy trả lời Yes/No cho câu hỏi Wh- (C).",
+    transcript: "Q: How much did the vendor quote for the firewall license renewal?\n(A) The invoice is still on Rachel's desk.\n(B) About ten miles south of here.\n(C) Yes, it was quite expensive.",
+    vocab: ["quote", "renewal", "license"]
+  },
+  {
+    id: "p2-012", part: 2, level: 3, topic: "Office Facilities",
+    skillTags: ["listening", "q-and-a", "repeated-word"],
+    trapCategory: "repeated-word",
+    stem: "Do you know where the visitor parking area is located?",
+    choices: [
+      "The national park is closed for maintenance.",
+      "Follow the yellow signs behind Building C.",
+      "Yes, I parked my car yesterday."
+    ],
+    answer: 1,
+    explanation_vi: "Hỏi vị trí bãi đỗ xe của khách -> (B) Chỉ dẫn: 'Đi theo các biển báo màu vàng phía sau Tòa nhà C'.",
+    trap: "Bẫy chuyển nghĩa từ vựng: 'parking' (đỗ xe) bị bẫy sang 'national park' (công viên quốc gia) ở (A).",
+    transcript: "Q: Do you know where the visitor parking area is located?\n(A) The national park is closed for maintenance.\n(B) Follow the yellow signs behind Building C.\n(C) Yes, I parked my car yesterday.",
+    vocab: ["located", "parking area", "visitor"]
+  },
+
+  // --- PART 5 (22 QUESTIONS) ---
+  {
+    id: "p5-001", part: 5, level: 2, topic: "IT & Cybersecurity",
+    skillTags: ["word-form", "adverb"],
+    stem: "The system administrator _______ updated the server firewall to protect against zero-day exploits.",
+    choices: ["frequent", "frequency", "frequently", "frequented"], answer: 2,
+    explanation_vi: "Cần một phó từ (adverb) bổ nghĩa cho động từ 'updated'. 'Frequently' (thường xuyên) là trạng từ thích hợp nhất.",
+    trap: "Bẫy từ loại: Nhiều người nhầm chọn tính từ 'frequent' đứng trước động từ.",
+    vocab: ["frequently", "administrator", "exploit"]
+  },
+  {
+    id: "p5-002", part: 5, level: 3, topic: "IT & Cybersecurity",
+    skillTags: ["vocabulary", "collocation"],
+    stem: "Employees are strictly required to create _______ passwords containing at least twelve characters, numbers, and symbols.",
+    choices: ["complex", "spacious", "cordial", "convenient"], answer: 0,
+    explanation_vi: "Collocation công nghệ: 'complex passwords' (mật khẩu phức tạp). 'Spacious' (rộng rãi), 'cordial' (thân ái), 'convenient' (tiện lợi) không hợp ngữ cảnh.",
+    trap: "Bẫy dịch nghĩa bề mặt: 'convenient' (tiện lợi) thường là mong muốn người dùng nhưng trái chính sách bảo mật.",
+    vocab: ["complex", "strictly", "characters"]
+  },
+  {
+    id: "p5-003", part: 5, level: 2, topic: "Corporate & HR",
+    skillTags: ["grammar", "prepositions"],
+    stem: "All reimbursement requests must be submitted _______ five business days following the conclusion of the business trip.",
+    choices: ["within", "between", "among", "along"], answer: 0,
+    explanation_vi: "Cấu trúc giới từ chỉ thời hạn: 'within + khoảng thời gian' (trong vòng... ngày).",
+    trap: "'Between' phải đi với hai mốc (between A and B); 'among' đi với danh từ số nhiều >= 3 đối tượng.",
+    vocab: ["reimbursement", "conclusion", "within"]
+  },
+  {
+    id: "p5-004", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["grammar", "verb-tense", "passive"],
+    stem: "A mandatory penetration testing protocol _______ by the third-party security firm before next Friday's launch.",
+    choices: ["will conduct", "will be conducted", "conducted", "has conducted"], answer: 1,
+    explanation_vi: "Chủ ngữ là vật 'protocol' (biên bản/quy trình kiểm thử) kết hợp với mốc thời gian tương lai 'before next Friday' -> Dùng tương lai đơn thể bị động (will be + V3/ed).",
+    trap: "Nhầm lẫn giữa chủ động và bị động khi gặp thuật ngữ chuyên ngành dài.",
+    vocab: ["mandatory", "penetration testing", "protocol"]
+  },
+  {
+    id: "p5-005", part: 5, level: 3, topic: "Corporate & Management",
+    skillTags: ["word-form", "noun-suffix"],
+    stem: "The board of directors expressed their complete _______ with the quarter's financial performance.",
+    choices: ["satisfy", "satisfaction", "satisfactory", "satisfied"], answer: 1,
+    explanation_vi: "Đứng sau tính từ 'complete' và tính từ sở hữu 'their' cần một danh từ (noun) -> 'satisfaction'.",
+    trap: "Hậu tố từ loại: nhầm giữa danh từ 'satisfaction' và tính từ 'satisfactory'.",
+    vocab: ["directors", "satisfaction", "performance"]
+  },
+  {
+    id: "p5-006", part: 5, level: 3, topic: "Marketing & Sales",
+    skillTags: ["vocabulary", "synonym-discrimination"],
+    stem: "The marketing director proposed an innovative campaign designed to attract _______ customers in the European market.",
+    choices: ["potential", "capable", "urgent", "tentative"], answer: 0,
+    explanation_vi: "Cụm 'potential customers' (khách hàng tiềm năng) là cụm từ chuẩn mực trong kinh doanh/TOEIC.",
+    trap: "'Capable' mang nghĩa có năng lực làm gì (capable of doing), không ghép 'capable customers' để chỉ khách tiềm năng.",
+    vocab: ["innovative", "potential", "campaign"]
+  },
+  {
+    id: "p5-007", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["grammar", "conjunctions"],
+    stem: "The database servers will continue functioning _______ an unexpected hardware failure occurs at the primary datacenter.",
+    choices: ["unless", "without", "despite", "although"], answer: 0,
+    explanation_vi: "Cần một liên từ nối hai mệnh đề có nghĩa 'trừ khi' (unless = if not). 'Without' và 'despite' là giới từ (cần danh từ).",
+    trap: "Nhầm liên từ và giới từ chỉ sự nhượng bộ/loại trừ (despite / unless).",
+    vocab: ["unexpected", "unless", "failure"]
+  },
+  {
+    id: "p5-008", part: 5, level: 2, topic: "Office & Facilities",
+    skillTags: ["word-form", "adjective"],
+    stem: "To maintain an _______ environment, all employees must keep their workstations organized and clean.",
+    choices: ["efficiently", "efficiency", "efficient", "efficacious"], answer: 2,
+    explanation_vi: "Trước danh từ 'environment' và sau mạo từ 'an' cần một tính từ -> 'efficient' (hiệu quả).",
+    trap: "Nhầm phó từ đuôi -ly với tính từ.",
+    vocab: ["workstation", "efficient", "organized"]
+  },
+  {
+    id: "p5-009", part: 5, level: 3, topic: "Finance & Accounting",
+    skillTags: ["vocabulary", "business-phrases"],
+    stem: "Due to unforeseen supply chain disruptions, the final budget had to be _______ revised.",
+    choices: ["significantly", "mutually", "closely", "densely"], answer: 0,
+    explanation_vi: "'Significantly revised' (được sửa đổi đáng kể/rất nhiều). 'Mutually' (lẫn nhau), 'densely' (dày đặc) không hợp nghĩa.",
+    trap: "Nhầm nghĩa các trạng từ thường gặp trong báo cáo tài chính.",
+    vocab: ["unforeseen", "disruption", "significantly"]
+  },
+  {
+    id: "p5-010", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["grammar", "relative-pronouns"],
+    stem: "Mr. Vance praised the cyber response unit, _______ rapid intervention prevented widespread data corruption.",
+    choices: ["whose", "which", "whom", "who"], answer: 0,
+    explanation_vi: "Đại từ quan hệ chỉ sở hữu: 'whose + danh từ' (whose rapid intervention = sự can thiệp nhanh của đơn vị đó).",
+    trap: "Chọn 'which' vì thấy unit là tập thể/vật mà quên sau đó là cụm danh từ thuộc sở hữu.",
+    vocab: ["intervention", "corruption", "widespread"]
+  },
+  {
+    id: "p5-011", part: 5, level: 2, topic: "Human Resources",
+    skillTags: ["word-form", "pronoun"],
+    stem: "The department manager urged all applicants to double-check _______ contact information before submitting the form.",
+    choices: ["their", "theirs", "they", "them"], answer: 0,
+    explanation_vi: "Đứng trước cụm danh từ 'contact information' cần tính từ sở hữu 'their'.",
+    trap: "Chọn đại từ sở hữu 'theirs' vốn không được đứng trước danh từ.",
+    vocab: ["applicants", "urge", "submitting"]
+  },
+  {
+    id: "p5-012", part: 5, level: 3, topic: "Manufacturing & Quality",
+    skillTags: ["vocabulary", "collocations"],
+    stem: "Every manufactured component must comply _______ international safety regulations before export.",
+    choices: ["with", "to", "at", "for"], answer: 0,
+    explanation_vi: "Collocation bắt buộc: 'comply with' (tuân thủ theo quy định/luật lệ).",
+    trap: "Nhiều người quen 'conform to' nên dễ nhầm điền 'to' sau 'comply'.",
+    vocab: ["comply", "regulations", "component"]
+  },
+  {
+    id: "p5-013", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["grammar", "subjunctive-or-infinitive"],
+    stem: "The Chief Information Security Officer recommended that multi-factor authentication _______ implemented across all corporate accounts.",
+    choices: ["is", "be", "was", "being"], answer: 1,
+    explanation_vi: "Thể giả định (Subjunctive mood) sau động từ 'recommend that + S + (should) + V-infinitive' -> chọn nguyên mẫu không to 'be'.",
+    trap: "Bẫy ngữ pháp TOEIC điểm 700+: Chọn 'is' hoặc 'was' theo thói quen chia thì thông thường.",
+    vocab: ["authentication", "recommended", "corporate"]
+  },
+  {
+    id: "p5-014", part: 5, level: 3, topic: "Purchasing & Logistics",
+    skillTags: ["vocabulary"],
+    stem: "The shipment was temporarily delayed because the supplier ran out of _______ raw materials.",
+    choices: ["essential", "accidental", "hesitant", "reluctant"], answer: 0,
+    explanation_vi: "'Essential raw materials' (nguyên vật liệu thiết yếu/cốt lõi).",
+    trap: "'Reluctant' (lưỡng lự), 'hesitant' (ngập ngừng) chỉ dùng cho cảm xúc con người, không dùng cho vật tư.",
+    vocab: ["shipment", "essential", "supplier"]
+  },
+  {
+    id: "p5-015", part: 5, level: 3, topic: "Customer Service",
+    skillTags: ["word-form"],
+    stem: "Our representatives are available around the clock to provide technical assistance _______ and courteously.",
+    choices: ["promptly", "prompt", "promptness", "prompting"], answer: 0,
+    explanation_vi: "Sau động từ 'provide assistance' và đi kèm với trạng từ 'courteously' qua liên từ 'and' cần trạng từ đồng vị -> 'promptly'.",
+    trap: "Song hành ngữ pháp (parallel structure): 'and courteously' đòi hỏi trạng từ ở trước.",
+    vocab: ["assistance", "courteously", "promptly"]
+  },
+  {
+    id: "p5-016", part: 5, level: 4, topic: "IT & Network",
+    skillTags: ["grammar", "participial-phrase"],
+    stem: "_______ thoroughly examined the network traffic logs, the security analyst identified the anomaly.",
+    choices: ["Having", "Have", "Has", "Had"], answer: 0,
+    explanation_vi: "Rút gọn mệnh đề đồng chủ ngữ ở thể hoàn thành (Perfect Participle): 'Having + V3/ed' diễn tả hành động đã hoàn tất trước một hành động khác trong quá khứ.",
+    trap: "Bẫy rút gọn mệnh đề: Thấy thì quá khứ vội chọn 'Had'.",
+    vocab: ["analyst", "anomaly", "traffic logs"]
+  },
+  {
+    id: "p5-017", part: 5, level: 2, topic: "Office General",
+    skillTags: ["grammar", "comparative"],
+    stem: "The upgraded cloud storage plan offers significantly _______ bandwidth than the standard version.",
+    choices: ["great", "greater", "greatest", "greatly"], answer: 1,
+    explanation_vi: "Có từ 'than' ở phía sau báo hiệu so sánh hơn của tính từ ngắn 'greater'.",
+    trap: "Từ bổ trợ 'significantly' gây phân tâm cấu trúc so sánh hơn.",
+    vocab: ["bandwidth", "significantly", "upgraded"]
+  },
+  {
+    id: "p5-018", part: 5, level: 3, topic: "Legal & Contracts",
+    skillTags: ["vocabulary"],
+    stem: "Neither party may disclose confidential project specifications without prior written _______ from senior leadership.",
+    choices: ["consent", "contempt", "contact", "content"], answer: 0,
+    explanation_vi: "Thuật ngữ hợp đồng: 'written consent' (sự đồng ý/chấp thuận bằng văn bản).",
+    trap: "Bẫy từ vựng phát âm và viết gần giống nhau (consent / contempt / contact / content).",
+    vocab: ["confidential", "specifications", "consent"]
+  },
+  {
+    id: "p5-019", part: 5, level: 3, topic: "Travel & Hospitality",
+    skillTags: ["vocabulary", "collocations"],
+    stem: "The conference venue is located in close _______ to the central railway station and airport shuttle stops.",
+    choices: ["proximity", "estimation", "allowance", "advance"], answer: 0,
+    explanation_vi: "Collocation cực phổ biến trong Part 5 & 7: 'in close proximity to' (ở vị trí gần sát với cái gì).",
+    trap: "Dịch 'ở gần ước tính' -> chọn sai 'estimation'.",
+    vocab: ["venue", "proximity", "shuttle"]
+  },
+  {
+    id: "p5-020", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["word-form"],
+    stem: "Data encryption ensures that intercepted transmissions remain completely _______ to unauthorized observers.",
+    choices: ["inaccessible", "inaccessibility", "inaccessibly", "access"], answer: 0,
+    explanation_vi: "Sau động từ liên kết 'remain' và trạng từ 'completely' cần một tính từ bổ nghĩa cho chủ ngữ 'transmissions' -> 'inaccessible' (không thể truy cập).",
+    trap: "Sau động từ thường nhầm chọn phó từ, nhưng 'remain' là linking verb cần tính từ.",
+    vocab: ["encryption", "inaccessible", "unauthorized"]
+  },
+  {
+    id: "p5-021", part: 5, level: 2, topic: "Human Resources",
+    skillTags: ["vocabulary"],
+    stem: "Due to her outstanding leadership during the merger, Ms. Zhang was recently _______ to Executive Director.",
+    choices: ["promoted", "retained", "dismissed", "transferred"], answer: 0,
+    explanation_vi: "Ngữ cảnh khen thưởng vì khả năng lãnh đạo xuất sắc -> 'promoted' (được thăng chức).",
+    trap: "'Retained' (giữ lại), 'dismissed' (cho thôi việc) mâu thuẫn ý nghĩa tích cực 'outstanding'.",
+    vocab: ["merger", "outstanding", "promoted"]
+  },
+  {
+    id: "p5-022", part: 5, level: 3, topic: "General Business",
+    skillTags: ["grammar", "conjunctions"],
+    stem: "Please refrain from opening external email attachments _______ you have verified the identity of the sender.",
+    choices: ["until", "during", "so that", "in order to"], answer: 0,
+    explanation_vi: "'Until' (cho đến khi) nối mệnh đề thời gian. 'Refrain from... until...' (vui lòng kiềm chế/tránh làm gì cho tới khi...).",
+    trap: "'During' là giới từ đi với danh từ, không đi với mệnh đề 'you have verified'.",
+    vocab: ["refrain", "attachments", "verified"]
+  },
+  {
+    id: "p5-023", part: 5, level: 4, topic: "IT & Cybersecurity",
+    skillTags: ["grammar", "subjunctive", "boss-tier"],
+    stem: "It is imperative that all external network drives _______ thoroughly scanned for rootkits prior to server synchronization.",
+    choices: ["are", "be", "were", "being"], answer: 1,
+    explanation_vi: "Thể giả định (Subjunctive mood) với tính từ chỉ tính cấp thiết: 'It is imperative that + S + (should) + V-bare' -> chọn 'be'.",
+    trap: "Bẫy thì hiện tại thông thường: Nhiều thí sinh thấy drives số nhiều nên vội chọn 'are'.",
+    vocab: ["imperative", "rootkits", "synchronization"]
+  },
+  {
+    id: "p5-024", part: 5, level: 5, topic: "IT & Incident Response",
+    skillTags: ["grammar", "inversion", "conditionals", "boss-tier"],
+    stem: "_______ the cybersecurity team not acted so swiftly, the corporate ledger would have suffered catastrophic corruption.",
+    choices: ["Had", "Were", "Should", "If"], answer: 0,
+    explanation_vi: "Đảo ngữ câu điều kiện loại 3 phủ định: 'Had + S + not + V3/ed ..., S + would have + V3/ed'.",
+    trap: "Bẫy câu điều kiện rút gọn: 'Were' chỉ dùng cho điều kiện loại 2, 'Should' dùng cho loại 1.",
+    vocab: ["catastrophic", "ledger", "corruption"]
+  },
+  {
+    id: "p5-025", part: 5, level: 4, topic: "Network Security",
+    skillTags: ["grammar", "prepositions", "boss-tier"],
+    stem: "_______ the stringent firewall rules and automated intrusion filters, several malicious packets managed to penetrate the perimeter.",
+    choices: ["Notwithstanding", "Regardless", "In spite", "Whereas"], answer: 0,
+    explanation_vi: "'Notwithstanding + Cụm danh từ' (Mặc dù...). 'Regardless' và 'In spite' đều thiếu giới từ 'of'.",
+    trap: "Bẫy giới từ thiếu 'of': 'in spite of', 'regardless of'.",
+    vocab: ["notwithstanding", "stringent", "penetrate"]
+  },
+  {
+    id: "p5-026", part: 5, level: 5, topic: "Finance & Accounting",
+    skillTags: ["vocabulary", "confusable-words", "boss-tier"],
+    stem: "The senior forensic accountant discovered an unexplained _______ between the logged invoice totals and the bank wire disbursements.",
+    choices: ["discrepancy", "discretion", "discipline", "dispensation"], answer: 0,
+    explanation_vi: "'Discrepancy' (sự sai lệch, bất nhất về số liệu / chứng từ). 'Discretion' (sự thận trọng / quyền tự quyết).",
+    trap: "Bẫy từ vựng tiền tố 'dis-': 4 từ viết gần giống nhau nhưng nghĩa hoàn toàn khác biệt.",
+    vocab: ["discrepancy", "disbursements", "forensic"]
+  },
+  {
+    id: "p5-027", part: 5, level: 4, topic: "Incident Recovery",
+    skillTags: ["grammar", "participle", "boss-tier"],
+    stem: "_______ successfully quarantined the ransomware payload, the security engineers initiated full data restoration.",
+    choices: ["Having", "Have", "Had", "To have"], answer: 0,
+    explanation_vi: "Rút gọn mệnh đề phân từ hoàn thành (Perfect Participle): 'Having + V3/ed' diễn tả hành động đã hoàn tất trước khi hành động chính diễn ra.",
+    trap: "Nhầm thì quá khứ hoàn thành 'Had' khi thiếu liên từ và chủ ngữ.",
+    vocab: ["quarantined", "ransomware", "restoration"]
+  },
+  {
+    id: "p5-028", part: 5, level: 5, topic: "Corporate Governance",
+    skillTags: ["grammar", "inversion", "boss-tier"],
+    stem: "_______ any employee receive an email requesting administrative login credentials, it must be escalated to the SOC immediately.",
+    choices: ["Should", "Were", "Had", "Unless"], answer: 0,
+    explanation_vi: "Đảo ngữ câu điều kiện loại 1: 'Should + S + V-nguyên mẫu...'. Lưu ý động từ 'receive' giữ nguyên mẫu.",
+    trap: "Nếu chọn 'If', động từ với 'any employee' phải chia số ít là 'receives'. Vì động từ là 'receive' nên bắt buộc phải đảo ngữ với 'Should'.",
+    vocab: ["escalated", "credentials", "administrative"]
+  },
+  {
+    id: "p5-029", part: 5, level: 4, topic: "Software Architecture",
+    skillTags: ["grammar", "correlative", "boss-tier"],
+    stem: "The encrypted cloud storage solution is _______ rigorous in security architecture but also remarkably intuitive for end-users.",
+    choices: ["not only", "neither", "either", "as well"], answer: 0,
+    explanation_vi: "Cặp liên từ tương quan bắt buộc: 'not only ... but also ...' (không những ... mà còn ...).",
+    trap: "'Neither' đi với 'nor', 'Either' đi với 'or'.",
+    vocab: ["rigorous", "intuitive", "architecture"]
+  },
+  {
+    id: "p5-030", part: 5, level: 5, topic: "Compliance & Auditing",
+    skillTags: ["grammar", "subjunctive", "boss-tier"],
+    stem: "The external regulatory auditor insisted that the legacy cryptographic keys _______ revoked without delay.",
+    choices: ["be", "are", "were", "been"], answer: 0,
+    explanation_vi: "Cấu trúc giả định thức: 'insist that + S + (should) + V-infinitive' -> chọn 'be revoked'.",
+    trap: "Nhiều người thấy danh từ số nhiều 'keys' vội chọn 'are' hoặc 'were'.",
+    vocab: ["cryptographic", "revoked", "regulatory"]
+  },
+  {
+    id: "p5-031", part: 5, level: 4, topic: "Cyber Defense",
+    skillTags: ["word-form", "boss-tier"],
+    stem: "The enterprise formulated a _______ cyber resilience strategy to counter zero-day exploits effectively.",
+    choices: ["comprehensive", "comprehensively", "comprehend", "comprehension"], answer: 0,
+    explanation_vi: "Đứng trước cụm danh từ 'cyber resilience strategy' cần một tính từ bổ nghĩa -> 'comprehensive' (toàn diện).",
+    trap: "Bẫy từ loại đuôi -ive (tính từ) so với danh từ -ion.",
+    vocab: ["resilience", "counter", "comprehensive"]
+  },
+  {
+    id: "p5-032", part: 5, level: 5, topic: "Corporate Mergers",
+    skillTags: ["vocabulary", "collocations", "boss-tier"],
+    stem: "The final approval of the international defense contract is strictly _______ upon passing government compliance verification.",
+    choices: ["contingent", "adjacent", "reluctant", "unanimous"], answer: 0,
+    explanation_vi: "Collocation cao cấp: 'contingent upon / on' (phụ thuộc vào điều kiện gì).",
+    trap: "'Adjacent' đi với giới từ 'to' (kề bên); 'reluctant' đi với 'to V' (ngại làm gì).",
+    vocab: ["contingent", "verification", "compliance"]
+  },
+  {
+    id: "p5-033", part: 5, level: 4, topic: "Data Security Policy",
+    skillTags: ["grammar", "modals", "passive", "boss-tier"],
+    stem: "Sensitive authentication tokens must under no circumstances _______ on public GitHub repositories.",
+    choices: ["be exposed", "expose", "have exposed", "exposing"], answer: 0,
+    explanation_vi: "Cấu trúc bị động sau động từ khuyết thiếu: 'must ... be + V3/ed'. 'Tokens' là đối tượng bị lộ.",
+    trap: "Cụm trạng từ 'under no circumstances' chen giữa 'must' và động từ chính gây nhiễu cấu trúc.",
+    vocab: ["repositories", "exposed", "authentication"]
+  },
+  {
+    id: "p5-034", part: 5, level: 5, topic: "Security Awareness",
+    skillTags: ["grammar", "inversion", "boss-tier"],
+    stem: "Seldom _______ such sophisticated spear-phishing campaigns been observed by our threat intelligence analysts.",
+    choices: ["have", "has", "did", "are"], answer: 0,
+    explanation_vi: "Đảo ngữ với phó từ phủ định đứng đầu câu: 'Seldom + have/has + S + been + V3/ed'. Chủ ngữ 'campaigns' là số nhiều -> dùng 'have'.",
+    trap: "Nhầm chia 'has' nếu chỉ nhìn lướt qua từ 'spear-phishing' mà quên chủ ngữ chính là 'campaigns'.",
+    vocab: ["spear-phishing", "sophisticated", "intelligence"]
+  },
+  {
+    id: "p5-035", part: 5, level: 4, topic: "Datacenter Operations",
+    skillTags: ["grammar", "prepositions", "boss-tier"],
+    stem: "All server clusters will undergo scheduled rebooting at midnight, _______ for the primary authentication node.",
+    choices: ["except", "besides", "despite", "including"], answer: 0,
+    explanation_vi: "'Except for' (ngoại trừ cái gì). 'Besides' mang nghĩa bên cạnh/ngoài ra (thêm vào chứ không trừ ra).",
+    trap: "Nhầm lẫn giữa 'except for' (loại trừ) và 'besides' (bổ sung).",
+    vocab: ["clusters", "rebooting", "except for"]
+  },
+  {
+    id: "p5-036", part: 5, level: 5, topic: "Technology Markets",
+    skillTags: ["vocabulary", "collocations", "boss-tier"],
+    stem: "The technology sector experienced an _______ expansion in cybersecurity expenditures following high-profile data breaches.",
+    choices: ["unprecedented", "accidental", "unanimous", "hesitant"], answer: 0,
+    explanation_vi: "'Unprecedented expansion' (sự mở rộng chưa từng có tiền lệ).",
+    trap: "'Unanimous' (nhất trí) chỉ dùng cho quyết định con người; 'hesitant' (do dự) dùng cho cảm xúc.",
+    vocab: ["unprecedented", "expenditures", "expansion"]
+  },
+  {
+    id: "p5-037", part: 5, level: 5, topic: "Executive Leadership",
+    skillTags: ["grammar", "parallel-structure", "boss-tier"],
+    stem: "The Chief Security Officer's mandate encompasses evaluating zero-day exploits, establishing policies, and _______ corporate audits.",
+    choices: ["overseeing", "oversee", "overseen", "oversight"], answer: 0,
+    explanation_vi: "Cấu trúc song hành (Parallel structure) với các danh động từ: 'evaluating...', 'establishing...', and 'overseeing...'.",
+    trap: "Nhầm chọn danh từ 'oversight' thay vì danh động từ có tân ngữ 'corporate audits' theo sau.",
+    vocab: ["mandate", "encompasses", "overseeing"]
+  },
+
+  // --- PART 7 PASSAGES & QUESTIONS (8 QUESTIONS ACROSS 2 SETS) ---
+  {
+    id: "p7-set1", part: 7, level: 3, topic: "IT Security Incident & Policy",
+    passage: `MEMORANDUM\nTO: All Personnel, HexaTech Solutions Global\nFROM: David Sterling, Chief Information Security Officer (CISO)\nDATE: October 14, 2026\nSUBJECT: Mandatory Security Upgrade & Phishing Simulation Alert\n\nOver the past weekend, our Security Operations Center (SOC) successfully neutralized a targeted credential-stuffing attack directed against our internal staging servers. While no proprietary client data or intellectual property was compromised, this incident highlights the imperative need for heightened vigilance across all branches.\n\nEffective Monday, October 21, multi-factor authentication (MFA) will be enforced across all cloud applications, VPN gateways, and employee portals. Anyone experiencing difficulty configuring the authenticator application on their corporate device should contact the IT Helpdesk at extension 4099 prior to 5:00 PM this Friday.\n\nAdditionally, over the next three weeks, the cybersecurity division will conduct unannounced phishing simulations. Employees who inadvertently click on simulated deceptive links will be automatically enrolled in an interactive remedial training module. We appreciate your cooperation in safeguarding company assets.`,
+    questions: [
+      {
+        id: "p7-001", stem: "What is the primary purpose of the memorandum?",
+        choices: [
+          "To announce the appointment of a new CISO",
+          "To notify staff of a security policy update following an incident",
+          "To report a loss of sensitive customer financial files",
+          "To advertise a newly released software product"
+        ], answer: 1,
+        explanation_vi: "Đoạn văn nêu rõ thông báo triển khai MFA bắt buộc và bài test giả lập sau một sự cố tấn công máy chủ cuối tuần qua.",
+        trap: "Đáp án C sai vì bài đọc ghi rõ: 'no proprietary client data... was compromised'."
+      },
+      {
+        id: "p7-002", stem: "According to the memo, what will occur on October 21?",
+        choices: [
+          "Staging servers will be taken offline permanently",
+          "A replacement helpdesk phone system will be installed",
+          "Multi-factor authentication will become mandatory",
+          "The remedial training portal will shut down"
+        ], answer: 2,
+        explanation_vi: "Dòng: 'Effective Monday, October 21, multi-factor authentication (MFA) will be enforced across all cloud applications...'",
+        trap: "Dễ nhầm lẫn giữa ngày diễn ra sự việc (Oct 14, Oct 21, and Friday deadline)."
+      },
+      {
+        id: "p7-003", stem: "What will happen to employees who fail the phishing simulation?",
+        choices: [
+          "Their accounts will be terminated immediately",
+          "They will be required to complete an educational course",
+          "They will receive a formal disciplinary fine",
+          "They will be reassigned to the IT Helpdesk"
+        ], answer: 1,
+        explanation_vi: "Trích xuất: '...will be automatically enrolled in an interactive remedial training module' (sẽ được ghi danh học lớp đào tạo bổ trợ).",
+        trap: "Paraphrase: 'remedial training module' = 'educational course'."
+      },
+      {
+        id: "p7-004", stem: "In the memo, the word 'neutralized' in paragraph 1 is closest in meaning to:",
+        choices: ["counteracted", "installed", "accelerated", "overlooked"], answer: 0,
+        explanation_vi: "'Neutralize' trong ngữ cảnh an ninh mạng có nghĩa là vô hiệu hóa, ngăn chặn thành công mối đe dọa (counteracted).",
+        trap: "Câu hỏi từ đồng nghĩa ngữ cảnh Part 7 (vocabulary in context)."
+      }
+    ]
+  },
+  {
+    id: "p7-set2", part: 7, level: 3, topic: "Business Logistics & Event Booking",
+    passage: `EMAIL INQUIRY & CONFIRMATION\n\nFrom: elena.rostova@nexus-logistics.com\nTo: reservations@greenview-convention.com\nDate: November 3, 2026\nSubject: Booking Confirmation - Annual Logistics Conference\n\nDear Reservations Team,\n\nI am writing to finalize our booking for the Apex Banquet Hall and Conference Suite B for our Annual Logistics Seminar scheduled on December 12–13. We anticipate approximately 180 delegates attending from our regional distribution hubs.\n\nAs previously discussed with your event coordinator, Mr. Marcus Webb, we require high-speed wireless Internet coverage for all attendees, two high-definition video projectors, and dedicated audio equipment. Furthermore, 35 of our participants have indicated strict dietary restrictions (vegetarian and gluten-free), so please ensure the catering banquet menu accommodates these preferences.\n\nPlease furnish an updated itemized invoice reflecting our 10% non-profit corporate discount by tomorrow afternoon so our finance department can process the initial deposit.\n\nWarm regards,\nElena Rostova\nCorporate Events Liaison, Nexus Logistics`,
+    questions: [
+      {
+        id: "p7-005", stem: "Why did Ms. Rostova send the email?",
+        choices: [
+          "To request a postponement of a booked seminar",
+          "To confirm details and requirements for an upcoming event",
+          "To complain about defective audio-visual hardware",
+          "To apply for a job position as an event coordinator"
+        ], answer: 1,
+        explanation_vi: "Elena viết email để chốt xác nhận địa điểm, thiết bị và yêu cầu ăn uống cho hội thảo sắp tới.",
+        trap: "Dễ nhầm là khiếu nại (complain) vì có nhắc tới yêu cầu chi tiết về đồ ăn và thiết bị."
+      },
+      {
+        id: "p7-006", stem: "What specific accommodation does Ms. Rostova mention for catering?",
+        choices: [
+          "Providing free beverages throughout the night",
+          "Catering to specific dietary requirements for some attendees",
+          "Offering an exclusively seafood buffet",
+          "Delivering boxed meals to individual hotel rooms"
+        ], answer: 1,
+        explanation_vi: "Chi tiết trong bài: '35 of our participants have indicated strict dietary restrictions (vegetarian and gluten-free)...'",
+        trap: "Paraphrase: 'dietary restrictions' = 'specific dietary requirements'."
+      },
+      {
+        id: "p7-007", stem: "What is requested to be sent by tomorrow afternoon?",
+        choices: [
+          "A list of delegate biographies",
+          "A revised itemized bill with a discount",
+          "A signed non-disclosure agreement",
+          "Replacement projection equipment"
+        ], answer: 1,
+        explanation_vi: "Trích xuất: 'Please furnish an updated itemized invoice reflecting our 10% non-profit corporate discount by tomorrow afternoon...'",
+        trap: "Từ đồng nghĩa 'invoice' = 'bill'."
+      },
+      {
+        id: "p7-008", stem: "The word 'accommodates' in paragraph 2 is closest in meaning to:",
+        choices: ["lodges", "caters to", "ignores", "purchases"], answer: 1,
+        explanation_vi: "'Accommodate preferences' mang nghĩa đáp ứng, phục vụ đúng nhu cầu (caters to).",
+        trap: "'Accommodate' nhiều người chỉ biết nghĩa chỗ ở (lodges), nhưng với nhu cầu/mong muốn thì mang nghĩa đáp ứng."
+      }
+    ]
+  }
+];
+
+const VOCAB = [
+  // --- IT & CYBERSECURITY BUSINESS VOCAB (12 items) ---
+  {
+    word: "vulnerability", ipa: "/ˌvʌl.nər.əˈbɪl.ə.ti/", pos: "noun",
+    meaning_vi: "lỗ hổng bảo mật, điểm yếu",
+    example: "The routine security scan identified a critical vulnerability in the outdated database software.",
+    collocations: ["patch a vulnerability", "security vulnerability", "exploit a vulnerability"],
+    wordFamily: ["vulnerable (adj)", "invulnerable (adj)"],
+    confusableWith: ["weakness", "liability"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "confidential", ipa: "/ˌkɒn.fɪˈden.ʃəl/", pos: "adj",
+    meaning_vi: "tuyệt mật, bảo mật",
+    example: "All personnel must sign a non-disclosure agreement before handling confidential client records.",
+    collocations: ["strictly confidential", "confidential information", "remain confidential"],
+    wordFamily: ["confidentiality (n)", "confidentially (adv)", "confidence (n)"],
+    confusableWith: ["confident (tự tin)"], topic: "IT & Cybersecurity", level: 2
+  },
+  {
+    word: "authenticate", ipa: "/ɔːˈθen.tɪ.keɪt/", pos: "verb",
+    meaning_vi: "xác thực, chứng thực",
+    example: "The server requires multi-factor credentials to authenticate remote user access.",
+    collocations: ["authenticate identity", "user authentication", "failed to authenticate"],
+    wordFamily: ["authentication (n)", "authenticity (n)", "authentic (adj)"],
+    confusableWith: ["authorize (cấp quyền)"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "mandatory", ipa: "/ˈmæn.də.tər.i/", pos: "adj",
+    meaning_vi: "bắt buộc, theo quy định",
+    example: "Attendance at the quarterly cyber hygiene training is mandatory for all interns.",
+    collocations: ["mandatory requirement", "mandatory attendance", "mandatory compliance"],
+    wordFamily: ["mandate (n, v)"],
+    confusableWith: ["optional (tùy chọn)"], topic: "IT & Cybersecurity", level: 2
+  },
+  {
+    word: "breach", ipa: "/briːtʃ/", pos: "noun / verb",
+    meaning_vi: "vi phạm, sự chọc thủng / xâm nhập",
+    example: "The rapid response team contained the data breach before any trade secrets were leaked.",
+    collocations: ["security breach", "breach of contract", "breach the perimeter"],
+    wordFamily: ["breached (adj)"],
+    confusableWith: ["bleach (tẩy trắng)", "broach (đề cập)"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "protocol", ipa: "/ˈprəʊ.tə.kɒl/", pos: "noun",
+    meaning_vi: "giao thức, quy trình chính thức",
+    example: "Employees followed the incident response protocol immediately upon detecting anomalous traffic.",
+    collocations: ["security protocol", "network protocol", "follow standard protocol"],
+    wordFamily: ["protocol-based (adj)"],
+    confusableWith: ["procedure (thủ tục thông thường)"], topic: "IT & Cybersecurity", level: 2
+  },
+  {
+    word: "encryption", ipa: "/ɪnˈkrɪp.ʃən/", pos: "noun",
+    meaning_vi: "sự mã hóa",
+    example: "End-to-end encryption ensures that third parties cannot intercept private correspondence.",
+    collocations: ["data encryption", "encryption key", "strong encryption algorithm"],
+    wordFamily: ["encrypt (v)", "encrypted (adj)", "decrypt (v)"],
+    confusableWith: ["encoding", "compression"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "incident", ipa: "/ˈɪn.sɪ.dənt/", pos: "noun",
+    meaning_vi: "sự cố bất thường",
+    example: "The SOC logged every minor incident during the holiday system migration.",
+    collocations: ["incident response", "critical incident", "report an incident"],
+    wordFamily: ["incidental (adj)", "incidentally (adv)"],
+    confusableWith: ["accident (tai nạn rủi ro)", "coincidence (sự trùng hợp)"], topic: "IT & Cybersecurity", level: 2
+  },
+  {
+    word: "integrity", ipa: "/ɪnˈteɡ.rə.ti/", pos: "noun",
+    meaning_vi: "tính toàn vẹn (dữ liệu), sự chính trực",
+    example: "Hash verification is implemented to confirm the integrity of downloaded system updates.",
+    collocations: ["data integrity", "system integrity", "act with integrity"],
+    wordFamily: ["integrate (v)", "integral (adj)"],
+    confusableWith: ["integration (sự tích hợp)"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "contingency", ipa: "/kənˈtɪn.dʒən.si/", pos: "noun",
+    meaning_vi: "phương án dự phòng, biến cố",
+    example: "The firm formulated a comprehensive contingency plan to maintain operations during power outages.",
+    collocations: ["contingency plan", "contingency fund", "prepare for contingencies"],
+    wordFamily: ["contingent (adj, n)"],
+    confusableWith: ["consistency (tính nhất quán)"], topic: "IT & Cybersecurity", level: 4
+  },
+  {
+    word: "compromise", ipa: "/ˈkɒm.prə.maɪz/", pos: "verb / noun",
+    meaning_vi: "làm tổn hại (bảo mật), thỏa hiệp",
+    example: "An unpatched bug allowed hackers to compromise the administrative database.",
+    collocations: ["compromise security", "reach a compromise", "heavily compromised"],
+    wordFamily: ["uncompromising (adj)"],
+    confusableWith: ["promise", "comprise (bao gồm)"], topic: "IT & Cybersecurity", level: 3
+  },
+  {
+    word: "anomalous", ipa: "/əˈnɒm.ə.ləs/", pos: "adj",
+    meaning_vi: "bất thường, dị thường",
+    example: "Automated intrusion detection flags any anomalous spikes in outgoing data packets.",
+    collocations: ["anomalous behavior", "anomalous data pattern", "detect anomalous activity"],
+    wordFamily: ["anomaly (n)", "anomalously (adv)"],
+    confusableWith: ["anonymous (ẩn danh)"], topic: "IT & Cybersecurity", level: 4
+  },
+
+  // --- GENERAL TOEIC CORPORATE, FINANCE, HR, LOGISTICS (28 items) ---
+  {
+    word: "comply", ipa: "/kəmˈplaɪ/", pos: "verb",
+    meaning_vi: "tuân thủ, tuân theo",
+    example: "All suppliers must comply with the updated corporate social responsibility policies.",
+    collocations: ["comply with regulations", "strictly comply", "fail to comply"],
+    wordFamily: ["compliance (n)", "compliant (adj)"],
+    confusableWith: ["conform (đi với to)", "obey"], topic: "General Business", level: 2
+  },
+  {
+    word: "reimbursement", ipa: "/ˌriː.ɪmˈbɜːs.mənt/", pos: "noun",
+    meaning_vi: "khoản hoàn tiền, bồi hoàn chi phí",
+    example: "Keep your receipts if you expect reimbursement for meals during overseas business trips.",
+    collocations: ["travel reimbursement", "seek reimbursement", "process reimbursement"],
+    wordFamily: ["reimburse (v)", "reimbursable (adj)"],
+    confusableWith: ["compensation (tiền đền bù/lương)"], topic: "Finance & Accounting", level: 2
+  },
+  {
+    word: "implement", ipa: "/ˈɪm.plɪ.ment/", pos: "verb / noun",
+    meaning_vi: "thi hành, áp dụng thực tế",
+    example: "The management decided to implement new hybrid-work policies starting next quarter.",
+    collocations: ["implement a strategy", "implement changes", "successfully implement"],
+    wordFamily: ["implementation (n)", "implementer (n)"],
+    confusableWith: ["execute", "complement"], topic: "Management", level: 2
+  },
+  {
+    word: "innovative", ipa: "/ˈɪn.ə.və.tɪv/", pos: "adj",
+    meaning_vi: "sáng tạo, mang tính đổi mới",
+    example: "The company received an industry award for its innovative energy-saving technology.",
+    collocations: ["innovative approach", "innovative solution", "highly innovative"],
+    wordFamily: ["innovate (v)", "innovation (n)", "innovator (n)"],
+    confusableWith: ["novel (adj/n)", "inventive"], topic: "Marketing & Tech", level: 2
+  },
+  {
+    word: "facilitate", ipa: "/fəˈsɪl.ɪ.teɪt/", pos: "verb",
+    meaning_vi: "tạo điều kiện thuận lợi, làm cho dễ dàng",
+    example: "The new collaborative software is designed to facilitate communication across regional offices.",
+    collocations: ["facilitate discussions", "facilitate trade", "greatly facilitate"],
+    wordFamily: ["facilitator (n)", "facilitation (n)", "facility (n)"],
+    confusableWith: ["felicitate (chúc mừng)"], topic: "Office General", level: 3
+  },
+  {
+    word: "substantial", ipa: "/səbˈstæn.ʃəl/", pos: "adj",
+    meaning_vi: "đáng kể, lớn lao",
+    example: "The merger yielded a substantial increase in quarterly operating profit.",
+    collocations: ["substantial amount", "substantial growth", "substantial portion"],
+    wordFamily: ["substantially (adv)", "substantiate (v)"],
+    confusableWith: ["significant", "sustainable"], topic: "Finance & Accounting", level: 3
+  },
+  {
+    word: "eligible", ipa: "/ˈel.ɪ.dʒə.bəl/", pos: "adj",
+    meaning_vi: "đủ tư cách, đủ điều kiện",
+    example: "Contractors will be eligible for health insurance benefits after six months of service.",
+    collocations: ["eligible for promotion", "eligible to participate", "fully eligible"],
+    wordFamily: ["eligibility (n)"],
+    confusableWith: ["illegible (chữ khó đọc)"], topic: "Human Resources", level: 2
+  },
+  {
+    word: "negotiate", ipa: "/nəˈɡəʊ.ʃi.eɪt/", pos: "verb",
+    meaning_vi: "đàm phán, thương lượng",
+    example: "The procurement team managed to negotiate more favorable contract terms with the vendor.",
+    collocations: ["negotiate a contract", "negotiate terms", "successfully negotiate"],
+    wordFamily: ["negotiation (n)", "negotiable (adj)", "negotiator (n)"],
+    confusableWith: ["navigate (định hướng)"], topic: "Sales & Contracts", level: 2
+  },
+  {
+    word: "specification", ipa: "/ˌspes.ɪ.fɪˈkeɪ.ʃən/", pos: "noun",
+    meaning_vi: "thông số kỹ thuật, đặc tả",
+    example: "The mechanical component was precision-crafted according to the architect's exact specifications.",
+    collocations: ["meet specifications", "technical specifications", "detailed specifications"],
+    wordFamily: ["specify (v)", "specific (adj)", "specifically (adv)"],
+    confusableWith: ["specialization (chuyên môn hóa)"], topic: "Manufacturing & Engineering", level: 3
+  },
+  {
+    word: "provisional", ipa: "/prəˈvɪʒ.ən.əl/", pos: "adj",
+    meaning_vi: "tạm thời, lâm thời",
+    example: "The budget committee approved a provisional schedule pending the CEO's final endorsement.",
+    collocations: ["provisional license", "provisional agreement", "provisional results"],
+    wordFamily: ["provisionally (adv)", "provision (n)"],
+    confusableWith: ["provincial (thuộc về tỉnh)", "permanent"], topic: "General Business", level: 4
+  },
+  {
+    word: "accommodate", ipa: "/əˈkɒm.ə.deɪt/", pos: "verb",
+    meaning_vi: "đáp ứng (nhu cầu), chứa được (người)",
+    example: "The auditorium is spacious enough to accommodate up to five hundred attendees.",
+    collocations: ["accommodate requests", "accommodate needs", "accommodate guests"],
+    wordFamily: ["accommodation (n)", "accommodating (adj)"],
+    confusableWith: ["accumulate (tích lũy)"], topic: "Hospitality & Office", level: 3
+  },
+  {
+    word: "disruption", ipa: "/dɪsˈrʌp.ʃən/", pos: "noun",
+    meaning_vi: "sự gián đoạn, xáo trộn",
+    example: "Severe winter storms caused significant disruptions to maritime shipping routes.",
+    collocations: ["cause disruption", "supply chain disruption", "minimize disruption"],
+    wordFamily: ["disrupt (v)", "disruptive (adj)"],
+    confusableWith: ["destruction (sự phá hủy)", "eruption"], topic: "Logistics & Transport", level: 3
+  },
+  {
+    word: "unanimous", ipa: "/juːˈnæn.ɪ.məs/", pos: "adj",
+    meaning_vi: "nhất trí, đồng lòng 100%",
+    example: "The board reached a unanimous decision to expand retail operations into Southeast Asia.",
+    collocations: ["unanimous agreement", "unanimous vote", "unanimous approval"],
+    wordFamily: ["unanimously (adv)", "unanimity (n)"],
+    confusableWith: ["anonymous (vô danh)"], topic: "Corporate Management", level: 4
+  },
+  {
+    word: "supervise", ipa: "/ˈsuː.pə.vaɪz/", pos: "verb",
+    meaning_vi: "giám sát, quản lý",
+    example: "A certified engineer will closely supervise the installation of the backup power generators.",
+    collocations: ["supervise staff", "directly supervise", "supervise operations"],
+    wordFamily: ["supervisor (n)", "supervision (n)", "supervisory (adj)"],
+    confusableWith: ["oversee", "surmise (phỏng đoán)"], topic: "Management & HR", level: 2
+  },
+  {
+    word: "preliminary", ipa: "/prɪˈlɪm.ɪ.nər.i/", pos: "adj",
+    meaning_vi: "sơ bộ, bước đầu",
+    example: "Preliminary findings from the customer satisfaction survey indicate strong brand loyalty.",
+    collocations: ["preliminary results", "preliminary report", "preliminary inquiry"],
+    wordFamily: ["preliminaries (n)"],
+    confusableWith: ["primary (chính yếu/nguyên thủy)"], topic: "Research & Marketing", level: 3
+  },
+  {
+    word: "remuneration", ipa: "/rɪˌmjuː.nərˈeɪ.ʃən/", pos: "noun",
+    meaning_vi: "thù lao, tiền lương bổng",
+    example: "The remuneration package includes a base salary, annual bonuses, and equity options.",
+    collocations: ["financial remuneration", "remuneration package", "fair remuneration"],
+    wordFamily: ["remunerate (v)", "remunerative (adj)"],
+    confusableWith: ["renunciation (từ bỏ)", "reimbursement"], topic: "Human Resources", level: 4
+  },
+  {
+    word: "adjacent", ipa: "/əˈdʒeɪ.sənt/", pos: "adj",
+    meaning_vi: "liền kề, ngay sát cạnh",
+    example: "The conference cafeteria is located adjacent to the main auditorium on the second floor.",
+    collocations: ["adjacent to", "adjacent building", "adjacent room"],
+    wordFamily: ["adjacency (n)"],
+    confusableWith: ["adjoining", "remote (xa cách)"], topic: "Office & Travel", level: 3
+  },
+  {
+    word: "prospective", ipa: "/prəˈspek.tɪv/", pos: "adj",
+    meaning_vi: "tiềm năng, có triển vọng trong tương lai",
+    example: "The recruiter scheduled introductory interviews with five prospective candidates.",
+    collocations: ["prospective client", "prospective buyer", "prospective employee"],
+    wordFamily: ["prospect (n, v)", "prospectus (n)"],
+    confusableWith: ["perspective (góc nhìn, quan điểm)"], topic: "Human Resources", level: 3
+  },
+  {
+    word: "scrutinize", ipa: "/ˈskruː.tɪ.naɪz/", pos: "verb",
+    meaning_vi: "xem xét kỹ lưỡng, săm soi",
+    example: "Internal auditors will scrutinize all corporate expense reports filed during the last fiscal year.",
+    collocations: ["scrutinize documents", "carefully scrutinize", "closely scrutinize"],
+    wordFamily: ["scrutiny (n)", "scrutinizer (n)"],
+    confusableWith: ["examine", "criticize (chỉ trích)"], topic: "Finance & Accounting", level: 4
+  },
+  {
+    word: "stipulate", ipa: "/ˈstɪp.jə.leɪt/", pos: "verb",
+    meaning_vi: "quy định rõ trong điều khoản",
+    example: "The vendor contract clearly stipulates that delivery must occur within thirty calendar days.",
+    collocations: ["stipulate conditions", "expressly stipulate", "as stipulated in"],
+    wordFamily: ["stipulation (n)"],
+    confusableWith: ["stimulate (kích thích)"], topic: "Legal & Contracts", level: 4
+  },
+  {
+    word: "curtail", ipa: "/kəˈteɪl/", pos: "verb",
+    meaning_vi: "cắt giảm, rút ngắn bớt",
+    example: "Management resolved to curtail unnecessary business travel in response to macroeconomic headwinds.",
+    collocations: ["curtail spending", "curtail activities", "sharply curtail"],
+    wordFamily: ["curtailment (n)"],
+    confusableWith: ["cut back", "maintain"], topic: "Finance & Strategy", level: 4
+  },
+  {
+    word: "deficit", ipa: "/ˈdef.ɪ.sɪt/", pos: "noun",
+    meaning_vi: "khoản thâm hụt tài chính",
+    example: "The overseas subsidiary reduced its budget deficit through stringent overhead cost reductions.",
+    collocations: ["budget deficit", "trade deficit", "reduce a deficit"],
+    wordFamily: ["deficient (adj)", "deficiency (n)"],
+    confusableWith: ["surplus (thặng dư)"], topic: "Finance & Accounting", level: 3
+  },
+  {
+    word: "endorse", ipa: "/ɪnˈdɔːs/", pos: "verb",
+    meaning_vi: "chấp thuận, ủng hộ, quảng cáo cho",
+    example: "The celebrity athlete agreed to endorse the sports nutrition product line globally.",
+    collocations: ["endorse a product", "officially endorse", "strongly endorse"],
+    wordFamily: ["endorsement (n)", "endorser (n)"],
+    confusableWith: ["approve", "enforce (bắt buộc thực thi)"], topic: "Marketing & Management", level: 3
+  },
+  {
+    word: "fluctuate", ipa: "/ˈflʌk.tʃu.eɪt/", pos: "verb",
+    meaning_vi: "dao động, lên xuống thất thường",
+    example: "Foreign currency exchange rates fluctuate constantly depending on global trade sentiments.",
+    collocations: ["fluctuate wildly", "prices fluctuate", "fluctuate between"],
+    wordFamily: ["fluctuation (n)", "fluctuating (adj)"],
+    confusableWith: ["vary", "stabilize (ổn định)"], topic: "Finance & Economics", level: 3
+  },
+  {
+    word: "indispensable", ipa: "/ˌɪn.dɪˈspen.sə.bəl/", pos: "adj",
+    meaning_vi: "không thể thiếu, cốt yếu",
+    example: "Her multilingual proficiency proved indispensable when closing the South American joint venture.",
+    collocations: ["indispensable tool", "indispensable asset", "prove indispensable"],
+    wordFamily: ["dispense (v)", "dispensable (adj)"],
+    confusableWith: ["essential", "dispensable (có thể bỏ qua)"], topic: "General Business", level: 4
+  },
+  {
+    word: "lucrative", ipa: "/ˈluː.krə.tɪv/", pos: "adj",
+    meaning_vi: "sinh lợi cao, béo bở",
+    example: "Winning the government defense contract provided the firm with a highly lucrative revenue stream.",
+    collocations: ["lucrative deal", "lucrative market", "lucrative career"],
+    wordFamily: ["lucratively (adv)"],
+    confusableWith: ["profitable", "loss-making"], topic: "Finance & Sales", level: 3
+  },
+  {
+    word: "prerequisite", ipa: "/ˌpriːˈrek.wɪ.zɪt/", pos: "noun / adj",
+    meaning_vi: "điều kiện tiên quyết",
+    example: "Familiarity with Python scripting is an essential prerequisite for this cybersecurity role.",
+    collocations: ["necessary prerequisite", "prerequisite course", "serve as a prerequisite"],
+    wordFamily: ["require (v)", "requirement (n)"],
+    confusableWith: ["requisite (cần thiết)"], topic: "Human Resources", level: 4
+  },
+  {
+    word: "subsidize", ipa: "/ˈsʌb.sɪ.daɪz/", pos: "verb",
+    meaning_vi: "trợ cấp, bao cấp chi phí",
+    example: "The enterprise offers to subsidize 80% of employees' public transit commuting costs.",
+    collocations: ["heavily subsidize", "subsidize training", "government-subsidized"],
+    wordFamily: ["subsidy (n)", "subsidized (adj)"],
+    confusableWith: ["sponsor", "subside (lắng xuống)"], topic: "HR & Finance", level: 3
+  }
+];
+
+/**
+ * =====================================================================
+ * APP CORE ENGINE & STATE MANAGEMENT
+ * =====================================================================
+ */
+const STORAGE_KEY = "TOEIC_QUEST_CYBER_DATA_V1";
+
+const DEFAULT_STATE = {
+  user: {
+    name: "Agent Student",
+    role: "Intern",
+    level: 1,
+    xp: 0,
+    streak: 1,
+    lastActiveDate: new Date().toISOString().split("T")[0],
+    soundEnabled: true,
+    theme: "dark",
+    estimatedScore: 450,
+    speechRate: 1.0,
+    speechVoice: "en-US"
+  },
+  adaptive: {
+    currentDifficulty: 2, // 1 to 5
+    consecutiveCorrect: 0,
+    consecutiveWrong: 0
+  },
+  progress: {
+    completedQuestions: {}, // questionId: { timesWrong: 0, timesCorrect: 1, lastAttempt: timestamp, nextReviewDate: timestamp }
+    flaggedQuestions: [],
+    leitnerBoxes: {
+      b1: [], // New/Difficult (Review daily)
+      b2: [], // Review 3 days
+      b3: [], // Review 7 days
+      b4: [], // Review 14 days
+      b5: []  // Mastered
+    },
+    partStats: {
+      p1: { total: 0, correct: 0 },
+      p2: { total: 0, correct: 0 },
+      p5: { total: 0, correct: 0 },
+      p7: { total: 0, correct: 0 }
+    },
+    dailyMission: {
+      date: "",
+      questionIds: [],
+      completedIds: []
+    },
+    bossStats: {
+      bossDefeated: 0,
+      lastDefeatedDate: "",
+      highestTitleEarned: "Intern"
+    }
+  }
+};
+
+class SoundSynth {
+  constructor() {
+    this.ctx = null;
+  }
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+  }
+  playCorrect() {
+    if (!app.state.user.soundEnabled) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(523.25, now); // C5
+    osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+    osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.35);
+  }
+  playWrong() {
+    if (!app.state.user.soundEnabled) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(220, now); // A3
+    osc.frequency.linearRampToValueAtTime(150, now + 0.25);
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.3);
+  }
+  playLevelUp() {
+    if (!app.state.user.soundEnabled) return;
+    this.init();
+    if (!this.ctx) return;
+    const notes = [440, 554.37, 659.25, 880];
+    notes.forEach((freq, i) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const start = this.ctx.currentTime + i * 0.1;
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(0.2, start);
+      gain.gain.exponentialRampToValueAtTime(0.01, start + 0.2);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(start);
+      osc.stop(start + 0.25);
+    });
+  }
+}
+
+class ToeicQuestApp {
+  constructor() {
+    this.state = this.loadState();
+    this.sound = new SoundSynth();
+    this.currentView = "dashboard";
+    this.activeQuiz = null;
+    this.vocabIndex = 0;
+    this.vocabStudyMode = "card"; // card, quiz, type
+  }
+
+  loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Merge with defaults to prevent broken structures
+        return {
+          ...DEFAULT_STATE,
+          ...parsed,
+          user: { ...DEFAULT_STATE.user, ...parsed.user },
+          adaptive: { ...DEFAULT_STATE.adaptive, ...parsed.adaptive },
+          progress: { ...DEFAULT_STATE.progress, ...parsed.progress }
+        };
+      }
+    } catch (e) {
+      console.warn("Error loading stored state, starting fresh.", e);
+    }
+    // Initialize Leitner Box 1 with all words if empty
+    const fresh = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    fresh.progress.leitnerBoxes.b1 = VOCAB.map(v => v.word);
+    return fresh;
+  }
+
+  saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+    } catch (e) {
+      console.error("Failed to save state to localStorage", e);
+    }
+    this.updateHeaderUI();
+  }
+
+  init() {
+    this.applyTheme(this.state.user.theme);
+    this.checkStreak();
+    this.initKeyboardNav();
+    this.navigate("dashboard");
+    this.updateHeaderUI();
+  }
+
+  checkStreak() {
+    const today = new Date().toISOString().split("T")[0];
+    const last = this.state.user.lastActiveDate;
+    if (last) {
+      const diffDays = Math.floor((new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24));
+      if (diffDays === 1) {
+        this.state.user.streak += 1;
+      } else if (diffDays > 1) {
+        this.state.user.streak = 1;
+      }
+    }
+    this.state.user.lastActiveDate = today;
+    this.saveState();
+  }
+
+  applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    const btn = document.getElementById("themeBtn");
+    if (btn) btn.textContent = theme === "dark" ? "🌙" : "☀️";
+    this.state.user.theme = theme;
+  }
+
+  toggleTheme() {
+    const next = this.state.user.theme === "dark" ? "light" : "dark";
+    this.applyTheme(next);
+    this.saveState();
+  }
+
+  toggleSound() {
+    this.state.user.soundEnabled = !this.state.user.soundEnabled;
+    const btn = document.getElementById("soundBtn");
+    if (btn) btn.textContent = this.state.user.soundEnabled ? "🔊" : "🔇";
+    this.saveState();
+  }
+
+  updateHeaderUI() {
+    const roleTitle = document.getElementById("roleTitle");
+    const userLevel = document.getElementById("userLevel");
+    const soundBtn = document.getElementById("soundBtn");
+    if (roleTitle) roleTitle.textContent = this.state.user.role;
+    if (userLevel) userLevel.textContent = this.state.user.level;
+    if (soundBtn) soundBtn.textContent = this.state.user.soundEnabled ? "🔊" : "🔇";
+  }
+
+  gainXP(pts) {
+    this.state.user.xp += pts;
+    const needed = this.state.user.level * 100;
+    if (this.state.user.xp >= needed) {
+      this.state.user.level += 1;
+      this.state.user.xp -= needed;
+      this.updateCyberRole();
+      this.sound.playLevelUp();
+      this.showToast(`🎉 CHÚC MỪNG THĂNG CẤP! Bạn đã đạt Cấp ${this.state.user.level} (${this.state.user.role})!`);
+    }
+    this.saveState();
+  }
+
+  updateCyberRole() {
+    const lv = this.state.user.level;
+    if (lv < 3) this.state.user.role = "Intern";
+    else if (lv < 6) this.state.user.role = "Junior Analyst";
+    else if (lv < 10) this.state.user.role = "Senior Specialist";
+    else if (lv < 15) this.state.user.role = "Team Lead";
+    else this.state.user.role = "CISO";
+  }
+
+  showToast(msg) {
+    const toast = document.createElement("div");
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.right = "20px";
+    toast.style.background = "var(--accent-cyan)";
+    toast.style.color = "#000";
+    toast.style.fontWeight = "bold";
+    toast.style.padding = "0.75rem 1.25rem";
+    toast.style.borderRadius = "8px";
+    toast.style.boxShadow = "0 4px 14px rgba(0,0,0,0.3)";
+    toast.style.zIndex = "999";
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+  }
+
+  navigate(viewName) {
+    this.currentView = viewName;
+    document.querySelectorAll(".nav-btn").forEach(b => {
+      b.classList.toggle("active", b.getAttribute("data-view") === viewName);
+    });
+    const stage = document.getElementById("stageContent");
+    if (!stage) return;
+
+    if (this.activeQuiz && !this.activeQuiz.isDone) {
+      this.activeQuiz.stopAudio();
+    }
+
+    switch (viewName) {
+      case "dashboard":
+        this.renderDashboard(stage);
+        break;
+      case "placement":
+        this.startPlacementTest();
+        break;
+      case "daily":
+        this.renderDailyMission(stage);
+        break;
+      case "part1":
+        this.startPartPractice(1);
+        break;
+      case "part2":
+        this.startPartPractice(2);
+        break;
+      case "part5":
+        this.startPartPractice(5);
+        break;
+      case "part7":
+        this.startPartPractice(7);
+        break;
+      case "traphunter":
+        this.renderTrapHunter(stage);
+        break;
+      case "boss":
+        this.renderBossArena(stage);
+        break;
+      case "vocab":
+        this.renderVocabArena(stage);
+        break;
+      case "errors":
+        this.renderErrorNotebook(stage);
+        break;
+      default:
+        this.renderDashboard(stage);
+    }
+  }
+
+  initKeyboardNav() {
+    window.addEventListener("keydown", (e) => {
+      // Don't intercept if user is typing in an input
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+
+      if (this.activeQuiz && !this.activeQuiz.isDone) {
+        if (["1", "2", "3", "4"].includes(e.key)) {
+          const idx = parseInt(e.key, 10) - 1;
+          this.activeQuiz.handleSelectChoice(idx);
+        } else if (e.key === "Enter") {
+          this.activeQuiz.handleNext();
+        } else if (e.code === "Space" || e.key === " ") {
+          e.preventDefault();
+          this.activeQuiz.playCurrentAudio();
+        }
+      }
+    });
+  }
+
+  // --- VIEWS ---
+  renderDashboard(stage) {
+    const p1Total = this.state.progress.partStats.p1.total;
+    const p1Correct = this.state.progress.partStats.p1.correct;
+    const p1Acc = p1Total > 0 ? Math.round((p1Correct / p1Total) * 100) : 0;
+
+    const p2Total = this.state.progress.partStats.p2.total;
+    const p2Correct = this.state.progress.partStats.p2.correct;
+    const p2Acc = p2Total > 0 ? Math.round((p2Correct / p2Total) * 100) : 0;
+
+    const p5Total = this.state.progress.partStats.p5.total;
+    const p5Correct = this.state.progress.partStats.p5.correct;
+    const p5Acc = p5Total > 0 ? Math.round((p5Correct / p5Total) * 100) : 0;
+
+    const p7Total = this.state.progress.partStats.p7.total;
+    const p7Correct = this.state.progress.partStats.p7.correct;
+    const p7Acc = p7Total > 0 ? Math.round((p7Correct / p7Total) * 100) : 0;
+
+    const errorCount = Object.keys(this.state.progress.completedQuestions).filter(
+      id => this.state.progress.completedQuestions[id].timesWrong > 0
+    ).length;
+
+    stage.innerHTML = `
+      <div class="card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1)); border-color: var(--accent-cyan);">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem;">
+          Chào mừng trở lại, ${this.state.user.role}! 🛡️
+        </h2>
+        <p style="color: var(--text-sub); font-size: 0.95rem;">
+          Trạng thái an ninh: <strong style="color: var(--accent-cyan);">Sẵn sàng tác chiến</strong>. Hoàn thành nhiệm vụ hàng ngày để duy trì chuỗi học tập (streak) và thăng cấp CISO!
+        </p>
+      </div>
+
+      <div class="grid-stats">
+        <div class="stat-tile">
+          <span class="label">Điểm ước lượng</span>
+          <span class="value">${this.state.user.estimatedScore}<span style="font-size: 0.9rem; font-weight: 500;">/990</span></span>
+          <span class="sub">🎯 Ước tính ETS</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Chuỗi ngày (Streak)</span>
+          <span class="value">🔥 ${this.state.user.streak} <span style="font-size: 0.9rem; font-weight: 500;">ngày</span></span>
+          <span class="sub">Kỷ luật học tập</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Part 1 (Tranh)</span>
+          <span class="value">${p1Acc}%</span>
+          <span class="sub">${p1Correct}/${p1Total} câu đúng</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Part 2 (Hỏi-Đáp)</span>
+          <span class="value">${p2Acc}%</span>
+          <span class="sub">${p2Correct}/${p2Total} câu đúng</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Part 5 (Câu ngắn)</span>
+          <span class="value">${p5Acc}%</span>
+          <span class="sub">${p5Correct}/${p5Total} câu đúng</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Part 7 (Đoạn văn)</span>
+          <span class="value">${p7Acc}%</span>
+          <span class="sub">${p7Correct}/${p7Total} câu đúng</span>
+        </div>
+        <div class="stat-tile" style="border-color: rgba(244, 63, 94, 0.4);">
+          <span class="label">Sự cố Boss Diệt</span>
+          <span class="value" style="color: var(--accent-rose);">👾 ${this.state.progress.bossStats ? this.state.progress.bossStats.bossDefeated : 0}</span>
+          <span class="sub">Chiến dịch hoàn thành</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+        <div class="card">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">📈 Biểu đồ Độ chính xác các Phần</h3>
+          <div class="canvas-container">
+            <canvas id="accuracyChart"></canvas>
+          </div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; text-align: center;">
+            Biểu đồ phân bố độ chính xác Listening & Reading (Rendered with HTML5 Canvas)
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">⚡ Hành động nhanh</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <button class="btn" onclick="app.navigate('daily')">🔥 Làm Nhiệm vụ ngày (10 câu)</button>
+            <button class="btn" style="background: linear-gradient(135deg, #e11d48, #be123c); color: #fff;" onclick="app.navigate('boss')">👾 Chiến Boss Level (Sự cố Cyber 25 câu)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('part1')">🎧 Luyện Part 1 (Mô tả tranh)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('part2')">🗣️ Luyện Part 2 (Hỏi - Đáp)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('traphunter')">🏹 Săn bẫy ETS (Trap Hunter)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('vocab')">🧠 Ôn từ vựng Leitner (${this.state.progress.leitnerBoxes.b1.length} từ đến hạn)</button>
+            <button class="btn btn-outline-danger" onclick="app.navigate('errors')">📕 Xem sổ tay lỗi sai (${errorCount} câu)</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.drawChart("accuracyChart", [
+      { label: "Part 1", value: p1Acc, color: "#10b981" },
+      { label: "Part 2", value: p2Acc, color: "#06b6d4" },
+      { label: "Part 5", value: p5Acc, color: "#3b82f6" },
+      { label: "Part 7", value: p7Acc, color: "#8b5cf6" },
+      { label: "Level", value: (this.state.adaptive.currentDifficulty / 5) * 100, color: "#f59e0b" }
+    ]);
+  }
+
+  drawChart(canvasId, items) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const barWidth = 44;
+    const gap = 30;
+    const totalBarsWidth = items.length * barWidth + (items.length - 1) * gap;
+    let startX = (w - totalBarsWidth) / 2;
+    const bottomY = h - 35;
+    const maxBarH = h - 60;
+
+    items.forEach((item) => {
+      const barH = (Math.max(item.value, 4) / 100) * maxBarH;
+      const barY = bottomY - barH;
+
+      // Draw background slot
+      ctx.fillStyle = "rgba(148, 163, 184, 0.1)";
+      ctx.fillRect(startX, bottomY - maxBarH, barWidth, maxBarH);
+
+      // Draw active bar
+      ctx.fillStyle = item.color;
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(startX, barY, barWidth, barH, [6, 6, 0, 0]) : ctx.fillRect(startX, barY, barWidth, barH);
+      ctx.fill();
+
+      // Draw Value
+      ctx.fillStyle = "#f8fafc";
+      ctx.font = "bold 11px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${Math.round(item.value)}%`, startX + barWidth / 2, barY - 6);
+
+      // Draw Label
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "12px sans-serif";
+      ctx.fillText(item.label, startX + barWidth / 2, bottomY + 18);
+
+      startX += barWidth + gap;
+    });
+  }
+
+  // --- QUIZ ORCHESTRATION ---
+  startPlacementTest() {
+    const stage = document.getElementById("stageContent");
+    // Pick 20 questions (all available Part 5 + Part 7 questions)
+    const flatList = [];
+    QUESTIONS.forEach(q => {
+      if (q.part === 5) flatList.push(q);
+      else if (q.part === 7 && q.questions) {
+        q.questions.forEach(sub => {
+          flatList.push({
+            ...sub,
+            part: 7,
+            passage: q.passage,
+            level: q.level,
+            topic: q.topic,
+            vocab: sub.vocab || []
+          });
+        });
+      }
+    });
+
+    const selected = flatList.slice(0, 20);
+    this.activeQuiz = new QuizController(selected, {
+      title: "🎯 Placement Check (Đánh giá năng lực đầu vào)",
+      isExamMode: true,
+      timeLimitMinutes: 15,
+      onComplete: (results) => {
+        // Calculate estimated TOEIC score (Scale: 10 - 990)
+        // 20 questions -> base score formula
+        const ratio = results.score / results.total;
+        let estimated = Math.round(200 + ratio * 750);
+        // Round to nearest 5 (TOEIC standard)
+        estimated = Math.min(990, Math.max(100, Math.round(estimated / 5) * 5));
+        app.state.user.estimatedScore = estimated;
+        app.saveState();
+
+        stage.innerHTML = `
+          <div class="card" style="text-align: center; padding: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎖️</div>
+            <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;">Hoàn thành Placement Check!</h2>
+            <p style="color: var(--text-sub); margin-bottom: 1.5rem;">
+              Bạn làm đúng <strong>${results.score}/${results.total}</strong> câu.
+            </p>
+            <div style="background: var(--bg-card); display: inline-block; padding: 1.25rem 2.5rem; border-radius: 12px; border: 1px solid var(--accent-cyan); margin-bottom: 1.5rem;">
+              <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">ĐIỂM DỰ ĐOÁN ƯỚC TÍNH</span>
+              <span style="font-size: 2.8rem; font-weight: 900; color: var(--accent-cyan);">${estimated}</span>
+              <span style="font-size: 0.8rem; color: var(--accent-amber); display: block;">(Điểm ước tính chỉ mang tính tham khảo)</span>
+            </div>
+            <div style="max-width: 500px; margin: 0 auto; text-align: left; background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.9rem;">
+              <strong>💡 Đề xuất lộ trình học tập:</strong>
+              <ul style="margin-left: 1.25rem; margin-top: 0.5rem; line-height: 1.6;">
+                <li>Độ khó khởi điểm được thiết lập ở <strong>Level ${estimated >= 650 ? 4 : 2}</strong>.</li>
+                <li>Luyện tập 15-20 phút hàng ngày với <em>Daily Mission</em>.</li>
+                <li>Tập trung rèn phản xạ nhận diện bẫy từ loại và liên từ trong Part 5.</li>
+              </ul>
+            </div>
+            <div style="margin-top: 1.5rem;">
+              <button class="btn" onclick="app.navigate('dashboard')">Về Dashboard</button>
+            </div>
+          </div>
+        `;
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
+  renderDailyMission(stage) {
+    const today = new Date().toISOString().split("T")[0];
+    let missionQids = this.state.progress.dailyMission.questionIds;
+
+    // Generate new mission if date changed or empty
+    if (this.state.progress.dailyMission.date !== today || !missionQids || missionQids.length === 0) {
+      // Pick 6 Part 5 + 4 Part 7 items
+      const p5s = QUESTIONS.filter(q => q.part === 5).sort(() => 0.5 - Math.random()).slice(0, 6);
+      const p7Passage = QUESTIONS.find(q => q.part === 7) || QUESTIONS[QUESTIONS.length - 1];
+      const p7s = p7Passage.questions.map(sub => ({
+        ...sub, part: 7, passage: p7Passage.passage, topic: p7Passage.topic, level: p7Passage.level
+      }));
+      const combined = [...p5s, ...p7s];
+      missionQids = combined.map(q => q.id);
+      this.state.progress.dailyMission = {
+        date: today,
+        questionIds: missionQids,
+        completedIds: []
+      };
+      this.saveState();
+    }
+
+    // Collect questions
+    const missionQuestions = [];
+    missionQids.forEach(qid => {
+      const q = QUESTIONS.find(item => item.id === qid);
+      if (q) missionQuestions.push(q);
+      else {
+        // Look inside part 7 sub-questions
+        QUESTIONS.forEach(item => {
+          if (item.part === 7 && item.questions) {
+            const foundSub = item.questions.find(sq => sq.id === qid);
+            if (foundSub) {
+              missionQuestions.push({
+                ...foundSub, part: 7, passage: item.passage, topic: item.topic, level: item.level
+              });
+            }
+          }
+        });
+      }
+    });
+
+    stage.innerHTML = `
+      <div class="card">
+        <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">⚡ Nhiệm vụ Hằng ngày (${today})</h2>
+        <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 1.25rem;">
+          Bộ 10 câu hỏi tổng hợp tối ưu dựa trên thuật toán Spaced Repetition và các lỗi sai cần khắc phục.
+        </p>
+        <div class="stat-tile" style="margin-bottom: 1.25rem;">
+          <span class="label">Tiến độ hôm nay</span>
+          <span class="value">${this.state.progress.dailyMission.completedIds.length} / ${missionQuestions.length}</span>
+          <span class="sub">+50 XP khi hoàn thành tất cả câu hỏi</span>
+        </div>
+        <button class="btn" onclick="app.launchDailyQuiz()">🚀 Bắt đầu làm ngay</button>
+      </div>
+    `;
+  }
+
+  launchDailyQuiz() {
+    const stage = document.getElementById("stageContent");
+    const today = new Date().toISOString().split("T")[0];
+    const missionQids = this.state.progress.dailyMission.questionIds;
+    const missionQuestions = [];
+    missionQids.forEach(qid => {
+      const q = QUESTIONS.find(item => item.id === qid);
+      if (q) missionQuestions.push(q);
+      else {
+        QUESTIONS.forEach(item => {
+          if (item.part === 7 && item.questions) {
+            const foundSub = item.questions.find(sq => sq.id === qid);
+            if (foundSub) {
+              missionQuestions.push({
+                ...foundSub, part: 7, passage: item.passage, topic: item.topic, level: item.level
+              });
+            }
+          }
+        });
+      }
+    });
+
+    this.activeQuiz = new QuizController(missionQuestions, {
+      title: "⚡ Nhiệm vụ ngày (Practice Mode)",
+      isExamMode: false,
+      onComplete: (res) => {
+        app.state.progress.dailyMission.completedIds = missionQids;
+        app.gainXP(50);
+        app.showToast("🎉 Hoàn thành xuất sắc Daily Mission! +50 XP");
+        app.navigate("dashboard");
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
+  startPartPractice(partNum) {
+    const stage = document.getElementById("stageContent");
+    let pool = [];
+    let title = `📝 Luyện chuyên sâu Part ${partNum}`;
+    if (partNum === 1) {
+      pool = QUESTIONS.filter(q => q.part === 1);
+      title = "🎧 Luyện Part 1: Mô tả tranh (Photographs)";
+    } else if (partNum === 2) {
+      pool = QUESTIONS.filter(q => q.part === 2);
+      title = "🗣️ Luyện Part 2: Hỏi & Đáp (Question - Response)";
+    } else if (partNum === 5) {
+      pool = QUESTIONS.filter(q => q.part === 5);
+      title = "📝 Luyện Part 5: Hoàn thành câu (Incomplete Sentences)";
+    } else if (partNum === 7) {
+      QUESTIONS.filter(q => q.part === 7).forEach(p => {
+        p.questions.forEach(sub => {
+          pool.push({
+            ...sub,
+            part: 7,
+            passage: p.passage,
+            level: p.level,
+            topic: p.topic
+          });
+        });
+      });
+      title = "📑 Luyện Part 7: Đọc hiểu đoạn văn (Reading Comprehension)";
+    }
+
+    this.activeQuiz = new QuizController(pool, {
+      title: title,
+      isExamMode: false,
+      onComplete: () => {
+        app.navigate("dashboard");
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
+  // --- TRAP HUNTER MODULE ---
+  renderTrapHunter(stage) {
+    const categories = [
+      {
+        key: "sound",
+        title: "🎧 Bẫy từ gần âm & đồng âm (Similar Sound)",
+        part: "Part 2",
+        count: QUESTIONS.filter(q => q.trapCategory === "sound").length,
+        desc: "Đề thi dùng các từ phát âm tương tự để gây nhiễu thính giác (ví dụ: copy / coffee, plan / plane, right / write).",
+        tip: "Mẹo Giảng viên: Trong câu hỏi có từ nào nổi bật, nếu đáp án xuất hiện từ phát âm na ná tới 80% là bẫy!"
+      },
+      {
+        key: "repeated-word",
+        title: "🔄 Bẫy lặp từ & đổi nghĩa (Repeated Word)",
+        part: "Part 2",
+        count: QUESTIONS.filter(q => q.trapCategory === "repeated-word").length,
+        desc: "Lặp lại chính xác từ trong câu hỏi nhưng đổi sang thì khác hoặc dùng một nghĩa hoàn toàn khác (ví dụ: firewall -> wall, park -> parking).",
+        tip: "Mẹo Giảng viên: Thấy đáp án lặp nguyên xi từ của câu hỏi? Hãy cảnh giác cao độ!"
+      },
+      {
+        key: "indirect",
+        title: "🎭 Bẫy câu trả lời gián tiếp (Indirect Response)",
+        part: "Part 2",
+        count: QUESTIONS.filter(q => q.trapCategory === "indirect").length,
+        desc: "Người trả lời không trả lời thẳng Yes/No hay danh từ mà nói vòng vo ('Họ chưa công bố', 'Tôi đang đợi hóa đơn').",
+        tip: "Mẹo Giảng viên: Đây là dạng câu ăn điểm 700+! Câu nào nghe có vẻ không liên quan nhưng hợp logic thực tế thường là đáp án đúng."
+      },
+      {
+        key: "word-form",
+        title: "📐 Bẫy từ loại & ngữ pháp (Word-Form Trap)",
+        part: "Part 5",
+        count: QUESTIONS.filter(q => q.skillTags && q.skillTags.includes("word-form")).length,
+        desc: "Bẫy nhận diện vị trí danh từ, tính từ, trạng từ sau động từ to-be, linking verb hay trước danh từ ghép.",
+        tip: "Mẹo Giảng viên: Luôn nhìn 1-2 từ ngay phía trước và ngay phía sau chỗ trống trước khi dịch nghĩa."
+      },
+      {
+        key: "paraphrase",
+        title: "🔍 Bẫy Paraphrase & Suy luận (Paraphrase Trap)",
+        part: "Part 7",
+        count: QUESTIONS.filter(q => q.part === 7).length,
+        desc: "Đề thi dùng các từ đồng nghĩa cấp tiến thay vì dùng lại từ gốc trong bài đọc (invoice = bill, remedial training = educational course).",
+        tip: "Mẹo Giảng viên: Đáp án đúng trong Part 7 gần như luôn luôn là một dạng paraphrase của thông tin trong bài đọc."
+      }
+    ];
+
+    stage.innerHTML = `
+      <div class="card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(6, 182, 212, 0.1)); border-color: var(--accent-amber);">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--accent-amber);">
+          🏹 Thợ săn bẫy TOEIC (Trap Hunter)
+        </h2>
+        <p style="color: var(--text-sub); font-size: 0.95rem;">
+          Đề thi ETS luôn cài cắm các bẫy tâm lý quen thuộc. Hãy luyện tập nhận diện bẫy để biến điểm yếu thành phản xạ tự nhiên!
+        </p>
+      </div>
+
+      <div class="trap-hunter-grid">
+        ${categories.map(c => `
+          <div class="trap-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge-tag">${c.part}</span>
+              <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700;">${c.count} câu chuyên đề</span>
+            </div>
+            <h3 style="font-size: 1.1rem; font-weight: 700;">${c.title}</h3>
+            <p style="font-size: 0.85rem; color: var(--text-sub); line-height: 1.5;">${c.desc}</p>
+            <div class="trap-box" style="margin-top: auto;">
+              <strong style="color: var(--accent-amber);">💡 ${c.tip}</strong>
+            </div>
+            <button class="btn" style="margin-top: 0.5rem;" onclick="app.startTrapDrill('${c.key}')">🎯 Săn bẫy nhóm này</button>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  startTrapDrill(trapKey) {
+    let pool = [];
+    if (["sound", "repeated-word", "indirect"].includes(trapKey)) {
+      pool = QUESTIONS.filter(q => q.trapCategory === trapKey);
+    } else if (trapKey === "word-form") {
+      pool = QUESTIONS.filter(q => q.skillTags && q.skillTags.includes("word-form"));
+    } else if (trapKey === "paraphrase") {
+      QUESTIONS.filter(q => q.part === 7).forEach(p => {
+        p.questions.forEach(sub => {
+          pool.push({ ...sub, part: 7, passage: p.passage });
+        });
+      });
+    }
+
+    if (pool.length === 0) {
+      this.showToast("Đang cập nhật thêm câu hỏi cho nhóm bẫy này!");
+      return;
+    }
+
+    const stage = document.getElementById("stageContent");
+    this.activeQuiz = new QuizController(pool, {
+      title: `🏹 Chuyên đề Bẫy: ${trapKey.toUpperCase()}`,
+      isExamMode: false,
+      onComplete: () => {
+        app.navigate("traphunter");
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
+  // --- VOCABULARY ARENA ---
+  renderVocabArena(stage) {
+    if (this.vocabIndex >= VOCAB.length) this.vocabIndex = 0;
+    const v = VOCAB[this.vocabIndex];
+    const b1Count = this.state.progress.leitnerBoxes.b1.length;
+    const b2Count = this.state.progress.leitnerBoxes.b2.length;
+    const b3Count = this.state.progress.leitnerBoxes.b3.length;
+    const b4Count = this.state.progress.leitnerBoxes.b4.length;
+    const b5Count = this.state.progress.leitnerBoxes.b5.length;
+
+    stage.innerHTML = `
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800;">🧠 Đấu trường Từ vựng Leitner</h2>
+            <span style="font-size: 0.8rem; color: var(--text-sub);">Từ ${this.vocabIndex + 1} / ${VOCAB.length}</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary" onclick="app.setVocabMode('card')" style="${this.vocabStudyMode === 'card' ? 'border-color: var(--accent-cyan);' : ''}">🃏 Flashcard</button>
+            <button class="btn btn-secondary" onclick="app.setVocabMode('quiz')" style="${this.vocabStudyMode === 'quiz' ? 'border-color: var(--accent-cyan);' : ''}">🎯 Quiz</button>
+            <button class="btn btn-secondary" onclick="app.setVocabMode('type')" style="${this.vocabStudyMode === 'type' ? 'border-color: var(--accent-cyan);' : ''}">⌨️ Gõ từ</button>
+          </div>
+        </div>
+
+        <div class="leitner-boxes">
+          <div class="l-box">Hộp 1 (Hàng ngày)<br><strong>${b1Count}</strong></div>
+          <div class="l-box">Hộp 2 (3 ngày)<br><strong>${b2Count}</strong></div>
+          <div class="l-box">Hộp 3 (7 ngày)<br><strong>${b3Count}</strong></div>
+          <div class="l-box">Hộp 4 (14 ngày)<br><strong>${b4Count}</strong></div>
+          <div class="l-box">Hộp 5 (Thành thạo)<br><strong>${b5Count}</strong></div>
+        </div>
+      </div>
+
+      <div id="vocabArenaContent">
+        ${this.getVocabModeHTML(v)}
+      </div>
+    `;
+  }
+
+  setVocabMode(mode) {
+    this.vocabStudyMode = mode;
+    this.renderVocabArena(document.getElementById("stageContent"));
+  }
+
+  getVocabModeHTML(v) {
+    if (this.vocabStudyMode === "card") {
+      return `
+        <div class="flashcard" onclick="this.classList.toggle('flipped')" title="Bấm vào thẻ để lật">
+          <div class="flashcard-inner">
+            <div class="card-face card-front">
+              <span class="badge-tag" style="margin-bottom: 0.5rem;">${v.topic}</span>
+              <div class="word-title">${v.word}</div>
+              <div class="word-ipa">${v.ipa} • <em>${v.pos}</em></div>
+              <button class="icon-btn" onclick="event.stopPropagation(); app.speakWord('${v.word}')" title="Nghe phát âm">🔊</button>
+              <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1.5rem;">(Bấm vào thẻ để xem nghĩa & ví dụ)</span>
+            </div>
+            <div class="card-face card-back">
+              <div class="word-meaning">${v.meaning_vi}</div>
+              <div class="word-example">"${v.example}"</div>
+
+              <div style="font-size: 0.85rem; margin-top: 0.5rem;">
+                <strong>Collocations:</strong> ${v.collocations.join(", ")}
+              </div>
+              <div style="font-size: 0.85rem; margin-top: 0.35rem;">
+                <strong>Word Family:</strong> ${v.wordFamily.join(", ")}
+              </div>
+              ${v.confusableWith && v.confusableWith.length ? `
+                <div style="font-size: 0.85rem; margin-top: 0.35rem; color: var(--accent-amber);">
+                  <strong>Dễ nhầm với:</strong> ${v.confusableWith.join(", ")}
+                </div>
+              ` : ""}
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 1rem; gap: 0.75rem;">
+          <button class="btn btn-outline-danger" style="flex: 1;" onclick="app.gradeVocab('${v.word}', false)">❌ Chưa nhớ (Hộp 1)</button>
+          <button class="btn" style="flex: 1; background: var(--accent-green);" onclick="app.gradeVocab('${v.word}', true)">✅ Đã nhớ (Lên hộp)</button>
+        </div>
+      `;
+    } else if (this.vocabStudyMode === "quiz") {
+      // Multiple choice 4 options
+      const distractors = VOCAB.filter(item => item.word !== v.word).sort(() => 0.5 - Math.random()).slice(0, 3);
+      const choices = [v, ...distractors].sort(() => 0.5 - Math.random());
+      return `
+        <div class="card" style="padding: 2rem;">
+          <span class="badge-tag">${v.pos}</span>
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-cyan); margin: 0.5rem 0;">${v.word}</div>
+          <p style="color: var(--text-sub); margin-bottom: 1.25rem;">Chọn nghĩa tiếng Việt chính xác nhất của từ trên:</p>
+          <div class="choices-grid">
+            ${choices.map((c, i) => `
+              <div class="choice-item" onclick="app.handleVocabQuizChoice(this, ${c.word === v.word}, '${v.word}')">
+                <span class="key">${i + 1}</span>
+                <span>${c.meaning_vi}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    } else if (this.vocabStudyMode === "type") {
+      return `
+        <div class="card" style="padding: 2rem; text-align: center;">
+          <span class="badge-tag">${v.pos}</span>
+          <div style="font-size: 1.3rem; font-weight: 700; margin: 0.75rem 0;">"${v.meaning_vi}"</div>
+          <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 1.5rem;">Gợi ý: từ có <strong>${v.word.length}</strong> ký tự, bắt đầu bằng '<strong>${v.word[0]}</strong>'</p>
+          <div style="max-width: 320px; margin: 0 auto;">
+            <input type="text" id="typeInput" placeholder="Gõ từ tiếng Anh..." style="width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 1.1rem; text-align: center; margin-bottom: 1rem;" onkeydown="if(event.key==='Enter') app.checkVocabType('${v.word}')" autofocus>
+            <button class="btn" style="width: 100%;" onclick="app.checkVocabType('${v.word}')">Kiểm tra</button>
+          </div>
+          <div id="typeFeedback" style="margin-top: 1rem; font-weight: 600;"></div>
+        </div>
+      `;
+    }
+  }
+
+  speakWord(text) {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    } else {
+      this.showToast("Trình duyệt không hỗ trợ Web Speech API.");
+    }
+  }
+
+  gradeVocab(word, remembered) {
+    const boxes = this.state.progress.leitnerBoxes;
+    // Remove word from all boxes
+    for (let i = 1; i <= 5; i++) {
+      boxes[`b${i}`] = boxes[`b${i}`].filter(w => w !== word);
+    }
+
+    if (remembered) {
+      boxes.b3.push(word);
+      this.gainXP(5);
+      this.sound.playCorrect();
+    } else {
+      boxes.b1.push(word);
+      this.sound.playWrong();
+    }
+    this.saveState();
+    this.vocabIndex = (this.vocabIndex + 1) % VOCAB.length;
+    this.renderVocabArena(document.getElementById("stageContent"));
+  }
+
+  handleVocabQuizChoice(elem, isCorrect, word) {
+    if (isCorrect) {
+      elem.classList.add("correct");
+      this.sound.playCorrect();
+      this.gainXP(8);
+      setTimeout(() => {
+        this.gradeVocab(word, true);
+      }, 700);
+    } else {
+      elem.classList.add("wrong");
+      this.sound.playWrong();
+      setTimeout(() => {
+        this.gradeVocab(word, false);
+      }, 900);
+    }
+  }
+
+  checkVocabType(word) {
+    const inp = document.getElementById("typeInput");
+    const fb = document.getElementById("typeFeedback");
+    if (!inp) return;
+    const val = inp.value.trim().toLowerCase();
+    if (val === word.toLowerCase()) {
+      fb.innerHTML = `<span style="color: var(--accent-green);">Chính xác! (${word})</span>`;
+      this.sound.playCorrect();
+      this.gainXP(10);
+      setTimeout(() => {
+        this.gradeVocab(word, true);
+      }, 800);
+    } else {
+      fb.innerHTML = `<span style="color: var(--accent-rose);">Sai rồi! Đáp án đúng là: <strong>${word}</strong></span>`;
+      this.sound.playWrong();
+      setTimeout(() => {
+        this.gradeVocab(word, false);
+      }, 1500);
+    }
+  }
+
+  // --- ERROR NOTEBOOK ---
+  renderErrorNotebook(stage) {
+    const completed = this.state.progress.completedQuestions;
+    const wrongQids = Object.keys(completed).filter(id => completed[id].timesWrong > 0);
+
+    const wrongList = [];
+    wrongQids.forEach(qid => {
+      let found = QUESTIONS.find(q => q.id === qid);
+      if (found) {
+        wrongList.push({ ...found, stat: completed[qid] });
+      } else {
+        QUESTIONS.forEach(item => {
+          if (item.part === 7 && item.questions) {
+            const sub = item.questions.find(sq => sq.id === qid);
+            if (sub) wrongList.push({ ...sub, part: 7, passage: item.passage, stat: completed[qid] });
+          }
+        });
+      }
+    });
+
+    stage.innerHTML = `
+      <div class="card">
+        <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">📕 Sổ tay lỗi sai (Error Notebook)</h2>
+        <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 1.25rem;">
+          Hệ thống tự động ghi nhận các câu bạn từng làm sai để ôn tập lại định kỳ theo chu kỳ Spaced Repetition (1 - 3 - 7 - 14 ngày).
+        </p>
+        ${wrongList.length > 0 ? `
+          <button class="btn" style="margin-bottom: 1.25rem;" onclick="app.practiceErrors()">🔄 Luyện tập lại toàn bộ nhóm lỗi này (${wrongList.length} câu)</button>
+        ` : ""}
+      </div>
+
+      <div>
+        ${wrongList.length === 0 ? `
+          <div class="card" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+            ✨ Thật tuyệt vời! Bạn chưa có câu hỏi nào bị ghi vào sổ tay lỗi sai. Hãy tiếp tục giữ vững phong độ!
+          </div>
+        ` : wrongList.map(item => `
+          <div class="error-item">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="badge-tag">Part ${item.part} • ${item.topic || 'General'}</span>
+              <span style="font-size: 0.75rem; color: var(--accent-rose); font-weight: 700;">Sai ${item.stat.timesWrong} lần</span>
+            </div>
+            <div style="font-weight: 600; font-size: 1rem;">${item.stem}</div>
+            <div style="font-size: 0.85rem; color: var(--text-sub);">
+              <strong>Giải thích:</strong> ${item.explanation_vi || 'Xem chi tiết trong mục luyện tập'}
+            </div>
+            ${item.trap ? `
+              <div style="font-size: 0.8rem; color: var(--accent-amber);">
+                <strong>Cảnh báo bẫy:</strong> ${item.trap}
+              </div>
+            ` : ""}
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  practiceErrors() {
+    const completed = this.state.progress.completedQuestions;
+    const wrongQids = Object.keys(completed).filter(id => completed[id].timesWrong > 0);
+    const pool = [];
+    wrongQids.forEach(qid => {
+      let found = QUESTIONS.find(q => q.id === qid);
+      if (found) pool.push(found);
+      else {
+        QUESTIONS.forEach(item => {
+          if (item.part === 7 && item.questions) {
+            const sub = item.questions.find(sq => sq.id === qid);
+            if (sub) pool.push({ ...sub, part: 7, passage: item.passage });
+          }
+        });
+      }
+    });
+
+    if (pool.length === 0) return;
+    const stage = document.getElementById("stageContent");
+    this.activeQuiz = new QuizController(pool, {
+      title: "🔄 Ôn tập Sổ tay lỗi sai",
+      isExamMode: false,
+      onComplete: () => {
+        app.navigate("errors");
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
+  // --- SETTINGS & BACKUP MODAL ---
+  openSettings() {
+    const slot = document.getElementById("modalSlot");
+    slot.hidden = false;
+    slot.innerHTML = `
+      <div class="modal-overlay" onclick="if(event.target===this) app.closeModal()">
+        <div class="modal-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.15rem; font-weight: 700;">⚙️ Cài đặt & Sao lưu dữ liệu</h3>
+            <button class="icon-btn" onclick="app.closeModal()">✕</button>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem;">Tên học viên:</label>
+              <input type="text" id="settingName" value="${this.state.user.name}" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
+            </div>
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem;">Mục tiêu TOEIC:</label>
+              <input type="number" id="settingTarget" value="750" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+              <button class="btn" style="flex: 1;" onclick="app.exportData()">📤 Xuất file Backup JSON</button>
+              <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('importFileInp').click()">📥 Nhập Backup JSON</button>
+              <input type="file" id="importFileInp" accept=".json" style="display: none;" onchange="app.importData(event)">
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+            <button class="btn btn-outline-danger" onclick="app.resetAllData()">⚠️ Xóa dữ liệu và làm lại từ đầu</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  closeModal() {
+    const slot = document.getElementById("modalSlot");
+    slot.hidden = true;
+    slot.innerHTML = "";
+  }
+
+  exportData() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.state, null, 2));
+    const dlAnchor = document.createElement("a");
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", `TOEIC_Quest_Backup_${new Date().toISOString().split("T")[0]}.json`);
+    dlAnchor.click();
+    dlAnchor.remove();
+    this.showToast("Đã xuất bản sao lưu thành công!");
+  }
+
+  importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (imported.user && imported.progress) {
+          this.state = imported;
+          this.saveState();
+          this.closeModal();
+          this.init();
+          this.showToast("Đã nhập dữ liệu thành công!");
+        } else {
+          alert("File JSON không hợp lệ.");
+        }
+      } catch (err) {
+        alert("Lỗi khi đọc file JSON: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  resetAllData() {
+    if (confirm("Bạn có chắc chắn muốn xóa toàn bộ lịch sử điểm và từ vựng không? Hành động này không thể hoàn tác.")) {
+      localStorage.removeItem(STORAGE_KEY);
+      this.state = this.loadState();
+      this.saveState();
+      this.closeModal();
+      this.init();
+      this.showToast("Đã khôi phục dữ liệu ban đầu.");
+    }
+  }
+
+  flagQuestion(qid) {
+    if (!this.state.progress.flaggedQuestions.includes(qid)) {
+      this.state.progress.flaggedQuestions.push(qid);
+      this.saveState();
+      this.showToast(`Đã đánh dấu câu ${qid} để kiểm tra.`);
+    }
+  }
+
+  // --- BOSS LEVEL ENGINE & PROMOTION ---
+  promoteCyberRole() {
+    const roles = ["Intern", "Junior Analyst", "Senior Specialist", "Team Lead", "CISO"];
+    const currentBase = this.state.user.role.replace(" (Master)", "");
+    const currentIdx = roles.indexOf(currentBase);
+    let nextRole = "CISO (Master)";
+    if (currentIdx !== -1 && currentIdx < roles.length - 1) {
+      nextRole = roles[currentIdx + 1];
+    }
+    this.state.user.role = nextRole;
+    this.state.user.level += 2;
+    this.state.progress.bossStats = this.state.progress.bossStats || { bossDefeated: 0, lastDefeatedDate: "", highestTitleEarned: "Intern" };
+    this.state.progress.bossStats.bossDefeated += 1;
+    this.state.progress.bossStats.lastDefeatedDate = new Date().toISOString().split("T")[0];
+    this.state.progress.bossStats.highestTitleEarned = nextRole;
+    this.saveState();
+    this.updateHeaderUI();
+    return nextRole;
+  }
+
+  renderBossArena(stage) {
+    const roles = ["Intern", "Junior Analyst", "Senior Specialist", "Team Lead", "CISO"];
+    const currentBase = this.state.user.role.replace(" (Master)", "");
+    const currentIdx = roles.indexOf(currentBase);
+    const nextRole = (currentIdx !== -1 && currentIdx < roles.length - 1) ? roles[currentIdx + 1] : "CISO (Honorary Master)";
+    const bossCount = this.state.progress.bossStats ? this.state.progress.bossStats.bossDefeated : 0;
+
+    stage.innerHTML = `
+      <div class="boss-arena">
+        <div class="boss-header-bar">
+          <div class="boss-profile">
+            <!-- Boss Avatar SVG: Zero-Day Shadow Titan -->
+            <svg class="boss-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="titanGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#881337" stop-opacity="0.2"/>
+                </radialGradient>
+              </defs>
+              <polygon points="50,5 92,28 92,72 50,95 8,72 8,28" fill="url(#titanGlow)" stroke="#f43f5e" stroke-width="3"/>
+              <!-- Cyber Skull Face -->
+              <path d="M28,35 C28,25 72,25 72,35 C72,55 65,65 58,68 L58,78 L42,78 L42,68 C35,65 28,55 28,35 Z" fill="#0f172a" stroke="#f43f5e" stroke-width="2"/>
+              <!-- Glowing Red Eyes -->
+              <circle cx="40" cy="42" r="5" fill="#f43f5e"/>
+              <circle cx="40" cy="42" r="2" fill="#fff"/>
+              <circle cx="60" cy="42" r="5" fill="#f43f5e"/>
+              <circle cx="60" cy="42" r="2" fill="#fff"/>
+              <!-- Cyber Circuit lines -->
+              <line x1="20" y1="50" x2="30" y2="50" stroke="#f43f5e" stroke-width="2"/>
+              <line x1="70" y1="50" x2="80" y2="50" stroke="#f43f5e" stroke-width="2"/>
+              <line x1="50" y1="78" x2="50" y2="90" stroke="#f43f5e" stroke-width="2"/>
+              <!-- Teeth / Grid -->
+              <line x1="45" y1="72" x2="55" y2="72" stroke="#f43f5e" stroke-width="2"/>
+              <line x1="47" y1="68" x2="47" y2="76" stroke="#f43f5e" stroke-width="1.5"/>
+              <line x1="53" y1="68" x2="53" y2="76" stroke="#f43f5e" stroke-width="1.5"/>
+            </svg>
+            <div>
+              <span class="badge-tag" style="background: rgba(244, 63, 94, 0.2); border-color: var(--accent-rose); color: var(--accent-rose);">
+                🚨 MÃ NGUY HIỂM: APT-404 ZERO-DAY
+              </span>
+              <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0.2rem 0;">
+                SHADOW TITAN: ZERO-DAY RANSOMWARE
+              </h2>
+              <span style="font-size: 0.85rem; color: var(--text-sub);">
+                Mục tiêu đe dọa: Xuyên thủng mạng lõi tập đoàn HexaTech & mã hóa máy chủ SQL
+              </span>
+            </div>
+          </div>
+
+          <div style="text-align: right;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">CHIẾN TÍCH BOSS</span>
+            <span style="font-size: 1.6rem; font-weight: 900; color: var(--accent-amber);">${bossCount}</span>
+            <span style="font-size: 0.8rem; color: var(--text-sub); display: block;">lần tiêu diệt</span>
+          </div>
+        </div>
+
+        <div class="card" style="line-height: 1.6; font-size: 0.95rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">
+            📜 BẢN ĐẶC TẢ TÌNH BÁO SỰ CỐ (INCIDENT RESPONSE BRIEFING)
+          </h3>
+          <p style="margin-bottom: 0.8rem;">
+            Một cuộc tấn công có chủ đích quy mô lớn (APT) đang phát tán mã độc tống tiền thông qua lỗ hổng bảo mật zero-day. Đội ngũ SOC cần bạn trực tiếp chỉ huy phản kích bằng kiến thức tiếng Anh chuyên sâu và phản xạ nhận diện bẫy!
+          </p>
+
+          <div style="background: var(--bg-card); border-left: 4px solid var(--accent-amber); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1rem;">
+            <strong style="color: var(--accent-amber);">⚔️ QUY TẮC CHIẾN ĐẤU (COMBAT RULES):</strong>
+            <ul style="margin-left: 1.25rem; margin-top: 0.35rem; font-size: 0.9rem;">
+              <li><strong>Thời gian giới hạn:</strong> 20 phút để hoàn thành 25 câu hỏi tổng hợp khó (Level 4–5).</li>
+              <li><strong>Sát thương lên Boss:</strong> Mỗi câu đúng trừ <strong>100 HP</strong> (Combo đúng liên tiếp x2, x3 trừ <strong>150 HP</strong>!).</li>
+              <li><strong>Tường lửa bị xuyên thủng:</strong> Mỗi câu sai khiến <em>System Integrity</em> giảm <strong>10%</strong>. Về 0% là thất bại!</li>
+              <li><strong>Điều kiện Thắng & Thăng chức:</strong> Tiêu diệt Boss (hạ HP về 0) hoặc kết thúc 25 câu với độ chính xác &ge; 72%.</li>
+            </ul>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; background: var(--bg-card); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">CẤP BẬC HIỆN TẠI:</span>
+              <div style="font-weight: 800; color: var(--accent-cyan); font-size: 1.1rem;">${this.state.user.role}</div>
+            </div>
+            <div style="font-size: 1.5rem; color: var(--accent-amber);">➔</div>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">CẤP BẬC SẼ ĐƯỢC THĂNG CHỨC:</span>
+              <div style="font-weight: 800; color: var(--accent-green); font-size: 1.1rem;">${nextRole} 🎖️</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 0.5rem;">
+          <button class="btn" style="background: linear-gradient(135deg, #e11d48, #be123c); padding: 0.9rem 2.5rem; font-size: 1.1rem; box-shadow: 0 0 20px rgba(225, 29, 72, 0.4);" onclick="app.launchBossBattle()">
+            ⚔️ KÍCH HOẠT QUY TRÌNH ỨNG CỨU (BẮT ĐẦU CHIẾN BOSS)
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  launchBossBattle() {
+    const stage = document.getElementById("stageContent");
+    const flatList = [];
+    QUESTIONS.forEach(q => {
+      if (q.part === 7 && q.questions) {
+        q.questions.forEach(sub => {
+          flatList.push({ ...sub, part: 7, passage: q.passage, level: q.level || 4 });
+        });
+      } else {
+        flatList.push(q);
+      }
+    });
+
+    const hardPool = flatList.filter(q => (q.level || 3) >= 4);
+    const midPool = flatList.filter(q => (q.level || 3) === 3);
+    const combined = [...hardPool.sort(() => 0.5 - Math.random()), ...midPool.sort(() => 0.5 - Math.random())];
+    const bossQuestions = combined.slice(0, 25);
+
+    this.activeQuiz = new BossBattleController(bossQuestions, {
+      onComplete: () => {}
+    });
+    this.activeQuiz.render(stage);
+  }
+}
+
+/**
+ * =====================================================================
+ * QUIZ CONTROLLER (Adaptive Engine, Timer, Explanation, Feedback)
+ * =====================================================================
+ */
+class QuizController {
+  constructor(questions, options = {}) {
+    this.questions = questions;
+    this.title = options.title || "Luyện thi TOEIC";
+    this.isExamMode = !!options.isExamMode;
+    this.timeLimitSeconds = (options.timeLimitMinutes || 10) * 60;
+    this.onComplete = options.onComplete || (() => {});
+
+    this.currentIndex = 0;
+    this.selectedIndex = null;
+    this.isAnswered = false;
+    this.score = 0;
+    this.isDone = false;
+    this.timerInterval = null;
+    this.secondsRemaining = this.timeLimitSeconds;
+    this.isPlayingAudio = false;
+  }
+
+  render(container) {
+    this.container = container;
+    if (this.isExamMode) this.startTimer();
+    this.renderCurrentQuestion();
+  }
+
+  startTimer() {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    this.timerInterval = setInterval(() => {
+      this.secondsRemaining -= 1;
+      const el = document.getElementById("quizTimer");
+      if (el) {
+        const m = Math.floor(this.secondsRemaining / 60);
+        const s = this.secondsRemaining % 60;
+        el.textContent = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+      }
+      if (this.secondsRemaining <= 0) {
+        clearInterval(this.timerInterval);
+        this.finishQuiz();
+      }
+    }, 1000);
+  }
+
+  stopAudio() {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    this.isPlayingAudio = false;
+    this.updateAudioIndicator(false);
+  }
+
+  updateAudioIndicator(isPlaying) {
+    this.isPlayingAudio = isPlaying;
+    const ind = document.getElementById("audioPlayingInd");
+    const btn = document.getElementById("playAudioBtn");
+    if (ind) ind.hidden = !isPlaying;
+    if (btn) btn.innerHTML = isPlaying ? "⏸️ Dừng âm thanh" : "🔊 Nghe lại (Phím Space)";
+  }
+
+  playCurrentAudio() {
+    const q = this.questions[this.currentIndex];
+    if (!q || (q.part !== 1 && q.part !== 2)) return;
+
+    if (!("speechSynthesis" in window)) {
+      app.showToast("Trình duyệt không hỗ trợ Web Speech API.");
+      return;
+    }
+
+    if (this.isPlayingAudio) {
+      this.stopAudio();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    // Prepare speech script
+    let fullScript = "";
+    if (q.part === 1) {
+      fullScript = `Statement A. ${q.choices[0]}. Statement B. ${q.choices[1]}. Statement C. ${q.choices[2]}. Statement D. ${q.choices[3]}.`;
+    } else if (q.part === 2) {
+      fullScript = `${q.stem}. Number A. ${q.choices[0]}. Number B. ${q.choices[1]}. Number C. ${q.choices[2]}.`;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(fullScript);
+    utterance.rate = app.state.user.speechRate || 1.0;
+    utterance.lang = app.state.user.speechVoice || "en-US";
+
+    // Try finding matching voice
+    const voices = window.speechSynthesis.getVoices();
+    const matchedVoice = voices.find(v => v.lang.startsWith(utterance.lang.substring(0, 2)));
+    if (matchedVoice) utterance.voice = matchedVoice;
+
+    utterance.onstart = () => {
+      this.updateAudioIndicator(true);
+    };
+    utterance.onend = () => {
+      this.updateAudioIndicator(false);
+    };
+    utterance.onerror = () => {
+      this.updateAudioIndicator(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  setSpeechRate(rate) {
+    app.state.user.speechRate = parseFloat(rate);
+    app.saveState();
+    if (this.isPlayingAudio) {
+      this.stopAudio();
+      this.playCurrentAudio();
+    }
+  }
+
+  setSpeechVoice(voice) {
+    app.state.user.speechVoice = voice;
+    app.saveState();
+    if (this.isPlayingAudio) {
+      this.stopAudio();
+      this.playCurrentAudio();
+    }
+  }
+
+  renderCurrentQuestion() {
+    this.stopAudio();
+
+    if (this.currentIndex >= this.questions.length) {
+      this.finishQuiz();
+      return;
+    }
+
+    const q = this.questions[this.currentIndex];
+    this.selectedIndex = null;
+    this.isAnswered = false;
+    const isListening = q.part === 1 || q.part === 2;
+
+    this.container.innerHTML = `
+      <div class="quiz-container">
+        <div class="quiz-meta-bar">
+          <div>
+            <strong>${this.title}</strong>
+            <span style="color: var(--text-muted); font-size: 0.85rem; margin-left: 0.5rem;">
+              Câu ${this.currentIndex + 1} / ${this.questions.length}
+            </span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            ${this.isExamMode ? `<span class="timer-badge" id="quizTimer">--:--</span>` : ""}
+            <span class="badge-tag">Part ${q.part}</span>
+            <span class="badge-tag">Độ khó: ${q.level || 3}/5</span>
+            <button class="icon-btn" onclick="app.flagQuestion('${q.id}')" title="Báo lỗi câu này" style="width: 30px; height: 30px; font-size: 0.75rem;">🚩</button>
+          </div>
+        </div>
+
+        ${q.svgArt ? `
+          <div class="svg-illustration-box">
+            ${q.svgArt}
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+              📸 Hình minh họa Part 1 (SVG Vector). Trong đề thi ETS thật, quan sát tranh để dự đoán hành động & vật thể.
+            </span>
+          </div>
+        ` : ""}
+
+        ${isListening ? `
+          <div class="audio-control-bar">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <button class="btn" id="playAudioBtn" onclick="app.activeQuiz.playCurrentAudio()">
+                🔊 Nghe câu hỏi & đáp án (Space)
+              </button>
+              <div id="audioPlayingInd" class="audio-playing-indicator" hidden>
+                <div class="sound-wave-bar"></div>
+                <div class="sound-wave-bar"></div>
+                <div class="sound-wave-bar"></div>
+                <span>Đang phát loa...</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem;">
+              <label style="color: var(--text-sub);">Tốc độ:</label>
+              <select onchange="app.activeQuiz.setSpeechRate(this.value)" style="background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.25rem 0.5rem; border-radius: 6px;">
+                <option value="0.8" ${app.state.user.speechRate === 0.8 ? 'selected' : ''}>0.8x (Chậm)</option>
+                <option value="1.0" ${app.state.user.speechRate === 1.0 ? 'selected' : ''}>1.0x (Chuẩn ETS)</option>
+                <option value="1.2" ${app.state.user.speechRate === 1.2 ? 'selected' : ''}>1.2x (Nhanh)</option>
+              </select>
+
+              <label style="color: var(--text-sub); margin-left: 0.4rem;">Giọng:</label>
+              <select onchange="app.activeQuiz.setSpeechVoice(this.value)" style="background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.25rem 0.5rem; border-radius: 6px;">
+                <option value="en-US" ${app.state.user.speechVoice === 'en-US' ? 'selected' : ''}>Mỹ (en-US)</option>
+                <option value="en-GB" ${app.state.user.speechVoice === 'en-GB' ? 'selected' : ''}>Anh (en-GB)</option>
+                <option value="en-AU" ${app.state.user.speechVoice === 'en-AU' ? 'selected' : ''}>Úc (en-AU)</option>
+              </select>
+            </div>
+          </div>
+        ` : ""}
+
+        ${q.passage ? `
+          <div class="passage-box">${q.passage}</div>
+        ` : ""}
+
+        <div class="card">
+          <div class="question-stem" id="stemElem">
+            ${isListening && q.part === 2 ? '<em>"Nghe câu hỏi trong đoạn băng và chọn phương án phản hồi thích hợp nhất"</em>' : q.stem}
+          </div>
+          <div class="choices-grid" style="margin-top: 1.25rem;">
+            ${q.choices.map((c, i) => `
+              <div class="choice-item" data-idx="${i}" onclick="app.activeQuiz.handleSelectChoice(${i})">
+                <span class="key">${["A", "B", "C", "D"][i]}</span>
+                <span class="choice-text">
+                  ${isListening ? `<span style="color: var(--text-muted); font-style: italic;">(${["A", "B", "C", "D"][i]}) [Nghe qua âm thanh]</span>` : c}
+                </span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div id="feedbackSlot"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Phím tắt: 1-${q.choices.length} (chọn đáp án), Space (nghe lại), Enter (tiếp tục)
+          </span>
+          <button class="btn" id="nextBtn" onclick="app.activeQuiz.handleNext()" ${this.isExamMode ? "" : "disabled"}>
+            ${this.currentIndex === this.questions.length - 1 ? "Hoàn thành" : "Câu tiếp theo →"}
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Auto-play audio on question load for listening parts if sound enabled
+    if (isListening && app.state.user.soundEnabled) {
+      setTimeout(() => {
+        this.playCurrentAudio();
+      }, 400);
+    }
+  }
+
+  handleSelectChoice(idx) {
+    if (this.isAnswered && !this.isExamMode) return;
+    this.selectedIndex = idx;
+    const items = this.container.querySelectorAll(".choice-item");
+    items.forEach((item, i) => {
+      item.classList.toggle("selected", i === idx);
+    });
+
+    if (!this.isExamMode) {
+      this.evaluateAnswer(idx);
+    }
+  }
+
+  evaluateAnswer(userChoiceIdx) {
+    this.stopAudio();
+    this.isAnswered = true;
+    const q = this.questions[this.currentIndex];
+    const isCorrect = userChoiceIdx === q.answer;
+    const items = this.container.querySelectorAll(".choice-item");
+
+    // Reveal choices text for Listening parts
+    items.forEach((item, i) => {
+      const textElem = item.querySelector(".choice-text");
+      if (textElem) textElem.textContent = q.choices[i];
+
+      if (i === q.answer) item.classList.add("correct");
+      else if (i === userChoiceIdx) item.classList.add("wrong");
+    });
+
+    // Record Stats & Adaptive State
+    const comp = app.state.progress.completedQuestions[q.id] || { timesWrong: 0, timesCorrect: 0 };
+    if (isCorrect) {
+      comp.timesCorrect += 1;
+      this.score += 1;
+      app.sound.playCorrect();
+      app.gainXP(15);
+      app.state.adaptive.consecutiveCorrect += 1;
+      app.state.adaptive.consecutiveWrong = 0;
+      if (app.state.adaptive.consecutiveCorrect >= 3) {
+        app.state.adaptive.currentDifficulty = Math.min(5, app.state.adaptive.currentDifficulty + 1);
+        app.state.adaptive.consecutiveCorrect = 0;
+      }
+    } else {
+      comp.timesWrong += 1;
+      app.sound.playWrong();
+      app.state.adaptive.consecutiveWrong += 1;
+      app.state.adaptive.consecutiveCorrect = 0;
+      if (app.state.adaptive.consecutiveWrong >= 2) {
+        app.state.adaptive.currentDifficulty = Math.max(1, app.state.adaptive.currentDifficulty - 1);
+        app.state.adaptive.consecutiveWrong = 0;
+      }
+    }
+    app.state.progress.completedQuestions[q.id] = comp;
+
+    // Track Part stats
+    const partKey = `p${q.part}`;
+    if (app.state.progress.partStats[partKey]) {
+      app.state.progress.partStats[partKey].total += 1;
+      if (isCorrect) app.state.progress.partStats[partKey].correct += 1;
+    }
+    app.saveState();
+
+    // Show Explanation & Transcript
+    const feedback = document.getElementById("feedbackSlot");
+    if (feedback) {
+      feedback.innerHTML = `
+        <div class="explanation-panel" style="${isCorrect ? '' : 'border-top-color: var(--accent-rose);'}">
+          <div style="font-weight: 700; color: ${isCorrect ? 'var(--accent-green)' : 'var(--accent-rose)'}; font-size: 1.05rem;">
+            ${isCorrect ? '🎉 Chính xác!' : '❌ Chưa chính xác!'} (Đáp án đúng: ${['A','B','C','D'][q.answer]})
+          </div>
+
+          ${q.transcript ? `
+            <div class="transcript-box">
+              <strong style="color: var(--accent-amber); display: block; margin-bottom: 0.35rem;">📜 Audio Transcript:</strong>
+              <div style="white-space: pre-line;">${this.formatTranscript(q.transcript, q.answer)}</div>
+            </div>
+          ` : ''}
+
+          <div style="font-size: 0.95rem; line-height: 1.6; margin-top: 0.5rem;">
+            <strong>Giải thích:</strong> ${q.explanation_vi || 'Đáp án chính xác theo ngữ cảnh câu.'}
+          </div>
+
+          ${q.trap ? `
+            <div class="trap-box">
+              <strong>⚠️ Phân tích bẫy TOEIC:</strong> ${q.trap}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    const nextBtn = document.getElementById("nextBtn");
+    if (nextBtn) nextBtn.disabled = false;
+  }
+
+  formatTranscript(rawTranscript, answerIdx) {
+    const lines = rawTranscript.split("\n");
+    const optKeys = ["(A)", "(B)", "(C)", "(D)"];
+    return lines.map(line => {
+      if (optKeys[answerIdx] && line.includes(optKeys[answerIdx])) {
+        return `<mark>${line}</mark>`;
+      }
+      return line;
+    }).join("\n");
+  }
+
+  handleNext() {
+    this.stopAudio();
+    if (this.isExamMode) {
+      const q = this.questions[this.currentIndex];
+      const isCorrect = this.selectedIndex === q.answer;
+      if (isCorrect) this.score += 1;
+
+      const partKey = `p${q.part}`;
+      if (app.state.progress.partStats[partKey]) {
+        app.state.progress.partStats[partKey].total += 1;
+        if (isCorrect) app.state.progress.partStats[partKey].correct += 1;
+      }
+    }
+
+    this.currentIndex += 1;
+    this.renderCurrentQuestion();
+  }
+
+  finishQuiz() {
+    this.stopAudio();
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    this.isDone = true;
+    this.onComplete({
+      score: this.score,
+      total: this.questions.length
+    });
+  }
+}
+
+/**
+ * =====================================================================
+ * BOSS BATTLE CONTROLLER (Cyber Incident Combat Engine)
+ * =====================================================================
+ */
+class BossBattleController {
+  constructor(questions, options = {}) {
+    this.questions = questions;
+    this.bossMaxHP = 2500;
+    this.bossHP = 2500;
+    this.playerIntegrity = 100;
+    this.currentIndex = 0;
+    this.selectedIndex = null;
+    this.isAnswered = false;
+    this.score = 0;
+    this.consecutiveCombo = 0;
+    this.isDone = false;
+    this.timerInterval = null;
+    this.secondsRemaining = 20 * 60; // 20 minutes
+    this.isPlayingAudio = false;
+    this.onComplete = options.onComplete || (() => {});
+  }
+
+  render(container) {
+    this.container = container;
+    this.startTimer();
+    this.renderCurrentQuestion();
+  }
+
+  startTimer() {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    this.timerInterval = setInterval(() => {
+      this.secondsRemaining -= 1;
+      const el = document.getElementById("bossTimer");
+      if (el) {
+        const m = Math.floor(this.secondsRemaining / 60);
+        const s = this.secondsRemaining % 60;
+        el.textContent = `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+        if (this.secondsRemaining < 180) {
+          el.style.color = "var(--accent-rose)";
+          el.style.animation = "pulse 1s infinite";
+        }
+      }
+      if (this.secondsRemaining <= 0) {
+        clearInterval(this.timerInterval);
+        this.renderDefeat("Hết thời gian ứng cứu! Mã độc đã mã hóa toàn bộ cơ sở dữ liệu.");
+      }
+    }, 1000);
+  }
+
+  stopAudio() {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    this.isPlayingAudio = false;
+  }
+
+  renderCurrentQuestion() {
+    this.stopAudio();
+
+    if (this.bossHP <= 0) {
+      this.renderVictory();
+      return;
+    }
+    if (this.playerIntegrity <= 0) {
+      this.renderDefeat("Tường lửa bị xuyên thủng! Tính toàn vẹn hệ thống giảm về 0%.");
+      return;
+    }
+    if (this.currentIndex >= this.questions.length) {
+      if (this.score >= 18 || this.bossHP <= 400) {
+        this.renderVictory();
+      } else {
+        this.renderDefeat(`Bạn chỉ trả lời đúng ${this.score}/25 câu (Cần tối thiểu 18 câu để dập tắt sự cố).`);
+      }
+      return;
+    }
+
+    const q = this.questions[this.currentIndex];
+    this.selectedIndex = null;
+    this.isAnswered = false;
+    const isListening = q.part === 1 || q.part === 2;
+
+    const bossPercent = Math.max(0, Math.round((this.bossHP / this.bossMaxHP) * 100));
+
+    this.container.innerHTML = `
+      <div class="boss-arena">
+        <!-- Boss Battle HUD Header -->
+        <div class="boss-header-bar">
+          <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <div style="font-size: 2rem;">👾</div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--accent-rose); font-weight: 800; letter-spacing: 1px;">
+                MỤC TIÊU: SHADOW TITAN (ZERO-DAY APT)
+              </div>
+              <div style="font-size: 1.15rem; font-weight: 800;">
+                Câu ${this.currentIndex + 1} / ${this.questions.length} • Level ${q.level || 4}
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            ${this.consecutiveCombo >= 2 ? `
+              <span class="badge-tag" style="background: rgba(245, 158, 11, 0.2); border-color: var(--accent-amber); color: var(--accent-amber); font-weight: 800; animation: pulse 1s infinite;">
+                🔥 COMBO x${this.consecutiveCombo} (+50 DMG)
+              </span>
+            ` : ""}
+            <div style="font-family: monospace; font-size: 1.3rem; font-weight: 800; color: var(--accent-amber);" id="bossTimer">
+              20:00
+            </div>
+          </div>
+        </div>
+
+        <!-- Meters: Boss HP & Player System Integrity -->
+        <div class="boss-meters-grid" style="background: var(--bg-card); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+          <div class="meter-box">
+            <div class="meter-label-row">
+              <span style="color: var(--accent-rose);">👾 Boss HP: ${this.bossHP} / ${this.bossMaxHP}</span>
+              <span>${bossPercent}%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill boss-hp-bar" style="width: ${bossPercent}%;"></div>
+            </div>
+          </div>
+
+          <div class="meter-box">
+            <div class="meter-label-row">
+              <span style="color: var(--accent-green);">🛡️ System Integrity: ${this.playerIntegrity}%</span>
+              <span>${this.playerIntegrity}%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill player-integrity-bar" style="width: ${this.playerIntegrity}%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="combatLogSlot"></div>
+
+        ${q.svgArt ? `
+          <div class="svg-illustration-box">
+            ${q.svgArt}
+          </div>
+        ` : ""}
+
+        ${isListening ? `
+          <div class="audio-control-bar">
+            <button class="btn" onclick="app.activeQuiz.playCurrentAudio()">🔊 Nghe âm thanh (Phím Space)</button>
+            <span style="font-size: 0.85rem; color: var(--text-sub);">Nghe và phản xạ chọn đáp án để phòng thủ!</span>
+          </div>
+        ` : ""}
+
+        ${q.passage ? `
+          <div class="passage-box">${q.passage}</div>
+        ` : ""}
+
+        <div class="card">
+          <div class="question-stem" id="stemElem">
+            ${isListening && q.part === 2 ? '<em>"Nghe câu hỏi và chọn phản hồi đúng nhất"</em>' : q.stem}
+          </div>
+          <div class="choices-grid" style="margin-top: 1.25rem;">
+            ${q.choices.map((c, i) => `
+              <div class="choice-item" data-idx="${i}" onclick="app.activeQuiz.handleSelectChoice(${i})">
+                <span class="key">${["A", "B", "C", "D"][i]}</span>
+                <span class="choice-text">
+                  ${isListening ? `<span style="color: var(--text-muted); font-style: italic;">(${["A", "B", "C", "D"][i]}) [Nghe qua âm thanh]</span>` : c}
+                </span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div id="feedbackSlot"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Phím tắt: 1-${q.choices.length} (chọn đáp án), Enter (tiếp tục)
+          </span>
+          <button class="btn" id="nextBtn" onclick="app.activeQuiz.handleNext()" disabled>
+            ${this.currentIndex === this.questions.length - 1 ? "Tổng kết chiến dịch ➔" : "Khai hỏa câu tiếp theo →"}
+          </button>
+        </div>
+      </div>
+    `;
+
+    if (isListening && app.state.user.soundEnabled) {
+      setTimeout(() => this.playCurrentAudio(), 400);
+    }
+  }
+
+  playCurrentAudio() {
+    const q = this.questions[this.currentIndex];
+    if (!q || (q.part !== 1 && q.part !== 2)) return;
+
+    if (!("speechSynthesis" in window)) {
+      app.showToast("Trình duyệt không hỗ trợ Web Speech API.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    let fullScript = "";
+    if (q.part === 1) {
+      fullScript = `Statement A. ${q.choices[0]}. Statement B. ${q.choices[1]}. Statement C. ${q.choices[2]}. Statement D. ${q.choices[3]}.`;
+    } else if (q.part === 2) {
+      fullScript = `${q.stem}. Number A. ${q.choices[0]}. Number B. ${q.choices[1]}. Number C. ${q.choices[2]}.`;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(fullScript);
+    utterance.rate = app.state.user.speechRate || 1.0;
+    utterance.lang = app.state.user.speechVoice || "en-US";
+    window.speechSynthesis.speak(utterance);
+  }
+
+  handleSelectChoice(idx) {
+    if (this.isAnswered) return;
+    this.selectedIndex = idx;
+    const items = this.container.querySelectorAll(".choice-item");
+    items.forEach((item, i) => {
+      item.classList.toggle("selected", i === idx);
+    });
+    this.evaluateAnswer(idx);
+  }
+
+  evaluateAnswer(userChoiceIdx) {
+    this.stopAudio();
+    this.isAnswered = true;
+    const q = this.questions[this.currentIndex];
+    const isCorrect = userChoiceIdx === q.answer;
+    const items = this.container.querySelectorAll(".choice-item");
+
+    items.forEach((item, i) => {
+      const textElem = item.querySelector(".choice-text");
+      if (textElem) textElem.textContent = q.choices[i];
+
+      if (i === q.answer) item.classList.add("correct");
+      else if (i === userChoiceIdx) item.classList.add("wrong");
+    });
+
+    const combatLog = document.getElementById("combatLogSlot");
+
+    if (isCorrect) {
+      this.score += 1;
+      this.consecutiveCombo += 1;
+      const damage = this.consecutiveCombo >= 2 ? 150 : 100;
+      this.bossHP = Math.max(0, this.bossHP - damage);
+
+      app.sound.playCorrect();
+      app.gainXP(20);
+
+      if (combatLog) {
+        combatLog.innerHTML = `
+          <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); color: var(--accent-green); padding: 0.75rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem;">
+            💥 CRITICAL HIT! Vá lỗ hổng thành công! Gây <strong>${damage} sát thương</strong> lên Shadow Titan!
+          </div>
+        `;
+      }
+    } else {
+      this.consecutiveCombo = 0;
+      this.playerIntegrity = Math.max(0, this.playerIntegrity - 10);
+
+      app.sound.playWrong();
+
+      const comp = app.state.progress.completedQuestions[q.id] || { timesWrong: 0, timesCorrect: 0 };
+      comp.timesWrong += 1;
+      app.state.progress.completedQuestions[q.id] = comp;
+
+      if (combatLog) {
+        combatLog.innerHTML = `
+          <div style="background: rgba(244, 63, 94, 0.15); border: 1px solid var(--accent-rose); color: var(--accent-rose); padding: 0.75rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem;">
+            ⚠️ TƯỜNG LỬA BỊ XUYÊN THỦNG! Mã độc xâm nhập sâu hơn! <em>System Integrity giảm 10%</em>!
+          </div>
+        `;
+      }
+    }
+
+    app.saveState();
+
+    // Show Explanation & Trap Analysis
+    const feedback = document.getElementById("feedbackSlot");
+    if (feedback) {
+      feedback.innerHTML = `
+        <div class="explanation-panel" style="${isCorrect ? '' : 'border-top-color: var(--accent-rose);'}">
+          <div style="font-weight: 700; color: ${isCorrect ? 'var(--accent-green)' : 'var(--accent-rose)'}; font-size: 1.05rem;">
+            ${isCorrect ? '🎯 Phản kích chính xác!' : '❌ Bẫy đã kích hoạt!'} (Đáp án đúng: ${['A','B','C','D'][q.answer]})
+          </div>
+
+          <div style="font-size: 0.95rem; line-height: 1.6; margin-top: 0.5rem;">
+            <strong>Giải thích:</strong> ${q.explanation_vi || 'Đáp án chính xác theo ngữ cảnh.'}
+          </div>
+
+          ${q.trap ? `
+            <div class="trap-box" style="margin-top: 0.5rem;">
+              <strong>⚠️ Phân tích bẫy Boss-Tier:</strong> ${q.trap}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    const nextBtn = document.getElementById("nextBtn");
+    if (nextBtn) nextBtn.disabled = false;
+
+    // Check instant win/loss conditions
+    if (this.bossHP <= 0) {
+      setTimeout(() => this.renderVictory(), 1200);
+    } else if (this.playerIntegrity <= 0) {
+      setTimeout(() => this.renderDefeat("System Integrity giảm về 0%! Mạng lõi sập."), 1200);
+    }
+  }
+
+  handleNext() {
+    this.currentIndex += 1;
+    this.renderCurrentQuestion();
+  }
+
+  renderVictory() {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    this.isDone = true;
+
+    const newRole = app.promoteCyberRole();
+    app.gainXP(200);
+    app.sound.playLevelUp();
+
+    this.container.innerHTML = `
+      <div class="promotion-card">
+        <div class="rank-insignia">🎖️</div>
+        <span class="badge-tag" style="background: rgba(16, 185, 129, 0.2); border-color: var(--accent-green); color: var(--accent-green); font-size: 0.9rem; padding: 0.3rem 0.8rem;">
+          VICTORY: THREAT NEUTRALIZED
+        </span>
+        <h2 style="font-size: 2rem; font-weight: 900; color: #fff; margin: 1rem 0 0.5rem;">
+          CHỨNG NHẬN SẮC PHONG & THĂNG CHỨC
+        </h2>
+        <p style="color: var(--text-sub); font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem;">
+          Hội đồng An ninh Thông tin Tập đoàn HexaTech trân trọng sắc phong học viên <strong>${app.state.user.name}</strong> lên chức vụ chỉ huy an ninh mạng:
+        </p>
+
+        <div style="background: var(--bg-card); border: 2px solid var(--accent-amber); display: inline-block; padding: 1.5rem 3rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);">
+          <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">CẤP BẬC MỚI ĐÃ ĐƯỢC PHÊ CHUẨN</span>
+          <span style="font-size: 2.2rem; font-weight: 900; color: var(--accent-amber);">${newRole}</span>
+          <span style="font-size: 0.9rem; color: var(--accent-green); display: block; margin-top: 0.3rem;">+200 XP • Quyền hạn SOC Cấp Cao</span>
+        </div>
+
+        <div style="max-width: 500px; margin: 0 auto; text-align: left; background: var(--bg-card); padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          <strong>📊 Báo cáo kết quả chiến dịch:</strong>
+          <ul style="margin-left: 1.25rem; margin-top: 0.4rem;">
+            <li>Số câu chính xác: <strong>${this.score} / ${this.questions.length}</strong></li>
+            <li>Sát thương gây cho Shadow Titan: <strong>${this.bossMaxHP - this.bossHP} HP</strong> (Đã tiêu diệt)</li>
+            <li>Độ toàn vẹn hệ thống giữ vững: <strong>${this.playerIntegrity}%</strong></li>
+          </ul>
+        </div>
+
+        <div>
+          <button class="btn" style="padding: 0.8rem 2rem; font-size: 1rem;" onclick="app.navigate('dashboard')">
+            Về Dashboard Báo cáo
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  renderDefeat(reason = "") {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    this.isDone = true;
+    app.sound.playWrong();
+
+    this.container.innerHTML = `
+      <div class="card" style="text-align: center; padding: 2.5rem; border: 2px solid var(--accent-rose); background: radial-gradient(circle, rgba(244, 63, 94, 0.1), var(--bg-surface));">
+        <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🚨</div>
+        <h2 style="font-size: 1.8rem; font-weight: 900; color: var(--accent-rose); margin-bottom: 0.5rem;">
+          INCIDENT ESCALATED: CHIẾN DỊCH THẤT BẠI
+        </h2>
+        <p style="color: var(--text-sub); max-width: 550px; margin: 0 auto 1.5rem;">
+          ${reason || "Sự cố an ninh vượt quá ngưỡng khống chế. Mã độc đã lây lan sang các máy chủ khác."}
+        </p>
+
+        <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; max-width: 480px; margin: 0 auto 1.5rem; border: 1px solid var(--border-light); font-size: 0.9rem; text-align: left; line-height: 1.6;">
+          <strong>💡 Lời khuyên từ CISO:</strong>
+          <ul style="margin-left: 1.25rem; margin-top: 0.35rem;">
+            <li>Số câu đúng đạt được: <strong>${this.score}/${this.questions.length}</strong>.</li>
+            <li>Các câu bạn vừa làm sai đã được tự động lưu vào <strong>Sổ tay lỗi sai</strong>.</li>
+            <li>Hãy ôn lại các bẫy đảo ngữ, thể giả định và từ vựng chuyên sâu trước khi tái đấu!</li>
+          </ul>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-outline-danger" onclick="app.navigate('errors')">📕 Xem Sổ tay lỗi sai</button>
+          <button class="btn" onclick="app.launchBossBattle()">⚔️ Tái đấu Boss ngay</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Global App Instance
+const app = new ToeicQuestApp();
+window.addEventListener("DOMContentLoaded", () => {
+  app.init();
+});
+  </script>
+</body>
+</html>
