@@ -674,9 +674,11 @@
       <button class="nav-btn active" onclick="app.navigate('dashboard')" data-view="dashboard">📊 Tổng quan (Dashboard)</button>
       <button class="nav-btn" onclick="app.navigate('placement')" data-view="placement">🎯 Placement Check</button>
       <button class="nav-btn" onclick="app.navigate('daily')" data-view="daily">⚡ Nhiệm vụ ngày (Daily)</button>
+      <button class="nav-btn" onclick="app.navigate('minitest')" data-view="minitest" style="color: var(--accent-amber);">⏱️ Mini Test 30 câu (10–990)</button>
       <button class="nav-btn" onclick="app.navigate('part1')" data-view="part1">🎧 Luyện Part 1 (Photographs)</button>
       <button class="nav-btn" onclick="app.navigate('part2')" data-view="part2">🗣️ Luyện Part 2 (Q&A Response)</button>
       <button class="nav-btn" onclick="app.navigate('part5')" data-view="part5">📝 Luyện Part 5 (Incomplete)</button>
+      <button class="nav-btn" onclick="app.navigate('part6')" data-view="part6">📄 Luyện Part 6 (Text Completion)</button>
       <button class="nav-btn" onclick="app.navigate('part7')" data-view="part7">📑 Luyện Part 7 (Passages)</button>
       <button class="nav-btn" onclick="app.navigate('traphunter')" data-view="traphunter">🏹 Thợ săn bẫy (Trap Hunter)</button>
       <button class="nav-btn" onclick="app.navigate('boss')" data-view="boss" style="color: var(--accent-rose);">👾 Boss Level (Sự cố Cyber)</button>
@@ -1415,6 +1417,78 @@ const QUESTIONS = [
     vocab: ["mandate", "encompasses", "overseeing"]
   },
 
+  // --- PART 6: TEXT COMPLETION (2 SETS - 8 QUESTIONS) ---
+  {
+    id: "p6-set1", part: 6, level: 3, topic: "IT Password & MFA Update Notice",
+    passage: `MEMORANDUM\nTO: All Staff, HexaTech Solutions\nFROM: Security Operations Center (SOC)\nDATE: November 12, 2026\nSUBJECT: Upcoming Security Credential Rotation\n\nIn accordance with our bi-annual cyber hygiene protocol, all enterprise employee accounts are scheduled for credential rotation next Tuesday. The authentication portal will _______ [1] prompt you to construct a new alphanumeric password upon logging in. Please ensure your new password includes uppercase letters, numbers, and symbols.\n\nIt is _______ [2] that employees refrain from reusing passwords that have been utilized over the previous twelve months. _______ [3]. Additionally, any accounts that fail to update their credentials within 48 hours _______ [4] temporarily suspended until cleared by an IT helpdesk technician.\n\nThank you for your proactive partnership in safeguarding company data.`,
+    questions: [
+      {
+        id: "p6-001", blankNum: 1, stem: "Select the best answer for blank [1]:",
+        choices: ["automatically", "automation", "automatic", "automating"], answer: 0,
+        explanation_vi: "Đứng trước động từ 'prompt' và sau trợ động từ 'will' cần một phó từ (adverb) -> 'automatically' (tự động).",
+        trap: "Bẫy từ loại: Thường nhầm chọn tính từ 'automatic'."
+      },
+      {
+        id: "p6-002", blankNum: 2, stem: "Select the best answer for blank [2]:",
+        choices: ["mandatory", "optional", "tentative", "negligent"], answer: 0,
+        explanation_vi: "Cụm 'It is mandatory that...' (Điều bắt buộc là...). Ngữ cảnh bảo mật thông tin đòi hỏi tính bắt buộc, không thể là 'optional' (tùy ý) hay 'negligent' (cẩu thả).",
+        trap: "Bẫy ngữ nghĩa: 'optional' mâu thuẫn trực tiếp với chính sách an ninh mạng ở đoạn tiếp theo."
+      },
+      {
+        id: "p6-003", blankNum: 3, stem: "Select the sentence that best fits blank [3]:",
+        choices: [
+          "This standard minimizes the potential vulnerability of credential stuffing.",
+          "The corporate cafeteria will serve refreshments throughout the afternoon.",
+          "Our revenue projections for the upcoming fiscal quarter remain steady.",
+          "Please submit all travel receipts directly to the accounting division."
+        ], answer: 0,
+        explanation_vi: "Câu (A) 'This standard minimizes the potential vulnerability...' giải thích lý do vì sao không được dùng lại mật khẩu cũ ở câu trước. Các đáp án khác lạc đề về nhà ăn, doanh thu, công tác phí.",
+        trap: "Dạng câu chèn cả câu văn (Sentence insertion) đòi hỏi tính mạch lạc (coherence) với câu đứng trước."
+      },
+      {
+        id: "p6-004", blankNum: 4, stem: "Select the best answer for blank [4]:",
+        choices: ["will be", "have been", "were", "are being"], answer: 0,
+        explanation_vi: "Chủ ngữ là 'accounts' kết hợp với mốc thời gian tương lai 'within 48 hours' -> Dùng tương lai đơn bị động 'will be temporarily suspended' (sẽ bị tạm đình chỉ).",
+        trap: "Bẫy thì động từ trong mệnh đề chính sau mệnh đề quan hệ 'that fail to update'."
+      }
+    ]
+  },
+  {
+    id: "p6-set2", part: 6, level: 3, topic: "Corporate Software Convention",
+    passage: `EMAIL INVITATION\nTO: Regional Technology Partners\nFROM: Clara Bennett, Director of Enterprise Relations\nDATE: December 5, 2026\nSUBJECT: Annual CyberTech Summit Registration\n\nDear Partner,\n\nWe are pleased to invite you to the 14th Annual Global CyberTech Summit, taking place from January 18 to 20 at the Metro Convention Center. Registration is now officially open _______ [1] all accredited partner firms.\n\nThis year's event will feature an _______ [2] keynote presentation on defensive artificial intelligence delivered by Dr. Victor Vance. _______ [3].\n\nAs a valued partner, your representatives will receive _______ [4] access badges to all executive networking sessions. Please register your delegates before December 30 to secure their hotel accommodations.\n\nWarm regards,\nClara Bennett`,
+    questions: [
+      {
+        id: "p6-005", blankNum: 1, stem: "Select the best answer for blank [1]:",
+        choices: ["to", "at", "by", "from"], answer: 0,
+        explanation_vi: "Collocation bắt buộc: 'open to someone' (mở cửa / dành cho ai tham gia).",
+        trap: "Bẫy giới từ: Hay nhầm 'open for' hoặc 'open by'."
+      },
+      {
+        id: "p6-006", blankNum: 2, stem: "Select the best answer for blank [2]:",
+        choices: ["insightful", "accidental", "hesitant", "reluctant"], answer: 0,
+        explanation_vi: "'An insightful keynote presentation' (bài phát biểu sâu sắc / giàu thông tin chuyên môn).",
+        trap: "'Accidental' (tình cờ), 'hesitant' (do dự) không mang nghĩa tích cực cho một hội thảo lớn."
+      },
+      {
+        id: "p6-007", blankNum: 3, stem: "Select the sentence that best fits blank [3]:",
+        choices: [
+          "Attendees will gain actionable strategies to protect corporate infrastructure.",
+          "The convention center parking lot has been closed for repaving.",
+          "Our overseas shipping department is handling maritime transport.",
+          "Please verify that the fire alarm batteries have been changed."
+        ], answer: 0,
+        explanation_vi: "Câu (A) 'Attendees will gain actionable strategies...' tiếp nối ý bài phát biểu về AI phòng thủ ở câu trước để nêu lợi ích cho người tham gia.",
+        trap: "Bẫy câu chèn: Các đáp án B, C, D đều lạc đề (bãi đỗ xe, tàu biển, pin báo cháy)."
+      },
+      {
+        id: "p6-008", blankNum: 4, stem: "Select the best answer for blank [4]:",
+        choices: ["complimentary", "compliment", "complimenting", "complimented"], answer: 0,
+        explanation_vi: "Trước cụm danh từ 'access badges' cần tính từ 'complimentary' mang nghĩa miễn phí / tặng kèm (complimentary access badges = thẻ tham dự miễn phí).",
+        trap: "Bẫy từ vựng kinh điển TOEIC: 'complimentary' là tính từ (miễn phí), khác với động từ/danh từ 'compliment' (khen ngợi)."
+      }
+    ]
+  },
+
   // --- PART 7 PASSAGES & QUESTIONS (8 QUESTIONS ACROSS 2 SETS) ---
   {
     id: "p7-set1", part: 7, level: 3, topic: "IT Security Incident & Policy",
@@ -1874,6 +1948,7 @@ const DEFAULT_STATE = {
       p1: { total: 0, correct: 0 },
       p2: { total: 0, correct: 0 },
       p5: { total: 0, correct: 0 },
+      p6: { total: 0, correct: 0 },
       p7: { total: 0, correct: 0 }
     },
     dailyMission: {
@@ -2125,6 +2200,12 @@ class ToeicQuestApp {
       case "traphunter":
         this.renderTrapHunter(stage);
         break;
+      case "part6":
+        this.startPartPractice(6);
+        break;
+      case "minitest":
+        this.startMiniTest();
+        break;
       case "boss":
         this.renderBossArena(stage);
         break;
@@ -2172,6 +2253,10 @@ class ToeicQuestApp {
     const p5Correct = this.state.progress.partStats.p5.correct;
     const p5Acc = p5Total > 0 ? Math.round((p5Correct / p5Total) * 100) : 0;
 
+    const p6Total = this.state.progress.partStats.p6 ? this.state.progress.partStats.p6.total : 0;
+    const p6Correct = this.state.progress.partStats.p6 ? this.state.progress.partStats.p6.correct : 0;
+    const p6Acc = p6Total > 0 ? Math.round((p6Correct / p6Total) * 100) : 0;
+
     const p7Total = this.state.progress.partStats.p7.total;
     const p7Correct = this.state.progress.partStats.p7.correct;
     const p7Acc = p7Total > 0 ? Math.round((p7Correct / p7Total) * 100) : 0;
@@ -2217,7 +2302,12 @@ class ToeicQuestApp {
           <span class="sub">${p5Correct}/${p5Total} câu đúng</span>
         </div>
         <div class="stat-tile">
-          <span class="label">Part 7 (Đoạn văn)</span>
+          <span class="label">Part 6 (Đoạn văn)</span>
+          <span class="value">${p6Acc}%</span>
+          <span class="sub">${p6Correct}/${p6Total} câu đúng</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">Part 7 (Bài đọc)</span>
           <span class="value">${p7Acc}%</span>
           <span class="sub">${p7Correct}/${p7Total} câu đúng</span>
         </div>
@@ -2243,9 +2333,13 @@ class ToeicQuestApp {
           <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">⚡ Hành động nhanh</h3>
           <div style="display: flex; flex-direction: column; gap: 0.6rem;">
             <button class="btn" onclick="app.navigate('daily')">🔥 Làm Nhiệm vụ ngày (10 câu)</button>
+            <button class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: 800;" onclick="app.navigate('minitest')">⏱️ Thi Mini Test 30 câu (Ước lượng 10–990)</button>
             <button class="btn" style="background: linear-gradient(135deg, #e11d48, #be123c); color: #fff;" onclick="app.navigate('boss')">👾 Chiến Boss Level (Sự cố Cyber 25 câu)</button>
             <button class="btn btn-secondary" onclick="app.navigate('part1')">🎧 Luyện Part 1 (Mô tả tranh)</button>
             <button class="btn btn-secondary" onclick="app.navigate('part2')">🗣️ Luyện Part 2 (Hỏi - Đáp)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('part5')">📝 Luyện Part 5 (Câu ngắn)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('part6')">📄 Luyện Part 6 (Điền đoạn văn)</button>
+            <button class="btn btn-secondary" onclick="app.navigate('part7')">📑 Luyện Part 7 (Bài đọc hiểu)</button>
             <button class="btn btn-secondary" onclick="app.navigate('traphunter')">🏹 Săn bẫy ETS (Trap Hunter)</button>
             <button class="btn btn-secondary" onclick="app.navigate('vocab')">🧠 Ôn từ vựng Leitner (${this.state.progress.leitnerBoxes.b1.length} từ đến hạn)</button>
             <button class="btn btn-outline-danger" onclick="app.navigate('errors')">📕 Xem sổ tay lỗi sai (${errorCount} câu)</button>
@@ -2255,10 +2349,11 @@ class ToeicQuestApp {
     `;
 
     this.drawChart("accuracyChart", [
-      { label: "Part 1", value: p1Acc, color: "#10b981" },
-      { label: "Part 2", value: p2Acc, color: "#06b6d4" },
-      { label: "Part 5", value: p5Acc, color: "#3b82f6" },
-      { label: "Part 7", value: p7Acc, color: "#8b5cf6" },
+      { label: "P1", value: p1Acc, color: "#10b981" },
+      { label: "P2", value: p2Acc, color: "#06b6d4" },
+      { label: "P5", value: p5Acc, color: "#3b82f6" },
+      { label: "P6", value: p6Acc, color: "#6366f1" },
+      { label: "P7", value: p7Acc, color: "#8b5cf6" },
       { label: "Level", value: (this.state.adaptive.currentDifficulty / 5) * 100, color: "#f59e0b" }
     ]);
   }
@@ -2472,6 +2567,97 @@ class ToeicQuestApp {
     this.activeQuiz.render(stage);
   }
 
+  startMiniTest() {
+    const stage = document.getElementById("stageContent");
+    // Draw 30 questions: 4 Part 1, 6 Part 2, 12 Part 5, 4 Part 6, 4 Part 7
+    const p1s = QUESTIONS.filter(q => q.part === 1).sort(() => 0.5 - Math.random()).slice(0, 4);
+    const p2s = QUESTIONS.filter(q => q.part === 2).sort(() => 0.5 - Math.random()).slice(0, 6);
+    const p5s = QUESTIONS.filter(q => q.part === 5).sort(() => 0.5 - Math.random()).slice(0, 12);
+
+    const p6Pool = [];
+    QUESTIONS.filter(q => q.part === 6).forEach(p => {
+      p.questions.forEach(sub => {
+        p6Pool.push({ ...sub, part: 6, passage: p.passage, level: p.level, topic: p.topic });
+      });
+    });
+    const p6s = p6Pool.slice(0, 4);
+
+    const p7Pool = [];
+    QUESTIONS.filter(q => q.part === 7).forEach(p => {
+      p.questions.forEach(sub => {
+        p7Pool.push({ ...sub, part: 7, passage: p.passage, level: p.level, topic: p.topic });
+      });
+    });
+    const p7s = p7Pool.slice(0, 4);
+
+    const miniTestPool = [...p1s, ...p2s, ...p5s, ...p6s, ...p7s];
+
+    this.activeQuiz = new QuizController(miniTestPool, {
+      title: "⏱️ Mini Test 30 câu (Quy đổi điểm ETS 10–990)",
+      isExamMode: true,
+      timeLimitMinutes: 20,
+      onComplete: (results) => {
+        const ratio = results.score / results.total;
+        let lScore = Math.min(495, Math.max(10, Math.round((ratio * 490 + 5) / 5) * 5));
+        let rScore = Math.min(495, Math.max(10, Math.round((ratio * 485 + 5) / 5) * 5));
+        let totalEstimated = lScore + rScore;
+
+        app.state.user.estimatedScore = totalEstimated;
+        app.gainXP(60);
+        app.saveState();
+
+        stage.innerHTML = `
+          <div class="card" style="text-align: center; padding: 2.5rem; max-width: 650px; margin: 0 auto; border: 2px solid var(--accent-amber);">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📊</div>
+            <h2 style="font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.35rem;">
+              BẢNG BÁO CÁO ĐIỂM MINI TEST ETS
+            </h2>
+            <span style="font-size: 0.85rem; color: var(--accent-amber); font-weight: 600;">
+              Thang điểm quy đổi chuẩn ETS xấp xỉ (10 - 990)
+            </span>
+
+            <div style="background: var(--bg-card); border: 2px solid var(--accent-cyan); border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0;">
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block; text-transform: uppercase; letter-spacing: 1px;">
+                TỔNG ĐIỂM ƯỚC TÍNH (ESTIMATED TOTAL SCORE)
+              </span>
+              <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent-cyan); line-height: 1.1; margin: 0.3rem 0;">
+                ${totalEstimated} <span style="font-size: 1.2rem; color: var(--text-muted); font-weight: 600;">/ 990</span>
+              </div>
+              <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.8rem;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">🎧 LISTENING</span>
+                  <strong style="font-size: 1.4rem; color: var(--accent-green);">${lScore}</strong>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">📖 READING</span>
+                  <strong style="font-size: 1.4rem; color: var(--accent-blue);">${rScore}</strong>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">🎯 ĐỘ CHÍNH XÁC</span>
+                  <strong style="font-size: 1.4rem; color: var(--accent-amber);">${results.score}/${results.total}</strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: left; background: var(--bg-card); padding: 1rem 1.25rem; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+              <strong style="color: var(--accent-cyan);">💡 Nhận định từ Giảng viên TOEIC:</strong>
+              <ul style="margin-left: 1.25rem; margin-top: 0.4rem;">
+                <li>Điểm ước tính: <strong>${totalEstimated}/990</strong>. ${totalEstimated >= 750 ? "Trình độ cao, bạn đã nắm rất vững cấu trúc bẫy của đề thi ETS!" : totalEstimated >= 550 ? "Nền tảng khá tốt, cần tăng tốc độ xử lý Part 5 & 6 để dành thêm thời gian cho Part 7." : "Nên tập trung luyện thêm từ vựng cốt lõi và làm lại các câu trong Sổ tay lỗi sai."}</li>
+                <li>Đã cộng thưởng <strong>+60 XP</strong> vào hồ sơ cấp bậc.</li>
+                <li>Điểm số trên Dashboard đã được đồng bộ tự động.</li>
+              </ul>
+            </div>
+
+            <button class="btn" style="padding: 0.8rem 2.2rem; font-size: 1rem;" onclick="app.navigate('dashboard')">
+              Về Dashboard
+            </button>
+          </div>
+        `;
+      }
+    });
+    this.activeQuiz.render(stage);
+  }
+
   startPartPractice(partNum) {
     const stage = document.getElementById("stageContent");
     let pool = [];
@@ -2485,6 +2671,19 @@ class ToeicQuestApp {
     } else if (partNum === 5) {
       pool = QUESTIONS.filter(q => q.part === 5);
       title = "📝 Luyện Part 5: Hoàn thành câu (Incomplete Sentences)";
+    } else if (partNum === 6) {
+      QUESTIONS.filter(q => q.part === 6).forEach(p => {
+        p.questions.forEach(sub => {
+          pool.push({
+            ...sub,
+            part: 6,
+            passage: p.passage,
+            level: p.level,
+            topic: p.topic
+          });
+        });
+      });
+      title = "📄 Luyện Part 6: Điền đoạn văn (Text Completion)";
     } else if (partNum === 7) {
       QUESTIONS.filter(q => q.part === 7).forEach(p => {
         p.questions.forEach(sub => {
