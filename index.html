@@ -1915,6 +1915,16 @@ const VOCAB = [
  */
 const STORAGE_KEY = "TOEIC_QUEST_CYBER_DATA_V1";
 
+function escapeHTML(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 const DEFAULT_STATE = {
   user: {
     name: "Agent Student",
@@ -1925,6 +1935,7 @@ const DEFAULT_STATE = {
     lastActiveDate: new Date().toISOString().split("T")[0],
     soundEnabled: true,
     theme: "dark",
+    targetScore: 750,
     estimatedScore: 450,
     speechRate: 1.0,
     speechVoice: "en-US"
@@ -2032,6 +2043,7 @@ class SoundSynth {
 
 class ToeicQuestApp {
   constructor() {
+    this.escapeHTML = escapeHTML;
     this.state = this.loadState();
     this.sound = new SoundSynth();
     this.currentView = "dashboard";
@@ -2040,19 +2052,167 @@ class ToeicQuestApp {
     this.vocabStudyMode = "card"; // card, quiz, type
   }
 
+  escapeHTML(str) {
+    return escapeHTML(str);
+  }
+
+  validateAndMergeState(imported) {
+    if (!imported || typeof imported !== "object") return null;
+    const base = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+    // Merge and validate user
+    if (imported.user && typeof imported.user === "object") {
+      if (typeof imported.user.name === "string" && imported.user.name.trim()) {
+        base.user.name = imported.user.name.trim().slice(0, 50);
+      }
+      if (typeof imported.user.role === "string" && imported.user.role.trim()) {
+        base.user.role = imported.user.role.trim().slice(0, 40);
+      }
+      if (typeof imported.user.level === "number" && !isNaN(imported.user.level)) {
+        base.user.level = Math.max(1, Math.floor(imported.user.level));
+      }
+      if (typeof imported.user.xp === "number" && !isNaN(imported.user.xp)) {
+        base.user.xp = Math.max(0, Math.floor(imported.user.xp));
+      }
+      if (typeof imported.user.streak === "number" && !isNaN(imported.user.streak)) {
+        base.user.streak = Math.max(0, Math.floor(imported.user.streak));
+      }
+      if (typeof imported.user.targetScore === "number" && !isNaN(imported.user.targetScore)) {
+        base.user.targetScore = Math.min(990, Math.max(10, Math.floor(imported.user.targetScore)));
+      }
+      if (typeof imported.user.estimatedScore === "number" && !isNaN(imported.user.estimatedScore)) {
+        base.user.estimatedScore = Math.min(990, Math.max(10, Math.floor(imported.user.estimatedScore)));
+      }
+      if (typeof imported.user.soundEnabled === "boolean") {
+        base.user.soundEnabled = imported.user.soundEnabled;
+      }
+      if (typeof imported.user.theme === "string" && ["dark", "light"].includes(imported.user.theme)) {
+        base.user.theme = imported.user.theme;
+      }
+      if (typeof imported.user.speechRate === "number" && !isNaN(imported.user.speechRate)) {
+        base.user.speechRate = Math.min(2.0, Math.max(0.5, imported.user.speechRate));
+      }
+      if (typeof imported.user.speechVoice === "string") {
+        base.user.speechVoice = imported.user.speechVoice;
+      }
+      if (typeof imported.user.lastActiveDate === "string") {
+        base.user.lastActiveDate = imported.user.lastActiveDate;
+      }
+    }
+
+    // Merge and validate adaptive
+    if (imported.adaptive && typeof imported.adaptive === "object") {
+      if (typeof imported.adaptive.currentDifficulty === "number" && !isNaN(imported.adaptive.currentDifficulty)) {
+        base.adaptive.currentDifficulty = Math.min(5, Math.max(1, Math.floor(imported.adaptive.currentDifficulty)));
+      }
+      if (typeof imported.adaptive.consecutiveCorrect === "number" && !isNaN(imported.adaptive.consecutiveCorrect)) {
+        base.adaptive.consecutiveCorrect = Math.max(0, Math.floor(imported.adaptive.consecutiveCorrect));
+      }
+      if (typeof imported.adaptive.consecutiveWrong === "number" && !isNaN(imported.adaptive.consecutiveWrong)) {
+        base.adaptive.consecutiveWrong = Math.max(0, Math.floor(imported.adaptive.consecutiveWrong));
+      }
+    }
+
+    // Merge and validate progress
+    if (imported.progress && typeof imported.progress === "object") {
+      if (imported.progress.partStats && typeof imported.progress.partStats === "object") {
+        ['p1', 'p2', 'p5', 'p6', 'p7'].forEach(p => {
+          if (imported.progress.partStats[p] && typeof imported.progress.partStats[p] === "object") {
+            base.progress.partStats[p] = {
+              total: Math.max(0, Number(imported.progress.partStats[p].total) || 0),
+              correct: Math.max(0, Number(imported.progress.partStats[p].correct) || 0)
+            };
+          }
+        });
+      }
+
+      if (imported.progress.leitnerBoxes && typeof imported.progress.leitnerBoxes === "object") {
+        for (let i = 1; i <= 5; i++) {
+          const bKey = `b${i}`;
+          if (Array.isArray(imported.progress.leitnerBoxes[bKey])) {
+            base.progress.leitnerBoxes[bKey] = imported.progress.leitnerBoxes[bKey].filter(w => typeof w === "string");
+          }
+        }
+      }
+
+      // Check if all leitner boxes are empty; if so, populate b1 with VOCAB
+      const totalWords = Object.values(base.progress.leitnerBoxes).reduce((acc, arr) => acc + arr.length, 0);
+      if (totalWords === 0 && typeof VOCAB !== "undefined" && Array.isArray(VOCAB)) {
+        base.progress.leitnerBoxes.b1 = VOCAB.map(v => v.word);
+      }
+
+      if (imported.progress.completedQuestions && typeof imported.progress.completedQuestions === "object") {
+        base.progress.completedQuestions = imported.progress.completedQuestions;
+      }
+      if (Array.isArray(imported.progress.flaggedQuestions)) {
+        base.progress.flaggedQuestions = imported.progress.flaggedQuestions.filter(q => typeof q === "string");
+      }
+      if (imported.progress.dailyMission && typeof imported.progress.dailyMission === "object") {
+        base.progress.dailyMission = {
+          date: String(imported.progress.dailyMission.date || ""),
+          questionIds: Array.isArray(imported.progress.dailyMission.questionIds) ? imported.progress.dailyMission.questionIds : [],
+          completedIds: Array.isArray(imported.progress.dailyMission.completedIds) ? imported.progress.dailyMission.completedIds : []
+        };
+      }
+      if (imported.progress.bossStats && typeof imported.progress.bossStats === "object") {
+        base.progress.bossStats = {
+          bossDefeated: Math.max(0, Number(imported.progress.bossStats.bossDefeated) || 0),
+          lastDefeatedDate: String(imported.progress.bossStats.lastDefeatedDate || ""),
+          highestTitleEarned: String(imported.progress.bossStats.highestTitleEarned || "Intern")
+        };
+      }
+    }
+
+    return base;
+  }
+
+  getAllQuestionsFlat() {
+    const list = [];
+    QUESTIONS.forEach(item => {
+      if (item.questions && Array.isArray(item.questions)) {
+        item.questions.forEach(sub => {
+          list.push({
+            ...sub,
+            part: item.part,
+            passage: item.passage,
+            level: item.level || sub.level || 3,
+            topic: item.topic || sub.topic || 'General'
+          });
+        });
+      } else {
+        list.push(item);
+      }
+    });
+    return list;
+  }
+
+  findQuestionById(qid) {
+    const direct = QUESTIONS.find(q => q.id === qid);
+    if (direct && (!direct.questions || direct.choices)) return direct;
+    for (const item of QUESTIONS) {
+      if (item.questions && Array.isArray(item.questions)) {
+        const sub = item.questions.find(sq => sq.id === qid);
+        if (sub) {
+          return {
+            ...sub,
+            part: item.part,
+            passage: item.passage,
+            level: item.level || sub.level || 3,
+            topic: item.topic || sub.topic || 'General'
+          };
+        }
+      }
+    }
+    return direct || null;
+  }
+
   loadState() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Merge with defaults to prevent broken structures
-        return {
-          ...DEFAULT_STATE,
-          ...parsed,
-          user: { ...DEFAULT_STATE.user, ...parsed.user },
-          adaptive: { ...DEFAULT_STATE.adaptive, ...parsed.adaptive },
-          progress: { ...DEFAULT_STATE.progress, ...parsed.progress }
-        };
+        const merged = this.validateAndMergeState(parsed);
+        if (merged) return merged;
       }
     } catch (e) {
       console.warn("Error loading stored state, starting fresh.", e);
@@ -2138,12 +2298,25 @@ class ToeicQuestApp {
   }
 
   updateCyberRole() {
+    const roles = ["Intern", "Junior Analyst", "Senior Specialist", "Team Lead", "CISO"];
     const lv = this.state.user.level;
-    if (lv < 3) this.state.user.role = "Intern";
-    else if (lv < 6) this.state.user.role = "Junior Analyst";
-    else if (lv < 10) this.state.user.role = "Senior Specialist";
-    else if (lv < 15) this.state.user.role = "Team Lead";
-    else this.state.user.role = "CISO";
+    let calculatedRole = "Intern";
+    if (lv < 3) calculatedRole = "Intern";
+    else if (lv < 6) calculatedRole = "Junior Analyst";
+    else if (lv < 10) calculatedRole = "Senior Specialist";
+    else if (lv < 15) calculatedRole = "Team Lead";
+    else calculatedRole = "CISO";
+
+    const getRoleRank = (r) => {
+      const base = (r || "").replace(/\s*\(.*?\)/, "").trim();
+      const baseIdx = roles.indexOf(base);
+      const isMaster = (r || "").includes("Master") ? 1 : 0;
+      return (baseIdx !== -1 ? baseIdx : 0) * 10 + isMaster;
+    };
+
+    if (getRoleRank(calculatedRole) > getRoleRank(this.state.user.role)) {
+      this.state.user.role = calculatedRole;
+    }
   }
 
   showToast(msg) {
@@ -2171,8 +2344,20 @@ class ToeicQuestApp {
     const stage = document.getElementById("stageContent");
     if (!stage) return;
 
-    if (this.activeQuiz && !this.activeQuiz.isDone) {
-      this.activeQuiz.stopAudio();
+    if (this.activeQuiz) {
+      if (typeof this.activeQuiz.cleanup === "function") {
+        this.activeQuiz.cleanup();
+      } else {
+        if (typeof this.activeQuiz.stopAudio === "function") {
+          this.activeQuiz.stopAudio();
+        }
+        if (this.activeQuiz.timerInterval) {
+          clearInterval(this.activeQuiz.timerInterval);
+          this.activeQuiz.timerInterval = null;
+        }
+        this.activeQuiz.isDone = true;
+      }
+      this.activeQuiz = null;
     }
 
     switch (viewName) {
@@ -2268,7 +2453,7 @@ class ToeicQuestApp {
     stage.innerHTML = `
       <div class="card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1)); border-color: var(--accent-cyan);">
         <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem;">
-          Chào mừng trở lại, ${this.state.user.role}! 🛡️
+          Chào mừng trở lại, ${this.escapeHTML(this.state.user.name)} (${this.escapeHTML(this.state.user.role)})! 🛡️
         </h2>
         <p style="color: var(--text-sub); font-size: 0.95rem;">
           Trạng thái an ninh: <strong style="color: var(--accent-cyan);">Sẵn sàng tác chiến</strong>. Hoàn thành nhiệm vụ hàng ngày để duy trì chuỗi học tập (streak) và thăng cấp CISO!
@@ -2279,7 +2464,7 @@ class ToeicQuestApp {
         <div class="stat-tile">
           <span class="label">Điểm ước lượng</span>
           <span class="value">${this.state.user.estimatedScore}<span style="font-size: 0.9rem; font-weight: 500;">/990</span></span>
-          <span class="sub">🎯 Ước tính ETS</span>
+          <span class="sub">🎯 Mục tiêu: ${this.state.user.targetScore || 750}</span>
         </div>
         <div class="stat-tile">
           <span class="label">Chuỗi ngày (Streak)</span>
@@ -2412,23 +2597,7 @@ class ToeicQuestApp {
   startPlacementTest() {
     const stage = document.getElementById("stageContent");
     // Pick 20 questions (all available Part 5 + Part 7 questions)
-    const flatList = [];
-    QUESTIONS.forEach(q => {
-      if (q.part === 5) flatList.push(q);
-      else if (q.part === 7 && q.questions) {
-        q.questions.forEach(sub => {
-          flatList.push({
-            ...sub,
-            part: 7,
-            passage: q.passage,
-            level: q.level,
-            topic: q.topic,
-            vocab: sub.vocab || []
-          });
-        });
-      }
-    });
-
+    const flatList = this.getAllQuestionsFlat().filter(q => q.part === 5 || q.part === 6 || q.part === 7);
     const selected = flatList.slice(0, 20);
     this.activeQuiz = new QuizController(selected, {
       title: "🎯 Placement Check (Đánh giá năng lực đầu vào)",
@@ -2499,22 +2668,11 @@ class ToeicQuestApp {
     // Collect questions
     const missionQuestions = [];
     missionQids.forEach(qid => {
-      const q = QUESTIONS.find(item => item.id === qid);
+      const q = this.findQuestionById(qid);
       if (q) missionQuestions.push(q);
-      else {
-        // Look inside part 7 sub-questions
-        QUESTIONS.forEach(item => {
-          if (item.part === 7 && item.questions) {
-            const foundSub = item.questions.find(sq => sq.id === qid);
-            if (foundSub) {
-              missionQuestions.push({
-                ...foundSub, part: 7, passage: item.passage, topic: item.topic, level: item.level
-              });
-            }
-          }
-        });
-      }
     });
+
+    const isCompleted = (this.state.progress.dailyMission.completedIds || []).length >= missionQuestions.length && missionQuestions.length > 0;
 
     stage.innerHTML = `
       <div class="card">
@@ -2525,9 +2683,19 @@ class ToeicQuestApp {
         <div class="stat-tile" style="margin-bottom: 1.25rem;">
           <span class="label">Tiến độ hôm nay</span>
           <span class="value">${this.state.progress.dailyMission.completedIds.length} / ${missionQuestions.length}</span>
-          <span class="sub">+50 XP khi hoàn thành tất cả câu hỏi</span>
+          <span class="sub">${isCompleted ? "✅ Đã nhận thưởng +50 XP hôm nay" : "+50 XP khi hoàn thành tất cả câu hỏi"}</span>
         </div>
-        <button class="btn" onclick="app.launchDailyQuiz()">🚀 Bắt đầu làm ngay</button>
+        ${isCompleted ? `
+          <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); padding: 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.95rem;">
+            🎉 <strong>Tuyệt vời!</strong> Bạn đã hoàn thành nhiệm vụ ngày hôm nay (+50 XP). Nhiệm vụ mới sẽ sẵn sàng vào ngày mai.
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="app.launchDailyQuiz()">🔄 Ôn tập lại (Không tính thêm XP)</button>
+            <button class="btn" onclick="app.navigate('minitest')">⏱️ Thi Mini Test 30 câu</button>
+          </div>
+        ` : `
+          <button class="btn" onclick="app.launchDailyQuiz()">🚀 Bắt đầu làm ngay</button>
+        `}
       </div>
     `;
   }
@@ -2535,32 +2703,28 @@ class ToeicQuestApp {
   launchDailyQuiz() {
     const stage = document.getElementById("stageContent");
     const today = new Date().toISOString().split("T")[0];
-    const missionQids = this.state.progress.dailyMission.questionIds;
+    const mission = this.state.progress.dailyMission;
+    const missionQids = mission.questionIds || [];
+    const isAlreadyCompleted = (mission.completedIds || []).length >= missionQids.length && mission.date === today && missionQids.length > 0;
+
     const missionQuestions = [];
     missionQids.forEach(qid => {
-      const q = QUESTIONS.find(item => item.id === qid);
+      const q = this.findQuestionById(qid);
       if (q) missionQuestions.push(q);
-      else {
-        QUESTIONS.forEach(item => {
-          if (item.part === 7 && item.questions) {
-            const foundSub = item.questions.find(sq => sq.id === qid);
-            if (foundSub) {
-              missionQuestions.push({
-                ...foundSub, part: 7, passage: item.passage, topic: item.topic, level: item.level
-              });
-            }
-          }
-        });
-      }
     });
 
     this.activeQuiz = new QuizController(missionQuestions, {
-      title: "⚡ Nhiệm vụ ngày (Practice Mode)",
+      title: isAlreadyCompleted ? "⚡ Ôn lại Nhiệm vụ ngày (Review Mode)" : "⚡ Nhiệm vụ ngày (Practice Mode)",
       isExamMode: false,
       onComplete: (res) => {
-        app.state.progress.dailyMission.completedIds = missionQids;
-        app.gainXP(50);
-        app.showToast("🎉 Hoàn thành xuất sắc Daily Mission! +50 XP");
+        if (!isAlreadyCompleted) {
+          app.state.progress.dailyMission.completedIds = [...missionQids];
+          app.gainXP(50);
+          app.showToast("🎉 Hoàn thành xuất sắc Daily Mission! +50 XP");
+        } else {
+          app.showToast("Đã hoàn thành lượt ôn tập!");
+        }
+        app.saveState();
         app.navigate("dashboard");
       }
     });
@@ -2597,9 +2761,16 @@ class ToeicQuestApp {
       isExamMode: true,
       timeLimitMinutes: 20,
       onComplete: (results) => {
-        const ratio = results.score / results.total;
-        let lScore = Math.min(495, Math.max(10, Math.round((ratio * 490 + 5) / 5) * 5));
-        let rScore = Math.min(495, Math.max(10, Math.round((ratio * 485 + 5) / 5) * 5));
+        const lTotal = results.listeningTotal || 10;
+        const rTotal = results.readingTotal || 20;
+        const lCorrect = results.listeningCorrect !== undefined ? results.listeningCorrect : Math.round((results.score / results.total) * 10);
+        const rCorrect = results.readingCorrect !== undefined ? results.readingCorrect : (results.score - lCorrect);
+
+        const lRatio = lTotal > 0 ? (lCorrect / lTotal) : 0;
+        const rRatio = rTotal > 0 ? (rCorrect / rTotal) : 0;
+
+        let lScore = Math.min(495, Math.max(5, Math.round((lRatio * 490 + 5) / 5) * 5));
+        let rScore = Math.min(495, Math.max(5, Math.round((rRatio * 490 + 5) / 5) * 5));
         let totalEstimated = lScore + rScore;
 
         app.state.user.estimatedScore = totalEstimated;
@@ -2625,11 +2796,11 @@ class ToeicQuestApp {
               </div>
               <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 0.8rem;">
                 <div>
-                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">🎧 LISTENING</span>
+                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">🎧 LISTENING (${lCorrect}/${lTotal})</span>
                   <strong style="font-size: 1.4rem; color: var(--accent-green);">${lScore}</strong>
                 </div>
                 <div>
-                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">📖 READING</span>
+                  <span style="font-size: 0.75rem; color: var(--text-sub); display: block;">📖 READING (${rCorrect}/${rTotal})</span>
                   <strong style="font-size: 1.4rem; color: var(--accent-blue);">${rScore}</strong>
                 </div>
                 <div>
@@ -2942,15 +3113,32 @@ class ToeicQuestApp {
 
   gradeVocab(word, remembered) {
     const boxes = this.state.progress.leitnerBoxes;
+    // Ensure all 5 boxes exist
+    for (let i = 1; i <= 5; i++) {
+      if (!Array.isArray(boxes[`b${i}`])) boxes[`b${i}`] = [];
+    }
+
+    let currentBox = 1;
+    for (let i = 1; i <= 5; i++) {
+      if (boxes[`b${i}`].includes(word)) {
+        currentBox = i;
+        break;
+      }
+    }
+
     // Remove word from all boxes
     for (let i = 1; i <= 5; i++) {
       boxes[`b${i}`] = boxes[`b${i}`].filter(w => w !== word);
     }
 
     if (remembered) {
-      boxes.b3.push(word);
-      this.gainXP(5);
+      const nextBox = Math.min(5, currentBox + 1);
+      boxes[`b${nextBox}`].push(word);
+      this.gainXP(nextBox === 5 ? 10 : 5);
       this.sound.playCorrect();
+      if (nextBox === 5) {
+        this.showToast(`🌟 Từ "${word}" đã đạt cấp Thành thạo (Hộp 5)!`);
+      }
     } else {
       boxes.b1.push(word);
       this.sound.playWrong();
@@ -3005,16 +3193,9 @@ class ToeicQuestApp {
 
     const wrongList = [];
     wrongQids.forEach(qid => {
-      let found = QUESTIONS.find(q => q.id === qid);
+      const found = this.findQuestionById(qid);
       if (found) {
         wrongList.push({ ...found, stat: completed[qid] });
-      } else {
-        QUESTIONS.forEach(item => {
-          if (item.part === 7 && item.questions) {
-            const sub = item.questions.find(sq => sq.id === qid);
-            if (sub) wrongList.push({ ...sub, part: 7, passage: item.passage, stat: completed[qid] });
-          }
-        });
       }
     });
 
@@ -3060,16 +3241,8 @@ class ToeicQuestApp {
     const wrongQids = Object.keys(completed).filter(id => completed[id].timesWrong > 0);
     const pool = [];
     wrongQids.forEach(qid => {
-      let found = QUESTIONS.find(q => q.id === qid);
+      const found = this.findQuestionById(qid);
       if (found) pool.push(found);
-      else {
-        QUESTIONS.forEach(item => {
-          if (item.part === 7 && item.questions) {
-            const sub = item.questions.find(sq => sq.id === qid);
-            if (sub) pool.push({ ...sub, part: 7, passage: item.passage });
-          }
-        });
-      }
     });
 
     if (pool.length === 0) return;
@@ -3098,14 +3271,15 @@ class ToeicQuestApp {
           <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
             <div>
               <label style="display: block; font-weight: 600; margin-bottom: 0.3rem;">Tên học viên:</label>
-              <input type="text" id="settingName" value="${this.state.user.name}" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
+              <input type="text" id="settingName" value="${this.escapeHTML(this.state.user.name)}" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
             </div>
             <div>
-              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem;">Mục tiêu TOEIC:</label>
-              <input type="number" id="settingTarget" value="750" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
+              <label style="display: block; font-weight: 600; margin-bottom: 0.3rem;">Mục tiêu TOEIC (10–990):</label>
+              <input type="number" id="settingTarget" value="${this.state.user.targetScore || 750}" min="10" max="990" step="5" style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
             </div>
+            <button class="btn" style="background: var(--accent-green); margin-top: 0.2rem;" onclick="app.saveSettings()">💾 Lưu thay đổi cài đặt</button>
             <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-              <button class="btn" style="flex: 1;" onclick="app.exportData()">📤 Xuất file Backup JSON</button>
+              <button class="btn btn-secondary" style="flex: 1;" onclick="app.exportData()">📤 Xuất file Backup JSON</button>
               <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('importFileInp').click()">📥 Nhập Backup JSON</button>
               <input type="file" id="importFileInp" accept=".json" style="display: none;" onchange="app.importData(event)">
             </div>
@@ -3115,6 +3289,28 @@ class ToeicQuestApp {
         </div>
       </div>
     `;
+  }
+
+  saveSettings() {
+    const nameInp = document.getElementById("settingName");
+    const targetInp = document.getElementById("settingTarget");
+    if (nameInp) {
+      const val = nameInp.value.trim();
+      if (val) this.state.user.name = val;
+    }
+    if (targetInp) {
+      const val = parseInt(targetInp.value, 10);
+      if (!isNaN(val) && val >= 10 && val <= 990) {
+        this.state.user.targetScore = val;
+      }
+    }
+    this.saveState();
+    this.updateHeaderUI();
+    this.closeModal();
+    this.showToast("Đã lưu thông tin cài đặt thành công!");
+    if (this.currentView === "dashboard") {
+      this.renderDashboard(document.getElementById("stageContent"));
+    }
   }
 
   closeModal() {
@@ -3140,14 +3336,15 @@ class ToeicQuestApp {
     reader.onload = (e) => {
       try {
         const imported = JSON.parse(e.target.result);
-        if (imported.user && imported.progress) {
-          this.state = imported;
+        const validState = this.validateAndMergeState(imported);
+        if (validState) {
+          this.state = validState;
           this.saveState();
           this.closeModal();
           this.init();
-          this.showToast("Đã nhập dữ liệu thành công!");
+          this.showToast("Đã nhập và xác thực dữ liệu thành công!");
         } else {
-          alert("File JSON không hợp lệ.");
+          alert("File JSON không hợp lệ hoặc cấu trúc dữ liệu không tương thích.");
         }
       } catch (err) {
         alert("Lỗi khi đọc file JSON: " + err.message);
@@ -3178,11 +3375,15 @@ class ToeicQuestApp {
   // --- BOSS LEVEL ENGINE & PROMOTION ---
   promoteCyberRole() {
     const roles = ["Intern", "Junior Analyst", "Senior Specialist", "Team Lead", "CISO"];
-    const currentBase = this.state.user.role.replace(" (Master)", "");
+    const currentBase = (this.state.user.role || "Intern").replace(/\s*\(.*?\)/, "").trim();
     const currentIdx = roles.indexOf(currentBase);
     let nextRole = "CISO (Master)";
     if (currentIdx !== -1 && currentIdx < roles.length - 1) {
       nextRole = roles[currentIdx + 1];
+    } else if (this.state.user.role === "CISO") {
+      nextRole = "CISO (Master)";
+    } else if (this.state.user.role && this.state.user.role.includes("Master")) {
+      nextRole = "CISO (Honorary Master)";
     }
     this.state.user.role = nextRole;
     this.state.user.level += 2;
@@ -3293,16 +3494,7 @@ class ToeicQuestApp {
 
   launchBossBattle() {
     const stage = document.getElementById("stageContent");
-    const flatList = [];
-    QUESTIONS.forEach(q => {
-      if (q.part === 7 && q.questions) {
-        q.questions.forEach(sub => {
-          flatList.push({ ...sub, part: 7, passage: q.passage, level: q.level || 4 });
-        });
-      } else {
-        flatList.push(q);
-      }
-    });
+    const flatList = this.getAllQuestionsFlat();
 
     const hardPool = flatList.filter(q => (q.level || 3) >= 4);
     const midPool = flatList.filter(q => (q.level || 3) === 3);
@@ -3333,10 +3525,21 @@ class QuizController {
     this.selectedIndex = null;
     this.isAnswered = false;
     this.score = 0;
+    this.listeningCorrect = 0;
+    this.readingCorrect = 0;
     this.isDone = false;
     this.timerInterval = null;
     this.secondsRemaining = this.timeLimitSeconds;
     this.isPlayingAudio = false;
+  }
+
+  cleanup() {
+    this.stopAudio();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+    this.isDone = true;
   }
 
   render(container) {
@@ -3348,6 +3551,11 @@ class QuizController {
   startTimer() {
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerInterval = setInterval(() => {
+      if (this.isDone) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        return;
+      }
       this.secondsRemaining -= 1;
       const el = document.getElementById("quizTimer");
       if (el) {
@@ -3357,7 +3565,8 @@ class QuizController {
       }
       if (this.secondsRemaining <= 0) {
         clearInterval(this.timerInterval);
-        this.finishQuiz();
+        this.timerInterval = null;
+        if (!this.isDone) this.finishQuiz();
       }
     }, 1000);
   }
@@ -3662,10 +3871,18 @@ class QuizController {
 
   handleNext() {
     this.stopAudio();
+    if (this.isDone) return;
     if (this.isExamMode) {
       const q = this.questions[this.currentIndex];
       const isCorrect = this.selectedIndex === q.answer;
-      if (isCorrect) this.score += 1;
+      if (isCorrect) {
+        this.score += 1;
+        if (q.part === 1 || q.part === 2) {
+          this.listeningCorrect += 1;
+        } else {
+          this.readingCorrect += 1;
+        }
+      }
 
       const partKey = `p${q.part}`;
       if (app.state.progress.partStats[partKey]) {
@@ -3679,12 +3896,22 @@ class QuizController {
   }
 
   finishQuiz() {
-    this.stopAudio();
-    if (this.timerInterval) clearInterval(this.timerInterval);
+    if (this.isDone) return;
     this.isDone = true;
+    this.stopAudio();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+    const listeningTotal = this.questions.filter(q => q.part === 1 || q.part === 2).length;
+    const readingTotal = this.questions.filter(q => q.part >= 3).length;
     this.onComplete({
       score: this.score,
-      total: this.questions.length
+      total: this.questions.length,
+      listeningCorrect: this.listeningCorrect,
+      listeningTotal: listeningTotal,
+      readingCorrect: this.readingCorrect,
+      readingTotal: readingTotal
     });
   }
 }
@@ -3712,6 +3939,15 @@ class BossBattleController {
     this.onComplete = options.onComplete || (() => {});
   }
 
+  cleanup() {
+    this.stopAudio();
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+    this.isDone = true;
+  }
+
   render(container) {
     this.container = container;
     this.startTimer();
@@ -3721,6 +3957,11 @@ class BossBattleController {
   startTimer() {
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerInterval = setInterval(() => {
+      if (this.isDone) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        return;
+      }
       this.secondsRemaining -= 1;
       const el = document.getElementById("bossTimer");
       if (el) {
@@ -3734,7 +3975,10 @@ class BossBattleController {
       }
       if (this.secondsRemaining <= 0) {
         clearInterval(this.timerInterval);
-        this.renderDefeat("Hết thời gian ứng cứu! Mã độc đã mã hóa toàn bộ cơ sở dữ liệu.");
+        this.timerInterval = null;
+        if (!this.isDone) {
+          this.renderDefeat("Hết thời gian ứng cứu! Mã độc đã mã hóa toàn bộ cơ sở dữ liệu.");
+        }
       }
     }, 1000);
   }
@@ -3748,6 +3992,7 @@ class BossBattleController {
 
   renderCurrentQuestion() {
     this.stopAudio();
+    if (this.isDone) return;
 
     if (this.bossHP <= 0) {
       this.renderVictory();
@@ -3987,24 +4232,36 @@ class BossBattleController {
     }
 
     const nextBtn = document.getElementById("nextBtn");
-    if (nextBtn) nextBtn.disabled = false;
 
     // Check instant win/loss conditions
     if (this.bossHP <= 0) {
-      setTimeout(() => this.renderVictory(), 1200);
+      if (nextBtn) nextBtn.disabled = true;
+      setTimeout(() => {
+        if (!this.isDone) this.renderVictory();
+      }, 1200);
     } else if (this.playerIntegrity <= 0) {
-      setTimeout(() => this.renderDefeat("System Integrity giảm về 0%! Mạng lõi sập."), 1200);
+      if (nextBtn) nextBtn.disabled = true;
+      setTimeout(() => {
+        if (!this.isDone) this.renderDefeat("System Integrity giảm về 0%! Mạng lõi sập.");
+      }, 1200);
+    } else {
+      if (nextBtn) nextBtn.disabled = false;
     }
   }
 
   handleNext() {
+    if (this.isDone || this.bossHP <= 0 || this.playerIntegrity <= 0) return;
     this.currentIndex += 1;
     this.renderCurrentQuestion();
   }
 
   renderVictory() {
-    if (this.timerInterval) clearInterval(this.timerInterval);
+    if (this.isDone) return;
     this.isDone = true;
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
 
     const newRole = app.promoteCyberRole();
     app.gainXP(200);
@@ -4020,7 +4277,7 @@ class BossBattleController {
           CHỨNG NHẬN SẮC PHONG & THĂNG CHỨC
         </h2>
         <p style="color: var(--text-sub); font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem;">
-          Hội đồng An ninh Thông tin Tập đoàn HexaTech trân trọng sắc phong học viên <strong>${app.state.user.name}</strong> lên chức vụ chỉ huy an ninh mạng:
+          Hội đồng An ninh Thông tin Tập đoàn HexaTech trân trọng sắc phong học viên <strong>${app.escapeHTML(app.state.user.name)}</strong> lên chức vụ chỉ huy an ninh mạng:
         </p>
 
         <div style="background: var(--bg-card); border: 2px solid var(--accent-amber); display: inline-block; padding: 1.5rem 3rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);">
@@ -4048,8 +4305,12 @@ class BossBattleController {
   }
 
   renderDefeat(reason = "") {
-    if (this.timerInterval) clearInterval(this.timerInterval);
+    if (this.isDone) return;
     this.isDone = true;
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
     app.sound.playWrong();
 
     this.container.innerHTML = `
