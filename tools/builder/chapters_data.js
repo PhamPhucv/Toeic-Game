@@ -11,8 +11,8 @@ module.exports = [
     bossTitle: "TRÙM CHƯƠNG 1: The Phishing Infiltration & Firewall Breach",
     bossDescription: "Kẻ tấn công đang gửi hàng loạt email giả mạo để chiếm đoạt tài khoản quản trị viên. Hãy vượt qua 5 câu hỏi quyết định để khóa chặt cổng tường lửa và thanh lọc hộp thư!",
     minScoreToPass: 60,
-    situationsCount: 12,
-    questionsCount: 24,
+    situationsCount: 26,
+    questionsCount: 52,
     badge: "🛡️ SOC Defender"
   },
   {
@@ -23,8 +23,8 @@ module.exports = [
     bossTitle: "TRÙM CHƯƠNG 2: The Ransomware Containment",
     bossDescription: "Ransomware đang cố gắng mã hóa cơ sở dữ liệu khách hàng! Trả lời chính xác 5 câu hỏi chuyên sâu để kích hoạt giao thức cô lập và giải mã khẩn cấp!",
     minScoreToPass: 65,
-    situationsCount: 8,
-    questionsCount: 20,
+    situationsCount: 24,
+    questionsCount: 48,
     badge: "🔬 Forensics Investigator"
   },
   {
@@ -35,8 +35,8 @@ module.exports = [
     bossTitle: "TRÙM CHƯƠNG 3: Zero-Day Vulnerability Patching",
     bossDescription: "Hệ thống xác thực ngân hàng đang gặp nguy hiểm. Hoàn thành 5 câu hỏi kỹ thuật khẩn cấp để vá lỗ hổng và thu hồi chứng chỉ số bị xâm phạm!",
     minScoreToPass: 70,
-    situationsCount: 8,
-    questionsCount: 20,
+    situationsCount: 24,
+    questionsCount: 49,
     badge: "⚙️ Patch Master"
   },
   {
@@ -47,8 +47,8 @@ module.exports = [
     bossTitle: "ĐẠI TRÙM CHƯƠNG 4: Ultimate APT Showdown",
     bossDescription: "Trận chiến cuối cùng trên máy chủ dữ liệu ngân hàng! Vượt qua 5 câu hỏi sinh tử để truy vết IP nhóm hacker và cứu nguy cho toàn bộ hệ thống tài chính!",
     minScoreToPass: 75,
-    situationsCount: 8,
-    questionsCount: 20,
+    situationsCount: 24,
+    questionsCount: 49,
     badge: "👑 NovaBank Cyber Legend"
   }
 ];

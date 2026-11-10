@@ -1521,7 +1521,7 @@ function buildHtml() {
         <div class="brand-badge">NB</div>
         <div class="brand-title">
           NovaBank Cyber Siege
-          <small>TOEIC SOC Adventure 550–750</small>
+          <small>TOEIC SOC Adventure 550–750 &bull; <span id="headerCountsDisplay">\${allQuestions.length} câu hỏi • \${vocab.length} từ vựng</span></small>
         </div>
       </div>
 
@@ -1580,6 +1580,9 @@ function buildHtml() {
       <button class="tab-btn" data-tab="analytics" onclick="gameApp.switchView('analytics')">
         📊 Báo cáo & Xuất PDF
       </button>
+      <button class="tab-btn" data-tab="sources" onclick="gameApp.switchView('sources')">
+        📚 Nguồn & Bản quyền
+      </button>
     </div>
   </nav>
 
@@ -1593,6 +1596,14 @@ function buildHtml() {
       <div class="story-header-card">
         <div class="chapter-selector" id="chapterSelectorList"></div>
         <div id="chapterIntroBanner"></div>
+      </div>
+
+      <!-- SPEECH SYNTHESIS VOICE PACK WARNING BANNER -->
+      <div id="voiceWarningBanner" style="display: none; background: rgba(245, 158, 11, 0.15); border: 1px solid var(--accent-amber); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 1rem;">
+        <p style="font-size: 0.85rem; color: var(--accent-amber); margin-bottom: 0.4rem;">
+          ⚠️ Không tìm thấy giọng đọc tiếng Anh mặc định trong hệ thống trình duyệt. Bạn có thể chọn một giọng đọc khả dụng dưới đây:
+        </p>
+        <select id="selectVoiceDropdown" onchange="gameApp.speech.setCustomVoice(this.value)" style="padding: 0.4rem; border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); font-size: 0.85rem; width: 100%; max-width: 450px;"></select>
       </div>
 
       <!-- NARRATIVE DIALOGUE BOX -->
@@ -1796,6 +1807,7 @@ function buildHtml() {
         <h1 style="font-size: 1.6rem; text-transform: uppercase;">NOVABANK SECURITY OPERATIONS CENTER</h1>
         <h2 style="font-size: 1.1rem; color: #444; margin-top: 0.2rem;">OFFICIAL TOEIC COMPETENCY ASSESSMENT REPORT</h2>
         <p style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Candidate: SOC Operator Trainee &bull; Date: <span id="printDateSlot"></span> &bull; Certificate ID: NB-SOC-2026-X88</p>
+        <p style="font-size: 0.78rem; color: #555; margin-top: 0.35rem; font-style: italic;">* Lưu ý: Kết quả trên là điểm ước lượng nội bộ (Estimated Diagnostic Score) phục vụ ca trực ôn luyện tại NovaBank SOC, không thay thế chứng chỉ chính thức do ETS cấp.</p>
       </div>
 
       <div class="story-header-card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
@@ -1810,8 +1822,12 @@ function buildHtml() {
             🖨️ Xuất Báo cáo TOEIC PDF (In ấn)
           </button>
           <button class="btn-toggle-trans" onclick="gameApp.exportDataJSON()">
-            💾 Sao lưu Dữ liệu (.JSON)
+            📥 Xuất Tiến Độ (.JSON)
           </button>
+          <button class="btn-toggle-trans" onclick="document.getElementById('fileImportProgress').click()">
+            📤 Nhập Tiến Độ (.JSON)
+          </button>
+          <input type="file" id="fileImportProgress" accept=".json,application/json" style="display: none;" onchange="gameApp.importDataJSON(event)">
         </div>
       </div>
 
@@ -1822,6 +1838,9 @@ function buildHtml() {
           <div class="score-hero">
             <div class="score-number" id="diagEstScore">--</div>
             <div class="score-scale">Thang điểm 10 – 990 (Dựa trên tỷ lệ câu trả lời đúng)</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; text-align: center;">
+              ⚠️ Điểm quy đổi chỉ là điểm ước lượng mang tính tham khảo, ETS không công bố bảng quy đổi chính thức.
+            </div>
           </div>
           <div style="font-size: 0.88rem; color: var(--text-sub); display: flex; justify-content: space-between;">
             <span>Listening: <b id="diagListenScore" style="color: var(--text-main);">--</b> / 495</span>
@@ -1839,6 +1858,71 @@ function buildHtml() {
         <div class="diagnostic-card" style="grid-column: 1 / -1;">
           <h3 style="font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--accent-amber);">💡 Chẩn đoán Lỗi sai & Chiến lược Ôn tập Tiếp theo</h3>
           <div id="diagAdviceBox" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 8: SOURCES & COPYRIGHT COMPLIANCE -->
+    <section id="viewSources" class="view-panel">
+      <div class="diagnostic-header" style="margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-size: 1.25rem; color: var(--accent-cyan); margin-bottom: 0.25rem;">📚 Nguồn Tham Khảo & Cam Kết Bản Quyền Hợp Pháp</h2>
+          <p style="color: var(--text-sub); font-size: 0.88rem;">Tài liệu tham khảo công khai, phi lợi nhuận phục vụ đào tạo sinh viên An toàn thông tin</p>
+        </div>
+      </div>
+
+      <div class="diagnostic-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-emerald);">
+        <h3 style="font-size: 1.05rem; color: var(--accent-emerald); margin-bottom: 0.5rem;">⚖️ Cam kết Nguyên bản 100% & Bản quyền (Copyright Statement)</h3>
+        <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main); margin-bottom: 0.5rem;">
+          Toàn bộ <strong>\${allQuestions.length} câu hỏi</strong>, <strong>\${vocab.length} từ vựng</strong>, đoạn hội thoại và ngữ liệu đọc hiểu trong ứng dụng này đều được <strong>tự biên soạn mới 100%</strong> bởi đội ngũ phát triển, dựa trên cấu trúc đề thi công khai và bối cảnh trung tâm điều hành an ninh mạng (SOC NovaBank).
+        </p>
+        <p style="font-size: 0.88rem; line-height: 1.6; color: var(--accent-rose);">
+          🚫 <strong>Không sao chép nguyên văn</strong> bất kỳ đề thi TOEIC thật, sách luyện thi thương mại hay tài liệu có bản quyền nào của Educational Testing Service (ETS). Toàn bộ định nghĩa thuật ngữ an toàn thông tin được tham chiếu từ NIST/OWASP/CISA và diễn đạt lại theo mục tiêu sư phạm.
+        </p>
+      </div>
+
+      <div class="diagnostic-grid">
+        <div class="diagnostic-card">
+          <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem; font-size: 0.95rem;">1. Cấu trúc Đề thi TOEIC Listening & Reading</h4>
+          <ul style="font-size: 0.85rem; line-height: 1.6; padding-left: 1.2rem; color: var(--text-sub);">
+            <li><strong style="color: var(--text-main);">Educational Testing Service (ETS):</strong> Format 200 câu hỏi trong 120 phút (Part 1 - 7). <a href="https://www.ets.org/toeic/test-takers/listening-reading/about.html" target="_blank" style="color: var(--accent-cyan);">ETS Official Overview ↗</a></li>
+            <li><strong style="color: var(--text-main);">Wikipedia TOEIC:</strong> Quy đổi điểm chuẩn hóa 10–990 và 5 hạng chứng chỉ. <a href="https://en.wikipedia.org/wiki/TOEIC" target="_blank" style="color: var(--accent-cyan);">Wikipedia TOEIC ↗</a></li>
+            <li><em style="color: var(--accent-amber);">Ghi chú: Điểm số trong game là điểm ước lượng nội bộ (Estimated Diagnostic Score), không thay thế bảng điểm chính thức của ETS.</em></li>
+          </ul>
+        </div>
+
+        <div class="diagnostic-card">
+          <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 0.95rem;">2. Ngữ pháp & Văn phong Tiếng Anh Công sở</h4>
+          <ul style="font-size: 0.85rem; line-height: 1.6; padding-left: 1.2rem; color: var(--text-sub);">
+            <li><strong style="color: var(--text-main);">Purdue University OWL:</strong> Hướng dẫn cấu trúc ngữ pháp cốt lõi cho ESL (Word forms, Passive voice, Pronouns, Subject-Verb agreement). <a href="https://owl.purdue.edu/owl/general_writing/grammar/index.html" target="_blank" style="color: var(--accent-cyan);">Purdue OWL ↗</a></li>
+            <li><strong style="color: var(--text-main);">British Council LearnEnglish:</strong> Cấu trúc liên từ, mệnh đề quan hệ và giả định thức thương mại. <a href="https://learnenglish.britishcouncil.org/grammar" target="_blank" style="color: var(--accent-cyan);">British Council ↗</a></li>
+          </ul>
+        </div>
+
+        <div class="diagnostic-card" style="grid-column: 1 / -1;">
+          <h4 style="color: var(--accent-amber); margin-bottom: 0.5rem; font-size: 0.95rem;">3. Thuật ngữ & Quy chuẩn An toàn Thông tin (Cybersecurity Glossaries)</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-sub);">
+            <div>
+              <strong style="color: var(--text-main);">NIST CSRC Glossary (U.S. Dept of Commerce):</strong><br>
+              Tham chiếu định nghĩa: Vulnerability, Incident Response (SP 800-61), Multi-Factor Authentication (SP 800-63B).<br>
+              <a href="https://csrc.nist.gov/glossary" target="_blank" style="color: var(--accent-cyan);">NIST CSRC Glossary ↗</a>
+            </div>
+            <div>
+              <strong style="color: var(--text-main);">CISA (Cybersecurity & Infrastructure Security Agency):</strong><br>
+              Tham chiếu thuật ngữ: Phishing campaigns, Ransomware mitigation, Zero-day defenses.<br>
+              <a href="https://www.cisa.gov/cybersecurity-resources" target="_blank" style="color: var(--accent-cyan);">CISA Resources ↗</a>
+            </div>
+            <div>
+              <strong style="color: var(--text-main);">OWASP Foundation:</strong><br>
+              Tham chiếu Top 10 Web Application Security Risks: Broken access control, Cryptographic failures, Injection.<br>
+              <a href="https://owasp.org/www-project-top-ten/" target="_blank" style="color: var(--accent-cyan);">OWASP Top 10 ↗</a>
+            </div>
+            <div>
+              <strong style="color: var(--text-main);">SANS Institute:</strong><br>
+              Quy trình 6 bước ứng cứu sự cố SOC (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned).<br>
+              <a href="https://www.sans.org/security-resources/glossary-of-terms/" target="_blank" style="color: var(--accent-cyan);">SANS Glossary ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1915,6 +1999,9 @@ function buildHtml() {
         <div class="tip-box">
           🛡️ <b>Mẹo sinh tồn:</b> Mỗi câu trả lời sai bị trừ 1 khiên. Hãy đọc kỹ phần Mẹo bẫy đề thi để không bị mắc lừa!
         </div>
+        <div class="tip-box" style="margin-top: 0.5rem; border-left-color: var(--accent-cyan);">
+          🎙️ <b>Lưu ý Nhận diện Giọng nói (TOEIC Speaking):</b> Web Speech Recognition trên trình duyệt Google Chrome sử dụng dịch vụ nhận diện đám mây của Google nên thiết bị cần có kết nối Internet để phân tích giọng nói. Nếu trình duyệt không hỗ trợ hoặc chưa cấp quyền micro, tính năng sẽ tự động cảnh báo hướng dẫn bằng tiếng Việt.
+        </div>
       </div>
     </div>
   </div>
@@ -1969,7 +2056,7 @@ function buildHtml() {
   /**
    * =========================================================================
    * 1. MẢNG DỮ LIỆU CÂU HỎI (GAME_QUESTIONS JSON ARRAY)
-   * 84 câu hỏi đầy đủ phân bố Part 2, Part 3, Part 5, Part 6, Part 7
+   * \${allQuestions.length} câu hỏi đầy đủ phân bố Part 2, Part 3, Part 5, Part 6, Part 7
    * =========================================================================
    */
   const GAME_QUESTIONS = ${JSON.stringify(allQuestions, null, 2)};
@@ -2118,6 +2205,7 @@ function buildHtml() {
       this.synth = window.speechSynthesis || null;
       this.rate = 1.0;
       this.voice = null;
+      this.availableVoices = [];
       this.initVoice();
     }
 
@@ -2125,11 +2213,35 @@ function buildHtml() {
       if (!this.synth) return;
       const setVoice = () => {
         const voices = this.synth.getVoices();
+        this.availableVoices = voices;
         this.voice = voices.find(v => v.lang.startsWith("en-US") || v.lang.startsWith("en-GB")) || voices.find(v => v.lang.startsWith("en")) || null;
+        if (!this.voice && voices.length > 0) {
+          console.warn("⚠️ Không tìm thấy giọng đọc tiếng Anh mặc định trong speechSynthesis.");
+          this.voice = voices[0];
+          this.warnMissingEnglishVoice(voices);
+        }
       };
       setVoice();
       if (this.synth.onvoiceschanged !== undefined) {
         this.synth.onvoiceschanged = setVoice;
+      }
+    }
+
+    warnMissingEnglishVoice(voices) {
+      const banner = document.getElementById("voiceWarningBanner");
+      if (banner) {
+        banner.style.display = "block";
+        const select = document.getElementById("selectVoiceDropdown");
+        if (select) {
+          select.innerHTML = voices.map((v, i) => \`<option value="\${i}">\${v.name} (\${v.lang})</option>\`).join("");
+        }
+      }
+    }
+
+    setCustomVoice(voiceIdx) {
+      if (this.availableVoices && this.availableVoices[voiceIdx]) {
+        this.voice = this.availableVoices[voiceIdx];
+        alert("✅ Đã chọn giọng đọc: " + this.voice.name + " (" + this.voice.lang + ")");
       }
     }
 
@@ -2142,7 +2254,7 @@ function buildHtml() {
       const cleanText = text.replace(/<[^>]*>/g, "").replace(/\\[1\\]/g, "blank").trim();
       const utterance = new SpeechSynthesisUtterance(cleanText);
       if (this.voice) utterance.voice = this.voice;
-      utterance.lang = "en-US";
+      utterance.lang = (this.voice && this.voice.lang) ? this.voice.lang : "en-US";
       utterance.rate = this.rate;
       this.synth.speak(utterance);
     }
@@ -2188,6 +2300,11 @@ function buildHtml() {
           this.isListening = false;
           this.updateUiState(false);
           console.warn("Speech recognition error:", e.error);
+          if (e.error === "not-allowed") {
+            alert("⚠️ Quyền truy cập microphone bị từ chối. Vui lòng cấp quyền micro trong cài đặt trình duyệt để luyện nói!");
+          } else if (e.error === "network") {
+            alert("⚠️ Lỗi mạng nhận diện giọng nói: Nhận diện giọng nói trên Google Chrome/Edge cần kết nối Internet để phân tích âm thanh.");
+          }
         };
 
         this.recognition.onresult = (event) => {
@@ -2200,7 +2317,7 @@ function buildHtml() {
 
     startListening(mode = "answer", targetSentence = "") {
       if (!this.supported) {
-        alert("Trình duyệt hiện tại chưa hỗ trợ webkitSpeechRecognition. Bạn nên sử dụng Google Chrome hoặc Microsoft Edge để luyện nói!");
+        alert("⚠️ Trình duyệt hiện tại chưa hỗ trợ webkitSpeechRecognition (hoặc chưa được cấp quyền micro).\\nLưu ý: Để luyện nói TOEIC Speaking qua micro, hãy sử dụng Google Chrome hoặc Microsoft Edge trên máy tính có kết nối Internet.");
         return;
       }
       this.mode = mode;
@@ -2375,6 +2492,7 @@ function buildHtml() {
       this.loadChapter(1);
       this.initSRS();
       this.updateStatsUI();
+      this.updateHeaderCounts();
       this.initKeyboardShortcuts();
       this.updateAnalyticsUI();
       this.initTerminalInput();
@@ -2392,7 +2510,15 @@ function buildHtml() {
     /* ================= 1. LOCAL STORAGE ================= */
     loadStorage() {
       try {
-        const saved = localStorage.getItem("novabank_soc_save_v2");
+        let saved = localStorage.getItem("novabank_soc_save_v2");
+        if (!saved) {
+          const v1 = localStorage.getItem("novabank_soc_save") || localStorage.getItem("toeic_quest_save");
+          if (v1) {
+            saved = v1;
+            localStorage.setItem("novabank_soc_save_v2", v1);
+            console.log("Migrated save state to novabank_soc_save_v2");
+          }
+        }
         if (saved) {
           const data = JSON.parse(saved);
           this.score = data.score || 0;
@@ -2406,7 +2532,7 @@ function buildHtml() {
           // Default initial leaderboard
           this.speedLeaderboard = [
             { name: "Dave Miller (SOC Lead)", wave: 18, score: 8450, date: "10/11/2026" },
-            { name: "Sarah Chen (Forensics)", wave: 14, score: 6200, date: "09/11/2026" },
+            { name: "Sarah Lin (Forensics)", wave: 14, score: 6200, date: "09/11/2026" },
             { name: "Helen Kang (CISO)", wave: 12, score: 5100, date: "08/11/2026" }
           ];
         }
@@ -2461,7 +2587,8 @@ function buildHtml() {
         speedrun: "viewSpeedRun",
         phishing: "viewPhishing",
         vocab: "viewVocab",
-        analytics: "viewAnalytics"
+        analytics: "viewAnalytics",
+        sources: "viewSources"
       }[viewName];
 
       if (target) {
@@ -2482,12 +2609,13 @@ function buildHtml() {
       container.innerHTML = GAME_CHAPTERS.map(ch => {
         const isUnlocked = this.completedChapters.has(ch.id);
         const isActive = this.currentChapterId === ch.id;
+        const qCount = GAME_QUESTIONS.filter(q => q.chapter === ch.id).length;
         return \`
           <button class="chapter-card-btn \${isActive ? 'active' : ''}" onclick="gameApp.loadChapter(\${ch.id})" \${!isUnlocked ? 'style="opacity: 0.6;"' : ''}>
             <div class="chapter-num">Chương \${ch.id} \${isUnlocked ? '🔓' : '🔒'}</div>
             <div class="chapter-title">\${ch.title.split(':')[1] || ch.title}</div>
             <div class="chapter-meta">
-              <span>\${ch.questionsCount} câu hỏi</span>
+              <span>\${qCount} câu hỏi</span>
               <span>\${ch.badge}</span>
             </div>
           </button>
@@ -2585,11 +2713,17 @@ function buildHtml() {
 
       // Question Stem & Voice button
       html += \`
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;">
-          <div class="question-stem" style="margin-bottom: 0;">\${q.stem}</div>
-          <button class="btn-voice" id="btnVoiceAnswer" onclick="gameApp.toggleVoiceAnswer()" title="Luyện nói TOEIC: Đọc to 'Option A' hoặc từ khóa">
-            🎙️ Bộ đàm Trả lời (Voice Response)
-          </button>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+          <div class="question-stem" style="margin-bottom: 0; flex: 1; min-width: 250px;">\${q.stem}</div>
+          \${this.voice && this.voice.supported ? \`
+            <button class="btn-voice" id="btnVoiceAnswer" onclick="gameApp.toggleVoiceAnswer()" title="Luyện nói TOEIC: Đọc to 'Option A' hoặc từ khóa">
+              🎙️ Bộ đàm Trả lời (Voice Response)
+            </button>
+          \` : \`
+            <div style="font-size: 0.76rem; color: var(--text-muted); background: rgba(100, 116, 139, 0.12); padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); border: 1px dashed var(--border-color); display: inline-flex; align-items: center;">
+              ⚠️ Nhận diện giọng nói không hỗ trợ trên trình duyệt này (khuyên dùng Chrome / Edge).
+            </div>
+          \`}
         </div>
       \`;
 
@@ -3013,9 +3147,12 @@ function buildHtml() {
             <div class="score-number">\${estTotal}</div>
             <div class="score-scale">Ước tính TOEIC Scaled Score (Đúng \${correctCount} / 30 câu)</div>
           </div>
-          <div style="font-size: 0.95rem; display: flex; justify-content: space-around; margin-bottom: 1.5rem;">
+          <div style="font-size: 0.95rem; display: flex; justify-content: space-around; margin-bottom: 1rem;">
             <span>🎧 Listening: <b>\${estListening}</b> / 495</span>
             <span>📖 Reading: <b>\${estReading}</b> / 495</span>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center; line-height: 1.5;">
+            ⚠️ Lưu ý: Điểm số trên là điểm ước lượng tham khảo dựa trên thuật toán mô phỏng điểm số TOEIC chuẩn hóa. Viện Khảo thí Giáo dục Hoa Kỳ (ETS) không công bố bảng quy đổi điểm chính thức áp dụng chung cho mọi đề thi.
           </div>
           <button class="btn-next" onclick="gameApp.switchView('analytics')">
             Xem Phân tích Chi tiết & Xuất Báo cáo PDF 📊
@@ -3605,6 +3742,8 @@ tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      
 
     exportDataJSON() {
       const data = {
+        app: "NovaBank Cyber Siege",
+        version: "2.1.0",
         exportedAt: new Date().toISOString(),
         score: this.score,
         shields: this.shields,
@@ -3618,10 +3757,41 @@ tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", "novabank_soc_backup.json");
+      link.setAttribute("download", "NovaBank_SOC_Progress_" + new Date().toISOString().slice(0, 10) + ".json");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    importDataJSON(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (typeof data !== "object" || data === null) throw new Error("Tệp không đúng định dạng JSON.");
+          if (data.score !== undefined) this.score = Number(data.score) || 0;
+          if (data.shields !== undefined) this.shields = Math.max(1, Math.min(3, Number(data.shields) || 3));
+          if (Array.isArray(data.completedChapters)) this.completedChapters = new Set(data.completedChapters);
+          if (data.statsHistory && typeof data.statsHistory === "object") this.statsHistory = data.statsHistory;
+          if (Array.isArray(data.srsVocab)) this.srsVocab = data.srsVocab;
+          if (Array.isArray(data.speedLeaderboard)) this.speedLeaderboard = data.speedLeaderboard;
+
+          this.saveStorage();
+          this.updateStatsUI();
+          this.renderChapterSelector();
+          this.renderSRS();
+          this.updateAnalyticsUI();
+          this.updateHeaderCounts();
+          alert("🎉 Nhập tiến độ thành công! Toàn bộ điểm số, khiên, chương đã mở, sổ tay từ vựng SRS và kỷ lục đã được khôi phục!");
+        } catch (err) {
+          alert("❌ Không thể nhập tiến độ: " + err.message);
+        }
+        event.target.value = "";
+      };
+      reader.readAsText(file);
     }
 
     /* ================= SPACED REPETITION (SRS) ================= */
@@ -3647,6 +3817,7 @@ tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      
           lastReview: Date.now()
         });
         this.saveStorage();
+        this.updateHeaderCounts();
       }
     }
 
@@ -3826,7 +3997,7 @@ tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      
           <ul style="padding-left: 1.25rem; margin: 0.5rem 0;">
             <li><strong>Điểm mạnh:</strong> Nhận diện từ vựng chuyên ngành an ninh mạng tốt (firewall, quarantine, authentication, mitigate, breach).</li>
             <li><strong>Điểm cần lưu ý:</strong> Cẩn thận các bẫy liên từ (although vs despite), bẫy Yes/No cho câu hỏi Wh- trong Part 2 và bẫy thì hoàn thành (since midnight).</li>
-            <li><strong>Lộ trình đề xuất:</strong> Luyện thêm 15 câu Part 5 về từ loại (Word form) và bấm nút '📥 Xuất Thẻ Anki' để đồng bộ 60 từ vựng vào điện thoại trước ca trực tiếp theo!</li>
+            <li><strong>Lộ trình đề xuất:</strong> Luyện thêm các câu Part 5 về từ loại (Word form) và bấm nút '📥 Xuất Thẻ Anki' để đồng bộ \${this.srsVocab.length} từ vựng vào điện thoại trước ca trực tiếp theo!</li>
           </ul>
         \`;
       }
