@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Quality & Integrity Checker - TOEIC Quest</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #10b981;
+      --red: #f43f5e;
+      --amber: #f59e0b;
+      --cyan: #06b6d4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-val {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.25rem 0;
+      color: #fff;
+    }
+    .stat-val.pass { color: var(--green); }
+    .stat-val.fail { color: var(--red); }
+    .stat-val.warn { color: var(--amber); }
+    .stat-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.75rem 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-pass { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid var(--green); }
+    .badge-fail { background: rgba(244, 63, 94, 0.2); color: var(--red); border: 1px solid var(--red); }
+    .badge-warn { background: rgba(245, 158, 11, 0.2); color: var(--amber); border: 1px solid var(--amber); }
+    .error-log {
+      background: #000;
+      border: 1px solid var(--red);
+      color: #fca5a5;
+      font-family: monospace;
+      padding: 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+    }
+    .btn-return {
+      display: inline-block;
+      background: var(--cyan);
+      color: #000;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🛡️ TOEIC Quest: Data Integrity & Schema Check</h1>
+    <p class="subtitle">Kiểm tra tự động toàn diện: Ngân hàng câu hỏi (Questions) & Từ vựng (Vocabulary)</p>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Tổng số câu hỏi</div>
+      <div class="stat-val" id="totalQuestionsVal">0</div>
+      <div class="stat-sub">Mục tiêu: ≥ 150 câu</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tổng số từ vựng</div>
+      <div class="stat-val" id="totalVocabVal">0</div>
+      <div class="stat-sub">Mục tiêu: ≥ 300 từ</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Kiểm tra Trùng lặp ID</div>
+      <div class="stat-val pass" id="idDuplicateVal">0</div>
+      <div class="stat-sub">Trùng lặp phát hiện</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Trạng thái Schema</div>
+      <div class="stat-val" id="schemaStatusVal">CHECKING</div>
+      <div class="stat-sub" id="schemaErrorCount">0 lỗi phát hiện</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2>📋 Kết quả Kiểm tra Quy tắc Toàn vẹn (Rule Integrity)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Hạng mục kiểm tra</th>
+          <th>Tiêu chuẩn kỹ thuật</th>
+          <th>Kết quả</th>
+          <th>Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody id="rulesTableBody">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+    <div id="errorBoxSlot"></div>
+  </div>
+
+  <div class="section-card">
+    <h2>📊 Phân bố Câu hỏi theo Part & Chủ đề</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+      <div>
+        <h3 style="font-size: 0.95rem; color: var(--muted); margin-bottom: 0.5rem;">Số lượng theo Part:</h3>
+        <table id="partDistTable">
+          <thead>
+            <tr><th>Part</th><th>Mô tả</th><th>Số câu</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size: 0.95rem; color: var(--muted); margin-bottom: 0.5rem;">Cân bằng Ngữ cảnh:</h3>
+        <table id="topicDistTable">
+          <thead>
+            <tr><th>Ngữ cảnh</th><th>Tỷ lệ mục tiêu</th><th>Số lượng</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card" id="needsReviewCard" style="display: none;">
+    <h2 style="color: var(--amber);">⚠️ Danh sách câu hỏi cần rà soát lại (needsReview)</h2>
+    <div id="needsReviewList" style="font-size: 0.9rem; line-height: 1.6;"></div>
+  </div>
+
+  <a href="../index.html" class="btn-return">← Quay lại Ứng dụng TOEIC Quest</a>
+</div>
+
+<!-- SCRIPTS TO CHECK -->
+<script src="../js/data/questions.js"></script>
+<script src="../js/data/vocab.js"></script>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const errors = [];
+  const rules = [];
+  const needsReviewQuestions = [];
+
+  // 1. Check QUESTIONS definition
+  const hasQuestions = typeof QUESTIONS !== "undefined" && Array.isArray(QUESTIONS);
+  if (!hasQuestions) {
+    errors.push("LỖI: Biến QUESTIONS chưa được nạp hoặc không phải là Array.");
+  }
+
+  // 2. Check VOCAB definition
+  const hasVocab = typeof VOCAB !== "undefined" && Array.isArray(VOCAB);
+  if (!hasVocab) {
+    errors.push("LỖI: Biến VOCAB chưa được nạp hoặc không phải là Array.");
+  }
+
+  // Flatten questions and validate schema
+  const flatQuestions = [];
+  const questionIds = new Set();
+  const duplicateQids = [];
+  const partCounts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+  let businessCount = 0;
+  let infosecCount = 0;
+
+  if (hasQuestions) {
+    QUESTIONS.forEach((q, idx) => {
+      // Check top-level ID
+      if (!q.id) {
+        errors.push(`Câu top-level thứ ${idx + 1} thiếu trường 'id'.`);
+      } else if (questionIds.has(q.id)) {
+        duplicateQids.push(q.id);
+        errors.push(`Trùng lặp ID top-level: '${q.id}'.`);
+      } else {
+        questionIds.add(q.id);
+      }
+
+      const isPassageBased = q.questions && Array.isArray(q.questions);
+
+      if (isPassageBased) {
+        if (!q.passage || typeof q.passage !== "string" || !q.passage.trim()) {
+          errors.push(`Đoạn văn ID '${q.id}' (Part ${q.part}) thiếu trường 'passage'.`);
+        }
+        if (q.questions.length === 0) {
+          errors.push(`Đoạn văn ID '${q.id}' không có câu hỏi con nào.`);
+        }
+
+        q.questions.forEach((sub, sIdx) => {
+          if (!sub.id) {
+            errors.push(`Câu hỏi con thứ ${sIdx + 1} trong set '${q.id}' thiếu 'id'.`);
+          } else if (questionIds.has(sub.id)) {
+            duplicateQids.push(sub.id);
+            errors.push(`Trùng lặp ID câu hỏi con: '${sub.id}' trong set '${q.id}'.`);
+          } else {
+            questionIds.add(sub.id);
+          }
+
+          // Validate choices
+          if (!Array.isArray(sub.choices) || sub.choices.length < 3) {
+            errors.push(`Câu hỏi ID '${sub.id}' phải có mảng choices hợp lệ (≥ 3 lựa chọn).`);
+          }
+
+          // Validate answer index
+          if (typeof sub.answer !== "number" || sub.answer < 0 || (sub.choices && sub.answer >= sub.choices.length)) {
+            errors.push(`Câu hỏi ID '${sub.id}' có 'answer' (${sub.answer}) không hợp lệ (ngoài phạm vi choices).`);
+          }
+
+          // Validate explanation & trap
+          if (!sub.explanation_vi || typeof sub.explanation_vi !== "string") {
+            errors.push(`Câu hỏi ID '${sub.id}' thiếu giải thích tiếng Việt ('explanation_vi').`);
+          }
+          if (!sub.trap && !q.trap) {
+            errors.push(`Câu hỏi ID '${sub.id}' thiếu phân tích bẫy ('trap').`);
+          }
+
+          if (sub.needsReview || q.needsReview) {
+            needsReviewQuestions.push(sub.id);
+          }
+
+          flatQuestions.push({ ...sub, part: q.part, topic: q.topic || sub.topic });
+          partCounts[q.part] = (partCounts[q.part] || 0) + 1;
+        });
+      } else {
+        // Single question (Part 1, 2, 5)
+        if (!Array.isArray(q.choices) || q.choices.length < 3) {
+          errors.push(`Câu hỏi ID '${q.id}' (Part ${q.part}) phải có mảng choices hợp lệ (≥ 3 lựa chọn).`);
+        }
+
+        if (typeof q.answer !== "number" || q.answer < 0 || (q.choices && q.answer >= q.choices.length)) {
+          errors.push(`Câu hỏi ID '${q.id}' có 'answer' (${q.answer}) vượt phạm vi choices.`);
+        }
+
+        if (!q.explanation_vi || typeof q.explanation_vi !== "string") {
+          errors.push(`Câu hỏi ID '${q.id}' thiếu 'explanation_vi'.`);
+        }
+        if (!q.trap) {
+          errors.push(`Câu hỏi ID '${q.id}' thiếu 'trap'.`);
+        }
+
+        if (q.needsReview) {
+          needsReviewQuestions.push(q.id);
+        }
+
+        flatQuestions.push(q);
+        partCounts[q.part] = (partCounts[q.part] || 0) + 1;
+      }
+
+      // Topic distribution heuristic
+      const topicStr = (q.topic || "") + " " + (q.skillTags ? q.skillTags.join(" ") : "");
+      if (/cyber|security|infosec|patch|incident|firewall|encryption|threat|vpn|zero-day|ciso|ransomware/i.test(topicStr)) {
+        infosecCount++;
+      } else {
+        businessCount++;
+      }
+    });
+  }
+
+  // 3. Validate VOCAB
+  const vocabWords = new Set();
+  const duplicateVocab = [];
+  if (hasVocab) {
+    VOCAB.forEach((v, idx) => {
+      if (!v.word) {
+        errors.push(`Mục từ vựng thứ ${idx + 1} thiếu trường 'word'.`);
+      } else {
+        const lower = v.word.toLowerCase();
+        if (vocabWords.has(lower)) {
+          duplicateVocab.push(v.word);
+          errors.push(`Từ vựng trùng lặp: '${v.word}'.`);
+        } else {
+          vocabWords.add(lower);
+        }
+      }
+      if (!v.meaning_vi) errors.push(`Từ vựng '${v.word}' thiếu nghĩa tiếng Việt ('meaning_vi').`);
+      if (!v.example) errors.push(`Từ vựng '${v.word}' thiếu câu ví dụ ('example').`);
+      if (!v.pos) errors.push(`Từ vựng '${v.word}' thiếu loại từ ('pos').`);
+    });
+  }
+
+  // Evaluate Rules
+  rules.push({
+    name: "Số lượng câu hỏi (Questions count)",
+    req: "≥ 150 câu hỏi con",
+    result: `${flatQuestions.length} câu`,
+    pass: flatQuestions.length >= 150
+  });
+
+  rules.push({
+    name: "Số lượng Part 5",
+    req: "= 60 câu",
+    result: `${partCounts[5] || 0} câu`,
+    pass: (partCounts[5] || 0) === 60
+  });
+
+  rules.push({
+    name: "Số lượng Part 6",
+    req: "= 40 câu (10 đoạn x 4)",
+    result: `${partCounts[6] || 0} câu`,
+    pass: (partCounts[6] || 0) === 40
+  });
+
+  rules.push({
+    name: "Số lượng Part 7",
+    req: "≥ 36 câu (10 bài đọc)",
+    result: `${partCounts[7] || 0} câu`,
+    pass: (partCounts[7] || 0) >= 36
+  });
+
+  rules.push({
+    name: "Độ độc nhất của ID (Unique IDs)",
+    req: "0 ID trùng lặp",
+    result: `${duplicateQids.length} ID trùng`,
+    pass: duplicateQids.length === 0
+  });
+
+  rules.push({
+    name: "Phạm vi đáp án đúng (Correct answer bounds)",
+    req: "0 ≤ answer < choices.length",
+    result: errors.some(e => e.includes("answer")) ? "Có lỗi đáp án" : "Hợp lệ 100%",
+    pass: !errors.some(e => e.includes("answer"))
+  });
+
+  rules.push({
+    name: "Giải thích & Phân tích bẫy (Explanation & Trap)",
+    req: "100% có explanation_vi & trap",
+    result: errors.some(e => e.includes("explanation") || e.includes("trap")) ? "Thiếu trường" : "Đầy đủ 100%",
+    pass: !errors.some(e => e.includes("explanation") || e.includes("trap"))
+  });
+
+  rules.push({
+    name: "Số lượng từ vựng (Vocabulary count)",
+    req: "≥ 300 từ duy nhất",
+    result: `${vocabWords.size} từ`,
+    pass: vocabWords.size >= 300
+  });
+
+  rules.push({
+    name: "Đầy đủ trường từ vựng (Vocab fields)",
+    req: "word, pos, meaning_vi, example",
+    result: errors.some(e => e.includes("Từ vựng '")) ? "Có từ thiếu trường" : "Đầy đủ 100%",
+    pass: !errors.some(e => e.includes("Từ vựng '"))
+  });
+
+  // Render Stats
+  document.getElementById("totalQuestionsVal").textContent = flatQuestions.length;
+  document.getElementById("totalQuestionsVal").className = flatQuestions.length >= 150 ? "stat-val pass" : "stat-val fail";
+
+  document.getElementById("totalVocabVal").textContent = vocabWords.size;
+  document.getElementById("totalVocabVal").className = vocabWords.size >= 300 ? "stat-val pass" : "stat-val fail";
+
+  document.getElementById("idDuplicateVal").textContent = duplicateQids.length;
+  document.getElementById("idDuplicateVal").className = duplicateQids.length === 0 ? "stat-val pass" : "stat-val fail";
+
+  const totalErrors = errors.length;
+  const statusEl = document.getElementById("schemaStatusVal");
+  statusEl.textContent = totalErrors === 0 ? "PASSED" : "FAILED";
+  statusEl.className = totalErrors === 0 ? "stat-val pass" : "stat-val fail";
+  document.getElementById("schemaErrorCount").textContent = `${totalErrors} lỗi phát hiện`;
+
+  // Render Rules Table
+  const tbody = document.getElementById("rulesTableBody");
+  rules.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><strong>${r.name}</strong></td>
+      <td style="color: var(--muted);">${r.req}</td>
+      <td>${r.result}</td>
+      <td><span class="badge ${r.pass ? 'badge-pass' : 'badge-fail'}">${r.pass ? 'PASS' : 'FAIL'}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Render Part Dist Table
+  const partTbody = document.querySelector("#partDistTable tbody");
+  const partDescriptions = {
+    1: "Photographs (Mô tả tranh)",
+    2: "Question - Response (Hỏi - Đáp)",
+    3: "Conversations (Đối thoại ngắn)",
+    4: "Talks (Bài nói ngắn)",
+    5: "Incomplete Sentences (Điền câu)",
+    6: "Text Completion (Điền đoạn văn)",
+    7: "Reading Comprehension (Đọc hiểu)"
+  };
+  Object.keys(partCounts).forEach(p => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>Part ${p}</td>
+      <td style="color: var(--muted);">${partDescriptions[p] || ""}</td>
+      <td><strong>${partCounts[p]}</strong> câu</td>
+    `;
+    partTbody.appendChild(tr);
+  });
+
+  // Render Topic Dist Table
+  const topicTbody = document.querySelector("#topicDistTable tbody");
+  const totalTop = businessCount + infosecCount;
+  const bPercent = totalTop > 0 ? Math.round((businessCount / totalTop) * 100) : 0;
+  const iPercent = totalTop > 0 ? Math.round((infosecCount / totalTop) * 100) : 0;
+  topicTbody.innerHTML = `
+    <tr>
+      <td>Standard Business (ETS)</td>
+      <td style="color: var(--muted);">~60%</td>
+      <td><strong>${businessCount}</strong> đề (${bPercent}%)</td>
+    </tr>
+    <tr>
+      <td>Cybersecurity & IT</td>
+      <td style="color: var(--muted);">~40%</td>
+      <td><strong>${infosecCount}</strong> đề (${iPercent}%)</td>
+    </tr>
+  `;
+
+  // Render Error Log Box if any
+  if (totalErrors > 0) {
+    const box = document.createElement("div");
+    box.className = "error-log";
+    box.textContent = errors.join("\n");
+    document.getElementById("errorBoxSlot").appendChild(box);
+  }
+
+  // Render needsReview if any
+  if (needsReviewQuestions.length > 0) {
+    document.getElementById("needsReviewCard").style.display = "block";
+    document.getElementById("needsReviewList").innerHTML = `
+      Có <strong>${needsReviewQuestions.length}</strong> câu hỏi được đánh dấu <code>needsReview: true</code> để bạn rà soát:
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+        ${needsReviewQuestions.map(id => `<li><code>${id}</code></li>`).join("")}
+      </ul>
+    `;
+  }
+});
+</script>
+</body>
+</html>
