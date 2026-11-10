@@ -1,6 +1,6 @@
 /**
- * CHAPTER 3 QUESTIONS (49 câu hỏi hoàn chỉnh)
- * Bao gồm 20 câu nền tảng + 29 câu mới bổ sung
+ * CHAPTER 3 QUESTIONS (54 câu hỏi hoàn chỉnh)
+ * Bao gồm các Part 1, 2, 3, 4, 5, 6, 7 chuẩn ETS TOEIC & InfoSec SOC
  */
 module.exports = [
   {
@@ -1989,6 +1989,216 @@ module.exports = [
         "ipa": "/ˈleɡ.ə.si/",
         "pos": "adj",
         "meaning": "kế thừa, phiên bản cũ đã tồn tại từ trước"
+      }
+    ]
+  },
+  {
+    "id": "c3-p1-01",
+    "chapter": 3,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 5 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 5. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất cổng kiểm soát an ninh sinh trắc học.",
+    "situation_vi": "02:30 - Lối vào trụ sở ngân hàng với cổng xoay kiểm soát thẻ từ và vân tay.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0b1329;\">\n      <!-- Polished Granite Floor with Reflection -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#0b1120\"/>\n      <polygon points=\"20,180 480,180 500,280 0,280\" fill=\"#1e293b\"/>\n      <line x1=\"0\" y1=\"180\" x2=\"500\" y2=\"180\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n\n      <!-- Turnstile Lane 1 (Left Pedestal) -->\n      <rect x=\"90\" y=\"90\" width=\"40\" height=\"120\" rx=\"6\" fill=\"#334155\" stroke=\"#64748b\" stroke-width=\"2\"/>\n      <rect x=\"100\" y=\"105\" width=\"20\" height=\"15\" rx=\"3\" fill=\"#0f172a\"/>\n      <circle cx=\"110\" cy=\"112\" r=\"3.5\" fill=\"#22c55e\"/>\n\n      <!-- Glass Flap Barrier 1 -->\n      <polygon points=\"130,120 185,95 185,170 130,175\" fill=\"#38bdf8\" fill-opacity=\"0.3\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n\n      <!-- Turnstile Lane Center Pedestal -->\n      <rect x=\"190\" y=\"90\" width=\"45\" height=\"120\" rx=\"6\" fill=\"#334155\" stroke=\"#64748b\" stroke-width=\"2\"/>\n      <!-- RFID Card Reader glowing green -->\n      <rect x=\"200\" y=\"105\" width=\"25\" height=\"18\" rx=\"3\" fill=\"#0f172a\" stroke=\"#22c55e\" stroke-width=\"1.5\"/>\n      <path d=\"M 206 114 L 210 118 L 219 109\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2\"/>\n\n      <!-- Glass Flap Barrier 2 -->\n      <polygon points=\"235,120 290,95 290,170 235,175\" fill=\"#38bdf8\" fill-opacity=\"0.3\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n\n      <!-- Turnstile Lane 3 (Right Pedestal) -->\n      <rect x=\"295\" y=\"90\" width=\"40\" height=\"120\" rx=\"6\" fill=\"#334155\" stroke=\"#64748b\" stroke-width=\"2\"/>\n      <rect x=\"305\" y=\"105\" width=\"20\" height=\"15\" rx=\"3\" fill=\"#0f172a\"/>\n      <circle cx=\"315\" cy=\"112\" r=\"3.5\" fill=\"#22c55e\"/>\n\n      <!-- Overhead Security Dome Camera on ceiling bracket -->\n      <rect x=\"205\" y=\"0\" width=\"15\" height=\"25\" fill=\"#64748b\"/>\n      <path d=\"M 200 25 A 12 12 0 0 0 225 25 Z\" fill=\"#0f172a\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n      <circle cx=\"212\" cy=\"28\" r=\"2\" fill=\"#ef4444\"/>\n\n      <!-- NovaBank Wall Logo in background -->\n      <rect x=\"380\" y=\"30\" width=\"90\" height=\"50\" rx=\"4\" fill=\"#0f172a\" stroke=\"#334155\"/>\n      <text x=\"390\" y=\"58\" fill=\"#38bdf8\" font-size=\"11\" font-family=\"sans-serif\" font-weight=\"bold\">NovaBank</text>\n      <text x=\"395\" y=\"70\" fill=\"#94a3b8\" font-size=\"7\" font-family=\"sans-serif\">SECURITY ACCESS</text>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) Turnstiles with electronic card readers are positioned at an entrance. (B) Security guards are searching bags at a checkpoint. (C) The glass barriers have been pushed onto the floor. (D) Employees are assembling a reception desk in the lobby.",
+    "choices": [
+      "Turnstiles with electronic card readers are positioned at an entrance.",
+      "Security guards are searching bags at a checkpoint.",
+      "The glass barriers have been pushed onto the floor.",
+      "Employees are assembling a reception desk in the lobby."
+    ],
+    "answer": 0,
+    "explanation_vi": "Hình vẽ mô tả các cổng xoay an ninh (turnstiles) có trang bị đầu đọc thẻ điện tử (electronic card readers) được bố trí ở lối vào sảnh chính -> Câu (A) hoàn toàn chính xác.",
+    "trap": "Câu (B) bẫy bảo vệ lục soát túi xách (không có người); Câu (C) bẫy rào chắn kính bị đẩy ngã (chúng đang đứng vững); Câu (D) bẫy hành động lắp ráp bàn tiếp tân.",
+    "examTip": "Từ vựng 'turnstile' (cổng xoay kiểm soát) là từ vựng rất hay xuất hiện trong tranh Part 1 miêu tả ga tàu điện hoặc cửa tòa nhà văn phòng cao ốc.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Security Turnstile",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "turnstile",
+        "ipa": "/ˈtɜːn.staɪl/",
+        "pos": "n",
+        "meaning": "cổng xoay kiểm soát ra vào"
+      },
+      {
+        "word": "position",
+        "ipa": "/pəˈzɪʃ.ən/",
+        "pos": "v",
+        "meaning": "đặt ở vị trí, bố trí"
+      }
+    ]
+  },
+  {
+    "id": "c3-p1-02",
+    "chapter": 3,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 6 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 6. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất phòng họp tác chiến của Giám đốc An ninh.",
+    "situation_vi": "03:15 - Phòng họp chỉ huy khẩn cấp (War Room) chuẩn bị cho buổi báo cáo CISO.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0f172a;\">\n      <!-- Room Background with Wall Molding -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#0b1120\"/>\n      <rect x=\"0\" y=\"210\" width=\"500\" height=\"70\" fill=\"#1e293b\"/>\n      <line x1=\"0\" y1=\"210\" x2=\"500\" y2=\"210\" stroke=\"#475569\" stroke-width=\"2\"/>\n\n      <!-- Large Wall Projection Screen -->\n      <rect x=\"130\" y=\"25\" width=\"240\" height=\"120\" rx=\"3\" fill=\"#0f172a\" stroke=\"#475569\" stroke-width=\"3\"/>\n      <!-- Slide Content: Incident Flowchart -->\n      <text x=\"145\" y=\"45\" fill=\"#38bdf8\" font-size=\"9\" font-family=\"sans-serif\" font-weight=\"bold\">ZERO-DAY INCIDENT RESPONSE TIMELINE</text>\n      <!-- Timeline Nodes -->\n      <circle cx=\"170\" cy=\"75\" r=\"9\" fill=\"#0284c7\"/>\n      <text x=\"166\" y=\"78\" fill=\"#ffffff\" font-size=\"8\">1</text>\n      <line x1=\"179\" y1=\"75\" x2=\"225\" y2=\"75\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n      <circle cx=\"235\" cy=\"75\" r=\"9\" fill=\"#0284c7\"/>\n      <text x=\"231\" y=\"78\" fill=\"#ffffff\" font-size=\"8\">2</text>\n      <line x1=\"244\" y1=\"75\" x2=\"290\" y2=\"75\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n      <circle cx=\"300\" cy=\"75\" r=\"9\" fill=\"#10b981\"/>\n      <text x=\"296\" y=\"78\" fill=\"#ffffff\" font-size=\"8\">3</text>\n      <!-- Trend Graph on Slide -->\n      <polyline points=\"150,125 180,115 210,120 250,95 290,105 340,90\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\"/>\n\n      <!-- Conference Table -->\n      <ellipse cx=\"250\" cy=\"225\" rx=\"180\" ry=\"35\" fill=\"#1e293b\" stroke=\"#64748b\" stroke-width=\"2.5\"/>\n\n      <!-- Swivel Office Chairs around table -->\n      <rect x=\"120\" y=\"180\" width=\"28\" height=\"25\" rx=\"3\" fill=\"#334155\" stroke=\"#475569\"/>\n      <rect x=\"180\" y=\"175\" width=\"28\" height=\"25\" rx=\"3\" fill=\"#334155\" stroke=\"#475569\"/>\n      <rect x=\"290\" y=\"175\" width=\"28\" height=\"25\" rx=\"3\" fill=\"#334155\" stroke=\"#475569\"/>\n      <rect x=\"350\" y=\"180\" width=\"28\" height=\"25\" rx=\"3\" fill=\"#334155\" stroke=\"#475569\"/>\n\n      <!-- Laptop and Notebooks on Table -->\n      <rect x=\"230\" y=\"215\" width=\"40\" height=\"20\" rx=\"2\" fill=\"#0f172a\" stroke=\"#94a3b8\"/>\n      <rect x=\"160\" y=\"222\" width=\"18\" height=\"14\" fill=\"#f8fafc\"/>\n      <rect x=\"320\" y=\"222\" width=\"18\" height=\"14\" fill=\"#f8fafc\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) A presentation screen displays information above a conference table. (B) Meeting attendees are taking seats around the podium. (C) Chairs are being stacked in the corner of the room. (D) The projection screen has been retracted into the ceiling.",
+    "choices": [
+      "A presentation screen displays information above a conference table.",
+      "Meeting attendees are taking seats around the podium.",
+      "Chairs are being stacked in the corner of the room.",
+      "The projection screen has been retracted into the ceiling."
+    ],
+    "answer": 0,
+    "explanation_vi": "Bức tranh cho thấy màn hình máy chiếu lớn đang hiển thị lưu đồ tiến trình sự cố phía trên chiếc bàn hội nghị hình bầu dục -> Câu (A) miêu tả hoàn toàn chính xác.",
+    "trap": "Câu (B) bẫy người tham gia đang ngồi vào chỗ (không có người); Câu (C) bẫy ghế bị xếp chồng 'being stacked'; Câu (D) bẫy màn hình bị cuốn lên trần.",
+    "examTip": "Các từ chỉ vị trí không gian như 'above', 'adjacent to', 'surrounding', 'alongside' là trọng tâm thường xuyên xuất hiện ở Part 1.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "War Room",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "display",
+        "ipa": "/dɪˈspleɪ/",
+        "pos": "v",
+        "meaning": "trưng bày, trình chiếu"
+      },
+      {
+        "word": "conference",
+        "ipa": "/ˈkɒn.fər.əns/",
+        "pos": "n",
+        "meaning": "hội nghị, cuộc họp"
+      }
+    ]
+  },
+  {
+    "id": "c3-p4-01",
+    "chapter": 3,
+    "part": 4,
+    "talkId": "talk-c3-01",
+    "speaker": "Security Workshop Facilitator",
+    "dialogue_en": "Welcome everyone to NovaBank's Annual Cybersecurity Awareness and Compliance Workshop. I am delighted to see representatives from both branch operations and administrative departments here this morning. Today's program focuses on strengthening our human firewall against sophisticated social engineering tactics and zero-day vulnerabilities. In our first session, our guest speaker, Dr. Raymond Vance from the National Cyber Defense Institute, will walk us through real-world case studies of credential theft and token hijacking. Following that, we will conduct a hands-on simulation where each table will analyze deceptive email headers. Before we begin our introductory keynote, please ensure that all mobile phones and handheld devices are silenced to minimize distractions. In addition, please note that refreshments are available in the foyer behind the auditorium throughout the day. Let us give a warm welcome to Dr. Vance.",
+    "dialogue_vi": "Chào mừng toàn thể anh chị đến với Hội thảo Thường niên Nâng cao Nhận thức và Tuân thủ An toàn Thông tin của NovaBank. Tôi rất vui mừng được đón tiếp các đại diện từ chi nhánh và khối văn phòng. Chương trình hôm nay tập trung củng cố 'bức tường lửa con người' trước các thủ thuật lừa đảo phi kỹ thuật và lỗ hổng zero-day. Trong phiên đầu tiên, diễn giả khách mời - Tiến sĩ Raymond Vance từ Viện Phòng thủ Không gian Mạng Quốc gia sẽ phân tích các tình huống thực tế về chiếm đoạt tài khoản và token xác thực. Sau đó, chúng ta sẽ thực hành phân tích header email giả mạo theo từng bàn. Trước khi bắt đầu bài phát biểu mở màn, vui lòng chuyển điện thoại và thiết bị cầm tay sang chế độ im lặng. Nước uống giải khát được phục vụ tại sảnh sau hội trường. Xin nhiệt liệt chào đón Tiến sĩ Vance.",
+    "situation_vi": "03:00 - Lắng nghe bài phát biểu khai mạc khóa đào tạo nâng cao nhận thức bảo mật NovaBank.",
+    "stem": "What is the primary theme of today's workshop?",
+    "audioText": "Welcome everyone to NovaBank's Annual Cybersecurity Awareness and Compliance Workshop. I am delighted to see representatives from both branch operations and administrative departments here this morning. Today's program focuses on strengthening our human firewall against sophisticated social engineering tactics and zero-day vulnerabilities. In our first session, our guest speaker, Dr. Raymond Vance from the National Cyber Defense Institute, will walk us through real-world case studies of credential theft and token hijacking. Following that, we will conduct a hands-on simulation where each table will analyze deceptive email headers. Before we begin our introductory keynote, please ensure that all mobile phones and handheld devices are silenced to minimize distractions. In addition, please note that refreshments are available in the foyer behind the auditorium throughout the day. Let us give a warm welcome to Dr. Vance. Question: What is the primary theme of today's workshop?",
+    "choices": [
+      "Strategies for expanding retail branch networks",
+      "Defending against social engineering and cyber threats",
+      "Techniques for preparing annual income tax returns",
+      "Guidelines for office furniture and ergonomic design"
+    ],
+    "answer": 1,
+    "explanation_vi": "Người nói công bố mục tiêu: 'Today's program focuses on strengthening our human firewall against sophisticated social engineering tactics and zero-day vulnerabilities' -> Phòng chống tấn công phi kỹ thuật và các hiểm họa an ninh mạng.",
+    "trap": "Bẫy mở rộng chi nhánh bán lẻ và bẫy thiết kế nội thất văn phòng.",
+    "examTip": "Cụm 'strengthening human firewall' và 'social engineering' liên quan trực tiếp đến phòng thủ an ninh thông tin (cyber defense).",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Workshop Opening",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "compliance",
+        "ipa": "/kəmˈplaɪ.əns/",
+        "pos": "n",
+        "meaning": "sự tuân thủ chính sách"
+      },
+      {
+        "word": "facilitator",
+        "ipa": "/fəˈsɪl.ɪ.teɪ.tər/",
+        "pos": "n",
+        "meaning": "người điều phối chương trình"
+      }
+    ]
+  },
+  {
+    "id": "c3-p4-02",
+    "chapter": 3,
+    "part": 4,
+    "talkId": "talk-c3-01",
+    "speaker": "Security Workshop Facilitator",
+    "dialogue_en": "In our first session, our guest speaker, Dr. Raymond Vance from the National Cyber Defense Institute, will walk us through real-world case studies of credential theft and token hijacking.",
+    "dialogue_vi": "Trong phiên đầu tiên, diễn giả khách mời - Tiến sĩ Raymond Vance từ Viện Phòng thủ Không gian Mạng Quốc gia sẽ phân tích các tình huống thực tế về chiếm đoạt tài khoản và token xác thực.",
+    "situation_vi": "03:00 - Câu hỏi về danh tính và chuyên môn của diễn giả khách mời.",
+    "stem": "Who is Dr. Raymond Vance?",
+    "audioText": "Question: Who is Dr. Raymond Vance?",
+    "choices": [
+      "The newly appointed chief financial officer of NovaBank",
+      "An expert guest speaker from a cyber defense institute",
+      "A building contractor supervising auditorium renovations",
+      "A software developer from an overseas subsidiary"
+    ],
+    "answer": 1,
+    "explanation_vi": "Người dẫn chương trình giới thiệu: 'our guest speaker, Dr. Raymond Vance from the National Cyber Defense Institute' -> Diễn giả khách mời từ Viện Phòng thủ Không gian Mạng.",
+    "trap": "Bẫy Giám đốc Tài chính CFO của NovaBank hoặc kỹ sư phần mềm nước ngoài.",
+    "examTip": "Các danh từ chỉ vai trò như 'guest speaker', 'keynote presenter' thường là từ khóa nhận diện trong Part 4.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Speaker Identity",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "hijacking",
+        "ipa": "/ˈhaɪ.dʒæk.ɪŋ/",
+        "pos": "n",
+        "meaning": "sự chiếm đoạt quyền điều khiển"
+      },
+      {
+        "word": "institute",
+        "ipa": "/ˈɪn.stɪ.tʃuːt/",
+        "pos": "n",
+        "meaning": "viện nghiên cứu"
+      }
+    ]
+  },
+  {
+    "id": "c3-p4-03",
+    "chapter": 3,
+    "part": 4,
+    "talkId": "talk-c3-01",
+    "speaker": "Security Workshop Facilitator",
+    "dialogue_en": "Before we begin our introductory keynote, please ensure that all mobile phones and handheld devices are silenced to minimize distractions.",
+    "dialogue_vi": "Trước khi bắt đầu bài phát biểu mở màn, vui lòng chuyển điện thoại và thiết bị cầm tay sang chế độ im lặng để giảm thiểu sự xao nhãng.",
+    "situation_vi": "03:00 - Câu hỏi về quy định phòng hội thảo đối với người tham dự.",
+    "stem": "What are attendees requested to do before the presentation begins?",
+    "audioText": "Question: What are attendees requested to do before the presentation begins?",
+    "choices": [
+      "Submit their written evaluation forms to the front desk",
+      "Silence their mobile phones and electronic devices",
+      "Move to the front row seats in the auditorium",
+      "Register their personal laptop serial numbers in the foyer"
+    ],
+    "answer": 1,
+    "explanation_vi": "Người điều phối nhắc nhở: 'please ensure that all mobile phones and handheld devices are silenced to minimize distractions' -> Chuyển điện thoại và thiết bị di động về chế độ im lặng.",
+    "trap": "Bẫy nộp phiếu đánh giá trước khi nghe (phiếu đánh giá thường nộp sau cùng) và bẫy chuyển lên hàng ghế đầu.",
+    "examTip": "Yêu cầu 'silence mobile phones' hoặc 'turn off electronic devices' là thông báo kinh điển xuất hiện lặp đi lặp lại trong các bài nói hội nghị của TOEIC Part 4.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Auditorium Etiquette",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "silence",
+        "ipa": "/ˈsaɪ.ləns/",
+        "pos": "v",
+        "meaning": "tắt chuông, chuyển về chế độ im lặng"
+      },
+      {
+        "word": "distraction",
+        "ipa": "/dɪˈstræk.ʃən/",
+        "pos": "n",
+        "meaning": "sự xao nhãng, làm phiền"
       }
     ]
   }

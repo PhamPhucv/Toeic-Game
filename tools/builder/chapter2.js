@@ -1,6 +1,6 @@
 /**
- * CHAPTER 2 QUESTIONS (48 câu hỏi hoàn chỉnh)
- * Bao gồm 20 câu nền tảng + 28 câu mới bổ sung
+ * CHAPTER 2 QUESTIONS (53 câu hỏi hoàn chỉnh)
+ * Bao gồm các Part 1, 2, 3, 4, 5, 6, 7 chuẩn ETS TOEIC & InfoSec SOC
  */
 module.exports = [
   {
@@ -1948,6 +1948,216 @@ module.exports = [
         "ipa": "/ˈmæk.rəʊ ɪˈneɪ.bəld/",
         "pos": "adj",
         "meaning": "có kích hoạt lệnh tự động macro"
+      }
+    ]
+  },
+  {
+    "id": "c2-p1-01",
+    "chapter": 2,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 3 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 3. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất các thiết bị trong phòng thí nghiệm điều tra số.",
+    "situation_vi": "01:15 - Bàn phân tích chứng cứ phần cứng độc hại của điều tra viên Sarah Lin.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0f172a;\">\n      <!-- Lab Workbench Surface -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#0b1120\"/>\n      <polygon points=\"30,190 470,190 500,280 0,280\" fill=\"#334155\"/>\n      <rect x=\"0\" y=\"190\" width=\"500\" height=\"6\" fill=\"#64748b\"/>\n\n      <!-- Magnifying Lamp with Circular Ring Light -->\n      <path d=\"M 60 190 L 75 110 L 120 80\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"5\"/>\n      <ellipse cx=\"135\" cy=\"75\" rx=\"20\" ry=\"14\" fill=\"#0f172a\" stroke=\"#cbd5e1\" stroke-width=\"3\"/>\n      <ellipse cx=\"135\" cy=\"75\" rx=\"12\" ry=\"8\" fill=\"#38bdf8\" opacity=\"0.4\"/>\n\n      <!-- Diagnostic Laptop displaying memory analysis -->\n      <polygon points=\"170,165 290,165 305,215 155,215\" fill=\"#1e293b\" stroke=\"#64748b\"/>\n      <rect x=\"180\" y=\"95\" width=\"100\" height=\"70\" rx=\"3\" fill=\"#0284c7\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n      <rect x=\"185\" y=\"105\" width=\"90\" height=\"8\" rx=\"2\" fill=\"#0f172a\"/>\n      <text x=\"188\" y=\"112\" fill=\"#22c55e\" font-size=\"6\" font-family=\"monospace\">VOLATILITY.DUMP: OK</text>\n      <line x1=\"188\" y1=\"125\" x2=\"260\" y2=\"125\" stroke=\"#f8fafc\" stroke-width=\"1.5\"/>\n      <line x1=\"188\" y1=\"135\" x2=\"245\" y2=\"135\" stroke=\"#f8fafc\" stroke-width=\"1.5\"/>\n\n      <!-- Detached Hard Drive and Circuit Boards -->\n      <rect x=\"330\" y=\"210\" width=\"55\" height=\"40\" rx=\"4\" fill=\"#64748b\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n      <circle cx=\"355\" cy=\"230\" r=\"12\" fill=\"#475569\"/>\n      <circle cx=\"355\" cy=\"230\" r=\"4\" fill=\"#cbd5e1\"/>\n      <rect x=\"405\" y=\"215\" width=\"45\" height=\"35\" rx=\"2\" fill=\"#15803d\" stroke=\"#22c55e\" stroke-width=\"1.5\"/>\n      <circle cx=\"415\" cy=\"225\" r=\"2\" fill=\"#facc15\"/>\n      <circle cx=\"435\" cy=\"235\" r=\"2\" fill=\"#facc15\"/>\n\n      <!-- Antistatic Grounding Wire -->\n      <path d=\"M 450 230 Q 480 250, 460 270\" fill=\"none\" stroke=\"#eab308\" stroke-width=\"2.5\"/>\n\n      <!-- Tool Holder on Wall -->\n      <rect x=\"360\" y=\"40\" width=\"100\" height=\"25\" rx=\"3\" fill=\"#1e293b\" stroke=\"#475569\"/>\n      <line x1=\"380\" y1=\"45\" x2=\"380\" y2=\"60\" stroke=\"#f8fafc\" stroke-width=\"2\"/>\n      <line x1=\"410\" y1=\"45\" x2=\"410\" y2=\"60\" stroke=\"#f8fafc\" stroke-width=\"2\"/>\n      <line x1=\"440\" y1=\"45\" x2=\"440\" y2=\"60\" stroke=\"#f8fafc\" stroke-width=\"2\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) Diagnostic tools and computer hardware are set on a laboratory counter. (B) A technician is soldering a wire onto a motherboard. (C) All the equipment has been packed into cardboard boxes. (D) A customer is filling out an equipment repair form.",
+    "choices": [
+      "Diagnostic tools and computer hardware are set on a laboratory counter.",
+      "A technician is soldering a wire onto a motherboard.",
+      "All the equipment has been packed into cardboard boxes.",
+      "A customer is filling out an equipment repair form."
+    ],
+    "answer": 0,
+    "explanation_vi": "Bức tranh chụp mặt bàn phòng lab điều tra mã độc với các thiết bị chẩn đoán (máy tính phân tích dump bộ nhớ, kính lúp vòng LED, ổ đĩa tháo rời, bảng mạch) được sắp đặt trên bàn -> Câu (A) miêu tả hoàn toàn khách quan và chính xác.",
+    "trap": "Câu (B) bẫy hành động 'is soldering' (không có người cầm mỏ hàn); Câu (C) bẫy từ 'packed into boxes'; Câu (D) bẫy đối tượng 'customer'.",
+    "examTip": "Với tranh chỉ có đồ vật (không có người), đáp án chứa động từ hành động của người (soldering, filling out) gần như luôn là bẫy sai.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Forensics Lab",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "diagnostic",
+        "ipa": "/ˌdaɪ.əɡˈnɒs.tɪk/",
+        "pos": "adj",
+        "meaning": "thuộc về chẩn đoán"
+      },
+      {
+        "word": "counter",
+        "ipa": "/ˈkaʊn.tər/",
+        "pos": "n",
+        "meaning": "quầy, mặt bàn kỹ thuật"
+      }
+    ]
+  },
+  {
+    "id": "c2-p1-02",
+    "chapter": 2,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 4 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 4. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất khu vực quầy giao dịch ngân hàng NovaBank.",
+    "situation_vi": "02:00 - Chi nhánh ngân hàng NovaBank với vách kính an toàn và máy ATM.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0f172a;\">\n      <!-- Lobby Floor -->\n      <polygon points=\"0,210 500,210 500,280 0,280\" fill=\"#1e293b\"/>\n      <line x1=\"0\" y1=\"210\" x2=\"500\" y2=\"210\" stroke=\"#475569\" stroke-width=\"2\"/>\n\n      <!-- Teller Counter with Glass Partitions -->\n      <rect x=\"40\" y=\"140\" width=\"280\" height=\"70\" fill=\"#0f172a\" stroke=\"#334155\" stroke-width=\"2\"/>\n      <!-- Glass Partition Panes -->\n      <rect x=\"50\" y=\"50\" width=\"80\" height=\"90\" rx=\"3\" fill=\"#38bdf8\" fill-opacity=\"0.15\" stroke=\"#38bdf8\" stroke-width=\"1.5\"/>\n      <circle cx=\"90\" cy=\"115\" r=\"5\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"1.5\"/>\n      <rect x=\"145\" y=\"50\" width=\"80\" height=\"90\" rx=\"3\" fill=\"#38bdf8\" fill-opacity=\"0.15\" stroke=\"#38bdf8\" stroke-width=\"1.5\"/>\n      <circle cx=\"185\" cy=\"115\" r=\"5\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"1.5\"/>\n      <rect x=\"240\" y=\"50\" width=\"75\" height=\"90\" rx=\"3\" fill=\"#38bdf8\" fill-opacity=\"0.15\" stroke=\"#38bdf8\" stroke-width=\"1.5\"/>\n      <!-- Counter document trays -->\n      <rect x=\"70\" y=\"135\" width=\"40\" height=\"6\" fill=\"#cbd5e1\"/>\n      <rect x=\"165\" y=\"135\" width=\"40\" height=\"6\" fill=\"#cbd5e1\"/>\n\n      <!-- ATM Terminal on the right -->\n      <rect x=\"360\" y=\"60\" width=\"90\" height=\"150\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\" stroke-width=\"2.5\"/>\n      <rect x=\"375\" y=\"75\" width=\"60\" height=\"40\" rx=\"2\" fill=\"#0f172a\" stroke=\"#94a3b8\"/>\n      <text x=\"385\" y=\"98\" fill=\"#38bdf8\" font-size=\"8\" font-family=\"sans-serif\" font-weight=\"bold\">NovaATM</text>\n      <!-- Keypad & Card slot -->\n      <rect x=\"380\" y=\"125\" width=\"25\" height=\"18\" fill=\"#334155\"/>\n      <rect x=\"415\" y=\"128\" width=\"20\" height=\"4\" fill=\"#22c55e\"/>\n\n      <!-- Queue Control Stanchions with Blue Belts -->\n      <rect x=\"100\" y=\"200\" width=\"6\" height=\"55\" fill=\"#94a3b8\"/>\n      <circle cx=\"103\" cy=\"200\" r=\"5\" fill=\"#cbd5e1\"/>\n      <ellipse cx=\"103\" cy=\"255\" rx=\"12\" ry=\"4\" fill=\"#64748b\"/>\n      <rect x=\"230\" y=\"200\" width=\"6\" height=\"55\" fill=\"#94a3b8\"/>\n      <circle cx=\"233\" cy=\"200\" r=\"5\" fill=\"#cbd5e1\"/>\n      <ellipse cx=\"233\" cy=\"255\" rx=\"12\" ry=\"4\" fill=\"#64748b\"/>\n      <!-- Connecting Retractable Belt -->\n      <path d=\"M 103 208 Q 168 220, 233 208\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) Protective glass partitions have been installed on the service counter. (B) A teller is handing a bank draft to a customer. (C) Cash is being dispensed from an automated teller machine. (D) The service line is crowded with waiting patrons.",
+    "choices": [
+      "Protective glass partitions have been installed on the service counter.",
+      "A teller is handing a bank draft to a customer.",
+      "Cash is being dispensed from an automated teller machine.",
+      "The service line is crowded with waiting patrons."
+    ],
+    "answer": 0,
+    "explanation_vi": "Hình ảnh cho thấy các tấm vách kính bảo vệ trong suốt (protective glass partitions) được lắp đặt trên quầy giao dịch dịch vụ khách hàng -> Câu (A) hoàn toàn chính xác.",
+    "trap": "Câu (B) bẫy hành động người giao dịch viên (không có người); Câu (C) bẫy tiếp diễn bị động 'is being dispensed'; Câu (D) bẫy 'crowded with patrons' trong khi sảnh đang trống.",
+    "examTip": "Cụm 'have been installed' (thể hoàn thành chỉ trạng thái tĩnh của đồ vật) thường là đáp án đúng trong các bức ảnh chụp không gian nội thất văn phòng.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Banking Hall",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "partition",
+        "ipa": "/pɑːˈtɪʃ.ən/",
+        "pos": "n",
+        "meaning": "vách ngăn phân chia không gian"
+      },
+      {
+        "word": "stanchion",
+        "ipa": "/ˈstɑːn.ʃən/",
+        "pos": "n",
+        "meaning": "cọc phân luồng xếp hàng"
+      }
+    ]
+  },
+  {
+    "id": "c2-p4-01",
+    "chapter": 2,
+    "part": 4,
+    "talkId": "talk-c2-01",
+    "speaker": "Dave (Incident Lead Voicemail)",
+    "dialogue_en": "Hello, Incident Response Team, this is Dave from the midnight SOC shift leaving a high-priority message at two fifteen A.M. We have successfully contained the ransomware incident that originated from a compromised accounting terminal in our North Branch. Sarah has already severed the affected machine's network connectivity and isolated the local subnet to prevent lateral movement. However, forensic scans indicate that the malware attempted to establish an encrypted tunnel to an external server right before disconnection. I need the primary forensics investigators to assemble in Conference Room B on the fourth floor at three sharp. Please bring your encrypted laptops and memory dump analysis logs so we can determine whether any sensitive customer banking records were extracted. Please acknowledge receipt of this message via our secure messaging channel as soon as you listen to it. See you shortly.",
+    "dialogue_vi": "Chào Đội Phản ứng Sự cố, tôi là Dave từ ca trực SOC nửa đêm để lại tin nhắn khẩn cấp lúc 02:15 sáng. Chúng tôi đã cô lập thành công sự cố mã độc tống tiền phát tán từ một máy trạm kế toán ở Chi nhánh Phía Bắc. Sarah đã ngắt kết nối mạng máy bị nhiễm và cách ly phân mạng để ngăn lây lan ngang. Tuy nhiên, quét pháp y cho thấy mã độc đã cố thiết lập đường hầm mã hóa ra máy chủ bên ngoài ngay trước khi bị ngắt. Tôi cần các điều tra viên pháp y chính có mặt tại Phòng họp B trên tầng 4 đúng 03:00. Hãy mang theo laptop mã hóa và nhật ký phân tích dump bộ nhớ để xác định xem hồ sơ khách hàng có bị rút trích không. Hãy xác nhận đã nhận tin nhắn qua kênh bảo mật. Hẹn gặp lại các bạn.",
+    "situation_vi": "02:15 - Nghe hộp thư thoại khẩn cấp của Trưởng ca Dave gửi Đội phản ứng sự cố.",
+    "stem": "Why is the speaker contacting the incident response team?",
+    "audioText": "Hello, Incident Response Team, this is Dave from the midnight SOC shift leaving a high-priority message at two fifteen A.M. We have successfully contained the ransomware incident that originated from a compromised accounting terminal in our North Branch. Sarah has already severed the affected machine's network connectivity and isolated the local subnet to prevent lateral movement. However, forensic scans indicate that the malware attempted to establish an encrypted tunnel to an external server right before disconnection. I need the primary forensics investigators to assemble in Conference Room B on the fourth floor at three sharp. Please bring your encrypted laptops and memory dump analysis logs so we can determine whether any sensitive customer banking records were extracted. Please acknowledge receipt of this message via our secure messaging channel as soon as you listen to it. See you shortly. Question: Why is the speaker contacting the incident response team?",
+    "choices": [
+      "To provide an incident update and convene an emergency meeting",
+      "To request price estimates for desktop hardware replacement",
+      "To cancel a scheduled cybersecurity training session",
+      "To complain about defective network cables in the branch"
+    ],
+    "answer": 0,
+    "explanation_vi": "Dave gọi điện thông báo diễn biến sự cố ransomware vừa được cô lập và triệu tập cuộc họp khẩn lúc 03:00 tại Phòng họp B ('assemble in Conference Room B... at three sharp').",
+    "trap": "Bẫy mua sắm thiết bị mới và bẫy hủy buổi đào tạo.",
+    "examTip": "Các từ vựng như 'convene a meeting' (triệu tập cuộc họp), 'provide an update' (cung cấp thông tin cập nhật) là đáp án cực kỳ quen thuộc cho câu hỏi mục đích trong Part 4.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Incident Voicemail",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "convene",
+        "ipa": "/kənˈviːn/",
+        "pos": "v",
+        "meaning": "triệu tập (cuộc họp)"
+      },
+      {
+        "word": "lateral",
+        "ipa": "/ˈlæt.ər.əl/",
+        "pos": "adj",
+        "meaning": "theo chiều ngang (lây lan ngang)"
+      }
+    ]
+  },
+  {
+    "id": "c2-p4-02",
+    "chapter": 2,
+    "part": 4,
+    "talkId": "talk-c2-01",
+    "speaker": "Dave (Incident Lead Voicemail)",
+    "dialogue_en": "Sarah has already severed the affected machine's network connectivity and isolated the local subnet to prevent lateral movement.",
+    "dialogue_vi": "Sarah đã ngắt kết nối mạng máy bị nhiễm và cách ly phân mạng để ngăn lây lan ngang.",
+    "situation_vi": "02:15 - Câu hỏi về hành động ứng cứu kỹ thuật đã hoàn thành.",
+    "stem": "What action has Sarah already taken?",
+    "audioText": "Question: What action has Sarah already taken?",
+    "choices": [
+      "She formatted all customer transaction databases",
+      "She disconnected the compromised machine and isolated the subnet",
+      "She published a press release regarding the security incident",
+      "She ordered new firewalls for the North Branch"
+    ],
+    "answer": 1,
+    "explanation_vi": "Dave báo cáo hành động của Sarah: 'Sarah has already severed the affected machine's network connectivity and isolated the local subnet' -> Ngắt mạng máy bị xâm phạm và cách ly phân mạng.",
+    "trap": "Bẫy định dạng cơ sở dữ liệu (formatted databases) và bẫy phát thông cáo báo chí (press release).",
+    "examTip": "Chú ý phân biệt hành động đã xảy ra ('already taken') với hành động sắp diễn ra trong tương lai ('need to assemble', 'bring laptops').",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Action Verification",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "sever",
+        "ipa": "/ˈsev.ər/",
+        "pos": "v",
+        "meaning": "cắt đứt, ngắt hoàn toàn"
+      },
+      {
+        "word": "isolate",
+        "ipa": "/ˈaɪ.sə.leɪt/",
+        "pos": "v",
+        "meaning": "cô lập, cách ly"
+      }
+    ]
+  },
+  {
+    "id": "c2-p4-03",
+    "chapter": 2,
+    "part": 4,
+    "talkId": "talk-c2-01",
+    "speaker": "Dave (Incident Lead Voicemail)",
+    "dialogue_en": "Please bring your encrypted laptops and memory dump analysis logs so we can determine whether any sensitive customer banking records were extracted.",
+    "dialogue_vi": "Hãy mang theo laptop mã hóa và nhật ký phân tích dump bộ nhớ để xác định xem hồ sơ khách hàng có bị rút trích không.",
+    "situation_vi": "02:15 - Câu hỏi về tài liệu và trang bị cần mang theo khi họp.",
+    "stem": "What are the investigators asked to bring to Conference Room B?",
+    "audioText": "Question: What are the investigators asked to bring to Conference Room B?",
+    "choices": [
+      "Physical keys to the server room cabinets",
+      "Encrypted laptops and memory dump analysis logs",
+      "Printed copies of employee contracts",
+      "Spare power adapters and Ethernet cables"
+    ],
+    "answer": 1,
+    "explanation_vi": "Dave yêu cầu: 'Please bring your encrypted laptops and memory dump analysis logs' -> Mang theo máy tính mã hóa và nhật ký phân tích bộ nhớ.",
+    "trap": "Bẫy chìa khóa vật lý tủ máy chủ và hợp đồng lao động.",
+    "examTip": "Khi câu hỏi hỏi về vật dụng cần mang ('What to bring'), hãy lắng nghe kỹ động từ 'bring', 'carry' hoặc 'have with you'.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Meeting Requirement",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "encrypted",
+        "ipa": "/ɪnˈkrɪp.tɪd/",
+        "pos": "adj",
+        "meaning": "được mã hóa bảo mật"
+      },
+      {
+        "word": "dump",
+        "ipa": "/dʌmp/",
+        "pos": "n",
+        "meaning": "bản sao trích xuất bộ nhớ tạm"
       }
     ]
   }

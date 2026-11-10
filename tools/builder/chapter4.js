@@ -1,6 +1,6 @@
 /**
- * CHAPTER 4 QUESTIONS (49 câu hỏi hoàn chỉnh)
- * Bao gồm 20 câu nền tảng + 29 câu mới bổ sung
+ * CHAPTER 4 QUESTIONS (54 câu hỏi hoàn chỉnh)
+ * Bao gồm các Part 1, 2, 3, 4, 5, 6, 7 chuẩn ETS TOEIC & InfoSec SOC
  */
 module.exports = [
   {
@@ -1989,6 +1989,216 @@ module.exports = [
         "ipa": "/dɪˈpen.də.bəl/",
         "pos": "adj",
         "meaning": "đáng tin cậy, an tâm"
+      }
+    ]
+  },
+  {
+    "id": "c4-p1-01",
+    "chapter": 4,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 7 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 7. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất phòng nguồn điện dự phòng UPS.",
+    "situation_vi": "04:00 - Trạm máy phát điện khẩn cấp và ắc quy dự phòng của trung tâm Core Banking.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0b1120;\">\n      <!-- Facility Concrete Floor -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#090d16\"/>\n      <polygon points=\"10,190 490,190 500,280 0,280\" fill=\"#1e293b\"/>\n\n      <!-- Yellow and Black Safety Hazard Stripes on Floor -->\n      <polygon points=\"80,240 100,240 85,270 65,270\" fill=\"#eab308\"/>\n      <polygon points=\"115,240 135,240 120,270 100,270\" fill=\"#eab308\"/>\n      <polygon points=\"150,240 170,240 155,270 135,270\" fill=\"#eab308\"/>\n      <polygon points=\"185,240 205,240 190,270 170,270\" fill=\"#eab308\"/>\n\n      <!-- Backup Diesel Generator Housing Unit -->\n      <rect x=\"60\" y=\"50\" width=\"220\" height=\"150\" rx=\"4\" fill=\"#334155\" stroke=\"#64748b\" stroke-width=\"3\"/>\n      <!-- Ventilation Louvers -->\n      <rect x=\"75\" y=\"70\" width=\"70\" height=\"110\" fill=\"#1e293b\"/>\n      <line x1=\"75\" y1=\"85\" x2=\"145\" y2=\"85\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <line x1=\"75\" y1=\"100\" x2=\"145\" y2=\"100\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <line x1=\"75\" y1=\"115\" x2=\"145\" y2=\"115\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <line x1=\"75\" y1=\"130\" x2=\"145\" y2=\"130\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <line x1=\"75\" y1=\"145\" x2=\"145\" y2=\"145\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <line x1=\"75\" y1=\"160\" x2=\"145\" y2=\"160\" stroke=\"#475569\" stroke-width=\"2\"/>\n\n      <!-- Exhaust Flange Pipe -->\n      <rect x=\"230\" y=\"20\" width=\"30\" height=\"30\" fill=\"#475569\"/>\n      <ellipse cx=\"245\" cy=\"20\" rx=\"15\" ry=\"5\" fill=\"#64748b\"/>\n\n      <!-- Emergency Stop Button Unit (E-Stop) -->\n      <rect x=\"175\" y=\"75\" width=\"45\" height=\"45\" rx=\"3\" fill=\"#facc15\" stroke=\"#000000\" stroke-width=\"1.5\"/>\n      <circle cx=\"197\" cy=\"97\" r=\"14\" fill=\"#ef4444\" stroke=\"#7f1d1d\" stroke-width=\"2\"/>\n\n      <!-- UPS Battery Bank Cabinet on the right -->\n      <rect x=\"320\" y=\"40\" width=\"130\" height=\"170\" rx=\"4\" fill=\"#0f172a\" stroke=\"#0284c7\" stroke-width=\"2.5\"/>\n      <text x=\"340\" y=\"60\" fill=\"#38bdf8\" font-size=\"8\" font-family=\"sans-serif\" font-weight=\"bold\">UPS BATTERY MODULES</text>\n      <!-- Battery Cells -->\n      <rect x=\"335\" y=\"70\" width=\"100\" height=\"22\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"345\" cy=\"81\" r=\"2.5\" fill=\"#22c55e\"/>\n      <rect x=\"335\" y=\"100\" width=\"100\" height=\"22\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"345\" cy=\"111\" r=\"2.5\" fill=\"#22c55e\"/>\n      <rect x=\"335\" y=\"130\" width=\"100\" height=\"22\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"345\" cy=\"141\" r=\"2.5\" fill=\"#22c55e\"/>\n      <rect x=\"335\" y=\"160\" width=\"100\" height=\"22\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"345\" cy=\"171\" r=\"2.5\" fill=\"#22c55e\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) Industrial power equipment is installed inside a utility facility. (B) Workers are refueling an emergency generator. (C) An operator is pressing an emergency shutoff switch. (D) Yellow caution tape has been cordoned across the doorway.",
+    "choices": [
+      "Industrial power equipment is installed inside a utility facility.",
+      "Workers are refueling an emergency generator.",
+      "An operator is pressing an emergency shutoff switch.",
+      "Yellow caution tape has been cordoned across the doorway."
+    ],
+    "answer": 0,
+    "explanation_vi": "Bức tranh chụp các khối thiết bị điện công nghiệp dự phòng (industrial power equipment) gồm máy phát điện và tủ pin UPS được lắp đặt kiên cố trong gian phòng kỹ thuật -> Câu (A) miêu tả hoàn toàn chính xác.",
+    "trap": "Câu (B) bẫy công nhân tiếp nhiên liệu 'are refueling'; Câu (C) bẫy thao tác bấm nút khẩn cấp 'is pressing'; Câu (D) bẫy dây cảnh báo giăng ngang cửa.",
+    "examTip": "Khi nhìn thấy máy móc công nghiệp trong phòng kỹ thuật, hãy tìm câu có cấu trúc bị động chỉ trạng thái như 'is installed', 'is housed', 'is positioned'.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Utility Facility",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "industrial",
+        "ipa": "/ɪnˈdʌs.tri.əl/",
+        "pos": "adj",
+        "meaning": "thuộc về công nghiệp"
+      },
+      {
+        "word": "facility",
+        "ipa": "/fəˈsɪl.ə.ti/",
+        "pos": "n",
+        "meaning": "cơ sở vật chất, nhà xưởng kỹ thuật"
+      }
+    ]
+  },
+  {
+    "id": "c4-p1-02",
+    "chapter": 4,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 8 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 8. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất phòng họp báo cáo Hội đồng Quản trị.",
+    "situation_vi": "05:00 - Bục phát biểu và bảng tổng kết chuẩn bị cho phiên báo cáo trước Hội đồng Quản trị.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0f172a;\">\n      <!-- City Skyline at Night through Panoramic Window -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#0b1120\"/>\n      <!-- Window Mullions -->\n      <rect x=\"30\" y=\"10\" width=\"440\" height=\"140\" fill=\"#020617\" stroke=\"#334155\" stroke-width=\"2\"/>\n      <!-- Distant City Lights -->\n      <rect x=\"50\" y=\"60\" width=\"35\" height=\"90\" fill=\"#0f172a\"/>\n      <circle cx=\"60\" cy=\"80\" r=\"1.5\" fill=\"#facc15\"/>\n      <circle cx=\"70\" cy=\"90\" r=\"1.5\" fill=\"#facc15\"/>\n      <rect x=\"95\" y=\"40\" width=\"40\" height=\"110\" fill=\"#1e293b\"/>\n      <circle cx=\"105\" cy=\"60\" r=\"1.5\" fill=\"#38bdf8\"/>\n      <circle cx=\"120\" cy=\"75\" r=\"1.5\" fill=\"#38bdf8\"/>\n      <rect x=\"145\" y=\"70\" width=\"30\" height=\"80\" fill=\"#0f172a\"/>\n\n      <!-- Executive Lectern / Podium -->\n      <polygon points=\"80,140 140,140 150,250 70,250\" fill=\"#1e293b\" stroke=\"#475569\" stroke-width=\"2\"/>\n      <rect x=\"75\" y=\"130\" width=\"70\" height=\"14\" rx=\"2\" fill=\"#334155\" stroke=\"#64748b\"/>\n      <!-- Gooseneck Microphone on Lectern -->\n      <path d=\"M 110 130 Q 110 110, 125 105\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n      <circle cx=\"127\" cy=\"104\" r=\"3\" fill=\"#0f172a\" stroke=\"#cbd5e1\"/>\n      <rect x=\"85\" y=\"132\" width=\"22\" height=\"10\" rx=\"1\" fill=\"#38bdf8\" opacity=\"0.6\"/>\n\n      <!-- Whiteboard on Easel Stand showing Cyber Audit Charts -->\n      <rect x=\"220\" y=\"45\" width=\"210\" height=\"135\" rx=\"3\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"3\"/>\n      <!-- Easel Legs -->\n      <line x1=\"240\" y1=\"180\" x2=\"225\" y2=\"255\" stroke=\"#475569\" stroke-width=\"3.5\"/>\n      <line x1=\"410\" y1=\"180\" x2=\"425\" y2=\"255\" stroke=\"#475569\" stroke-width=\"3.5\"/>\n      <line x1=\"325\" y1=\"180\" x2=\"325\" y2=\"255\" stroke=\"#334155\" stroke-width=\"2.5\"/>\n\n      <!-- Whiteboard Charts -->\n      <text x=\"235\" y=\"65\" fill=\"#0f172a\" font-size=\"9\" font-family=\"sans-serif\" font-weight=\"bold\">NOVABANK CYBER RESILIENCE</text>\n      <!-- Bar Chart -->\n      <rect x=\"245\" y=\"130\" width=\"18\" height=\"35\" fill=\"#0284c7\"/>\n      <rect x=\"270\" y=\"115\" width=\"18\" height=\"50\" fill=\"#0284c7\"/>\n      <rect x=\"295\" y=\"95\" width=\"18\" height=\"70\" fill=\"#10b981\"/>\n      <text x=\"245\" y=\"175\" fill=\"#64748b\" font-size=\"7\">Q1</text>\n      <text x=\"270\" y=\"175\" fill=\"#64748b\" font-size=\"7\">Q2</text>\n      <text x=\"295\" y=\"175\" fill=\"#64748b\" font-size=\"7\">Q3</text>\n      <!-- Circular Metric -->\n      <circle cx=\"370\" cy=\"120\" r=\"28\" fill=\"none\" stroke=\"#e2e8f0\" stroke-width=\"6\"/>\n      <circle cx=\"370\" cy=\"120\" r=\"28\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"6\" stroke-dasharray=\"140 180\" stroke-linecap=\"round\"/>\n      <text x=\"355\" y=\"124\" fill=\"#0f172a\" font-size=\"11\" font-weight=\"bold\">99.8%</text>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) A presentation board with charts is positioned near a podium. (B) A speaker is addressing members of the executive board. (C) Window blinds have been pulled down over the glass pane. (D) The whiteboard is being moved into another office.",
+    "choices": [
+      "A presentation board with charts is positioned near a podium.",
+      "A speaker is addressing members of the executive board.",
+      "Window blinds have been pulled down over the glass pane.",
+      "The whiteboard is being moved into another office."
+    ],
+    "answer": 0,
+    "explanation_vi": "Hình vẽ thể hiện một bảng thuyết trình có các biểu đồ chỉ số an ninh đặt cạnh bục phát biểu có gắn micro -> Câu (A) miêu tả hoàn toàn chính xác.",
+    "trap": "Câu (B) bẫy người phát biểu đang nói chuyện trước ban giám đốc (phòng chưa có người); Câu (C) bẫy rèm cửa sổ bị kéo xuống (cửa sổ đang mở nhìn ra bầu trời đêm); Câu (D) bẫy tiếp diễn bị động 'is being moved'.",
+    "examTip": "Bẫy 'speaker is addressing' là bẫy phổ biến nhất trong các bài thi Part 1 khi hình ảnh chỉ có bục phát biểu và bảng trình chiếu mà không có người.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Executive Boardroom",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "podium",
+        "ipa": "/ˈpəʊ.di.əm/",
+        "pos": "n",
+        "meaning": "bục phát biểu"
+      },
+      {
+        "word": "board",
+        "ipa": "/bɔːd/",
+        "pos": "n",
+        "meaning": "bảng trình bày, hội đồng"
+      }
+    ]
+  },
+  {
+    "id": "c4-p4-01",
+    "chapter": 4,
+    "part": 4,
+    "talkId": "talk-c4-01",
+    "speaker": "NovaBank Automated Phone System",
+    "dialogue_en": "Thank you for calling the NovaBank Commercial Support Center. Please listen carefully as our menu options have recently changed. Please be advised that our online banking portal and international Swift wire transfer services will undergo vital security infrastructure upgrades this coming Sunday, November fifteenth, starting at midnight. Service will be temporarily unavailable until four o'clock Sunday morning while our engineering team deploys advanced encryption protocols. During this four-hour maintenance window, automated teller machines and debit card point-of-sale transactions will continue to function normally. For questions regarding pending domestic wire transfers, press one. To report a lost or compromised corporate credit card, press two to speak with an emergency security representative immediately. For all other corporate inquiries, please stay on the line or visit novabank.com/support. Thank you for choosing NovaBank.",
+    "dialogue_vi": "Cảm ơn quý khách đã gọi đến Trung tâm Hỗ trợ Doanh nghiệp NovaBank. Vui lòng chú ý lắng nghe vì các lựa chọn đã thay đổi. Cổng ngân hàng trực tuyến và dịch vụ chuyển tiền quốc tế Swift sẽ được nâng cấp hạ tầng bảo mật vào Chủ Nhật tới, ngày 15/11, bắt đầu từ nửa đêm. Dịch vụ sẽ tạm thời gián đoạn đến 04:00 sáng Chủ Nhật trong khi đội ngũ kỹ sư triển khai các giao thức mã hóa tiên tiến. Trong 4 giờ bảo trì này, cây ATM và thanh toán thẻ qua máy POS vẫn hoạt động bình thường. Để hỏi về chuyển tiền trong nước, bấm phím 1. Để báo mất hoặc nghi lộ thẻ tín dụng doanh nghiệp, bấm phím 2 để gặp chuyên viên an ninh khẩn cấp. Các yêu cầu khác xin giữ máy hoặc truy cập novabank.com/support.",
+    "situation_vi": "04:30 - Lắng nghe thông điệp tự động của tổng đài ngân hàng về lịch bảo trì mạng Swift.",
+    "stem": "What is the primary purpose of the recorded telephone message?",
+    "audioText": "Thank you for calling the NovaBank Commercial Support Center. Please listen carefully as our menu options have recently changed. Please be advised that our online banking portal and international Swift wire transfer services will undergo vital security infrastructure upgrades this coming Sunday, November fifteenth, starting at midnight. Service will be temporarily unavailable until four o'clock Sunday morning while our engineering team deploys advanced encryption protocols. During this four-hour maintenance window, automated teller machines and debit card point-of-sale transactions will continue to function normally. For questions regarding pending domestic wire transfers, press one. To report a lost or compromised corporate credit card, press two to speak with an emergency security representative immediately. For all other corporate inquiries, please stay on the line or visit novabank.com/support. Thank you for choosing NovaBank. Question: What is the primary purpose of the recorded telephone message?",
+    "choices": [
+      "To notify customers of a scheduled service maintenance window",
+      "To advertise introductory interest rates on commercial loans",
+      "To explain the permanent closure of a downtown bank branch",
+      "To invite corporate clients to an annual investment dinner"
+    ],
+    "answer": 0,
+    "explanation_vi": "Đoạn ghi âm thông báo thời gian bảo trì nâng cấp hạ tầng bảo mật vào nửa đêm Chủ Nhật khiến cổng trực tuyến tạm gián đoạn -> Thông báo lịch bảo trì dịch vụ (scheduled service maintenance).",
+    "trap": "Bẫy quảng cáo lãi suất vay thương mại và bẫy đóng cửa vĩnh viễn chi nhánh.",
+    "examTip": "Cụm 'undergo maintenance / infrastructure upgrades' luôn tương ứng với mục đích thông báo lịch bảo trì hệ thống ('service maintenance window').",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Automated Phone Message",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "infrastructure",
+        "ipa": "/ˈɪn.frəˌstrʌk.tʃər/",
+        "pos": "n",
+        "meaning": "cơ sở hạ tầng"
+      },
+      {
+        "word": "compromised",
+        "ipa": "/ˈkɒm.prə.maɪzd/",
+        "pos": "adj",
+        "meaning": "bị xâm phạm, bị lộ lọt bảo mật"
+      }
+    ]
+  },
+  {
+    "id": "c4-p4-02",
+    "chapter": 4,
+    "part": 4,
+    "talkId": "talk-c4-01",
+    "speaker": "NovaBank Automated Phone System",
+    "dialogue_en": "During this four-hour maintenance window, automated teller machines and debit card point-of-sale transactions will continue to function normally.",
+    "dialogue_vi": "Trong 4 giờ bảo trì này, cây ATM và thanh toán thẻ qua máy POS vẫn hoạt động bình thường.",
+    "situation_vi": "04:30 - Câu hỏi về dịch vụ vẫn hoạt động liên tục trong thời gian bảo trì.",
+    "stem": "Which banking service will remain operational during the maintenance window?",
+    "audioText": "Question: Which banking service will remain operational during the maintenance window?",
+    "choices": [
+      "The international Swift wire transfer network",
+      "The online commercial banking web portal",
+      "Automated teller machines and card point-of-sale terminals",
+      "Real-time foreign currency exchange requests"
+    ],
+    "answer": 2,
+    "explanation_vi": "Bản ghi âm nêu rõ dịch vụ không bị gián đoạn: 'automated teller machines and debit card point-of-sale transactions will continue to function normally' -> Cây ATM và máy quẹt thẻ POS.",
+    "trap": "Cổng trực tuyến (web portal) và mạng Swift quốc tế là 2 dịch vụ bị tạm dừng, không phải dịch vụ duy trì.",
+    "examTip": "Cực kỳ chú ý các từ mang nghĩa đối lập như 'temporarily unavailable' (tạm ngừng) vs 'continue to function normally / remain operational' (vẫn hoạt động bình thường).",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Service Continuity",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "operational",
+        "ipa": "/ˌɒp.ərˈeɪ.ʃən.əl/",
+        "pos": "adj",
+        "meaning": "đang hoạt động bình thường"
+      },
+      {
+        "word": "point-of-sale",
+        "ipa": "/ˌpɔɪnt.əvˈseɪl/",
+        "pos": "n",
+        "meaning": "điểm bán lẻ, máy POS thanh toán thẻ"
+      }
+    ]
+  },
+  {
+    "id": "c4-p4-03",
+    "chapter": 4,
+    "part": 4,
+    "talkId": "talk-c4-01",
+    "speaker": "NovaBank Automated Phone System",
+    "dialogue_en": "To report a lost or compromised corporate credit card, press two to speak with an emergency security representative immediately.",
+    "dialogue_vi": "Để báo mất hoặc nghi lộ thẻ tín dụng doanh nghiệp, bấm phím 2 để gặp chuyên viên an ninh khẩn cấp ngay.",
+    "situation_vi": "04:30 - Câu hỏi về thao tác bàn phím điện thoại để báo mất thẻ khẩn cấp.",
+    "stem": "What should callers do to report a compromised corporate card?",
+    "audioText": "Question: What should callers do to report a compromised corporate card?",
+    "choices": [
+      "Press one on their telephone keypad",
+      "Press two to connect with an emergency security representative",
+      "Visit the physical bank branch on Monday morning",
+      "Send a message via the general contact web form"
+    ],
+    "answer": 1,
+    "explanation_vi": "Hệ thống chỉ dẫn: 'To report a lost or compromised corporate credit card, press two to speak with an emergency security representative immediately' -> Bấm phím 2.",
+    "trap": "Phím 1 là để hỏi về chuyển tiền trong nước (domestic wire transfers).",
+    "examTip": "Dạng bài thực đơn điện thoại (telephone phone menu) thường yêu cầu nối số phím bấm ('press one / press two') với dịch vụ tương ứng.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Phone Navigation",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "keypad",
+        "ipa": "/ˈkiː.pæd/",
+        "pos": "n",
+        "meaning": "bàn phím số điện thoại"
+      },
+      {
+        "word": "representative",
+        "ipa": "/ˌrep.rɪˈzen.tə.tɪv/",
+        "pos": "n",
+        "meaning": "đại diện, chuyên viên hỗ trợ"
       }
     ]
   }

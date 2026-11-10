@@ -1,6 +1,6 @@
 /**
- * CHAPTER 1 QUESTIONS (52 câu hỏi hoàn chỉnh)
- * Bao gồm 24 câu nền tảng + 28 câu mới bổ sung
+ * CHAPTER 1 QUESTIONS (57 câu hỏi hoàn chỉnh)
+ * Bao gồm các Part 1, 2, 3, 4, 5, 6, 7 chuẩn ETS TOEIC & InfoSec SOC
  */
 module.exports = [
   {
@@ -2109,6 +2109,216 @@ module.exports = [
         "ipa": "/ˌɒfˈlaɪn/",
         "pos": "adj",
         "meaning": "ngắt kết nối mạng"
+      }
+    ]
+  },
+  {
+    "id": "c1-p1-01",
+    "chapter": 1,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 1 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 1. Lắng nghe 4 phương án mô tả và chọn câu miêu tả chính xác nhất hình ảnh bạn thấy.",
+    "situation_vi": "00:05 - Bàn làm việc trung tâm giám sát an ninh SOC NovaBank lúc nửa đêm.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0f172a;\">\n      <defs>\n        <linearGradient id=\"screenGrad1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n          <stop offset=\"0%\" stop-color=\"#1e293b\"/>\n          <stop offset=\"100%\" stop-color=\"#0f172a\"/>\n        </linearGradient>\n        <linearGradient id=\"chartGrad1\" x1=\"0%\" y1=\"100%\" x2=\"0%\" y2=\"0%\">\n          <stop offset=\"0%\" stop-color=\"#06b6d4\" stop-opacity=\"0.2\"/>\n          <stop offset=\"100%\" stop-color=\"#06b6d4\" stop-opacity=\"0.9\"/>\n        </linearGradient>\n      </defs>\n      <!-- Background Wall -->\n      <rect x=\"0\" y=\"0\" width=\"500\" height=\"280\" fill=\"#0b1120\"/>\n      <!-- Desk Surface -->\n      <polygon points=\"20,240 480,240 500,280 0,280\" fill=\"#1e293b\"/>\n      <line x1=\"0\" y1=\"240\" x2=\"500\" y2=\"240\" stroke=\"#334155\" stroke-width=\"2\"/>\n\n      <!-- Central Large Monitor -->\n      <rect x=\"160\" y=\"50\" width=\"180\" height=\"110\" rx=\"4\" fill=\"url(#screenGrad1)\" stroke=\"#475569\" stroke-width=\"3\"/>\n      <rect x=\"240\" y=\"160\" width=\"20\" height=\"35\" fill=\"#334155\"/>\n      <polygon points=\"220,195 280,195 290,205 210,205\" fill=\"#475569\"/>\n      <!-- SIEM Telemetry Wave on Center Monitor -->\n      <path d=\"M 170 120 Q 190 80, 210 110 T 250 90 T 290 125 T 330 85\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.5\"/>\n      <circle cx=\"250\" cy=\"90\" r=\"3\" fill=\"#ef4444\"/>\n      <rect x=\"170\" y=\"60\" width=\"45\" height=\"12\" rx=\"2\" fill=\"#0284c7\" opacity=\"0.8\"/>\n      <text x=\"173\" y=\"69\" fill=\"#ffffff\" font-size=\"7\" font-family=\"monospace\" font-weight=\"bold\">SIEM:LIVE</text>\n      <!-- Telemetry Bars -->\n      <rect x=\"175\" y=\"135\" width=\"8\" height=\"15\" fill=\"#06b6d4\"/>\n      <rect x=\"187\" y=\"130\" width=\"8\" height=\"20\" fill=\"#06b6d4\"/>\n      <rect x=\"199\" y=\"125\" width=\"8\" height=\"25\" fill=\"#06b6d4\"/>\n      <rect x=\"211\" y=\"120\" width=\"8\" height=\"30\" fill=\"#38bdf8\"/>\n\n      <!-- Left Angled Monitor -->\n      <polygon points=\"40,70 145,85 145,185 40,175\" fill=\"#1e293b\" stroke=\"#475569\" stroke-width=\"2.5\"/>\n      <rect x=\"85\" y=\"180\" width=\"15\" height=\"30\" fill=\"#334155\"/>\n      <ellipse cx=\"92\" cy=\"210\" rx=\"25\" ry=\"6\" fill=\"#475569\"/>\n      <line x1=\"55\" y1=\"110\" x2=\"135\" y2=\"120\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n      <line x1=\"55\" y1=\"130\" x2=\"125\" y2=\"140\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n      <line x1=\"55\" y1=\"150\" x2=\"130\" y2=\"160\" stroke=\"#f59e0b\" stroke-width=\"2\"/>\n\n      <!-- Right Angled Monitor -->\n      <polygon points=\"355,85 460,70 460,175 355,185\" fill=\"#1e293b\" stroke=\"#475569\" stroke-width=\"2.5\"/>\n      <rect x=\"400\" y=\"180\" width=\"15\" height=\"30\" fill=\"#334155\"/>\n      <ellipse cx=\"407\" cy=\"210\" rx=\"25\" ry=\"6\" fill=\"#475569\"/>\n      <circle cx=\"410\" cy=\"125\" r=\"22\" fill=\"none\" stroke=\"#ef4444\" stroke-width=\"2\" stroke-dasharray=\"4 2\"/>\n      <line x1=\"370\" y1=\"155\" x2=\"445\" y2=\"145\" stroke=\"#10b981\" stroke-width=\"2\"/>\n\n      <!-- Keyboard & Mouse -->\n      <polygon points=\"190,245 310,245 325,270 175,270\" fill=\"#0f172a\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n      <ellipse cx=\"360\" cy=\"255\" rx=\"10\" ry=\"14\" fill=\"#0f172a\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n\n      <!-- Coffee Mug & Pen -->\n      <rect x=\"120\" y=\"242\" width=\"16\" height=\"20\" rx=\"3\" fill=\"#f59e0b\"/>\n      <path d=\"M 136 247 Q 144 252, 136 258\" fill=\"none\" stroke=\"#f59e0b\" stroke-width=\"2\"/>\n      <line x1=\"100\" y1=\"260\" x2=\"115\" y2=\"248\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n\n      <!-- Engineer Silhouette sitting in chair -->\n      <path d=\"M 220 280 Q 250 215, 280 280 Z\" fill=\"#0f172a\" opacity=\"0.85\"/>\n      <circle cx=\"250\" cy=\"215\" r=\"16\" fill=\"#0f172a\" opacity=\"0.85\"/>\n      <!-- Headset on silhouette -->\n      <path d=\"M 235 212 A 15 15 0 0 1 265 212\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2.5\"/>\n      <circle cx=\"234\" cy=\"215\" r=\"4\" fill=\"#38bdf8\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) An analyst is monitoring active displays in a control room. (B) The computer monitors have all been turned off. (C) A technician is replacing the keyboard on the desk. (D) Several employees are exiting the conference room.",
+    "choices": [
+      "An analyst is monitoring active displays in a control room.",
+      "The computer monitors have all been turned off.",
+      "A technician is replacing the keyboard on the desk.",
+      "Several employees are exiting the conference room."
+    ],
+    "answer": 0,
+    "explanation_vi": "Bức tranh thể hiện rõ một chuyên viên an ninh đang ngồi quan sát các màn hình hiển thị biểu đồ và dữ liệu giám sát trong phòng điều khiển SOC -> Câu (A) miêu tả hoàn toàn chính xác.",
+    "trap": "Câu (B) sai vì các màn hình đều đang bật sáng; Câu (C) bẫy hành động 'is replacing' (không có ai đang thay bàn phím); Câu (D) bẫy từ vựng 'exiting conference room' hoàn toàn không xuất hiện trong hình.",
+    "examTip": "Bẫy hành động thì hiện tại tiếp diễn: Luôn quan sát xem chủ thể có thực sự đang thực hiện động tác đó hay không (monitoring vs replacing).",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Monitoring",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "monitor",
+        "ipa": "/ˈmɒn.ɪ.tər/",
+        "pos": "v",
+        "meaning": "giám sát, theo dõi"
+      },
+      {
+        "word": "display",
+        "ipa": "/dɪˈspleɪ/",
+        "pos": "n",
+        "meaning": "màn hình hiển thị"
+      }
+    ]
+  },
+  {
+    "id": "c1-p1-02",
+    "chapter": 1,
+    "part": 1,
+    "speaker": "ETS TOEIC Narrator",
+    "dialogue_en": "Look at the picture marked Number 2 in your test book. Listen to the four statements and select the one that best describes the picture.",
+    "dialogue_vi": "Quan sát bức tranh số 2. Lắng nghe 4 phương án và chọn câu miêu tả đúng nhất vị trí và trạng thái thiết bị phòng máy chủ.",
+    "situation_vi": "00:45 - Khu vực tủ rack máy chủ trung tâm dữ liệu Core Banking NovaBank.",
+    "imageSvg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 280\" width=\"100%\" height=\"auto\" style=\"border-radius: 8px; background: #0b1329;\">\n      <!-- Grid floor perspective -->\n      <polygon points=\"50,280 450,280 380,180 120,180\" fill=\"#1e293b\" opacity=\"0.6\"/>\n      <line x1=\"120\" y1=\"180\" x2=\"50\" y2=\"280\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n      <line x1=\"380\" y1=\"180\" x2=\"450\" y2=\"280\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n      <line x1=\"200\" y1=\"180\" x2=\"170\" y2=\"280\" stroke=\"#334155\" stroke-dasharray=\"4 4\"/>\n      <line x1=\"300\" y1=\"180\" x2=\"330\" y2=\"280\" stroke=\"#334155\" stroke-dasharray=\"4 4\"/>\n\n      <!-- Left Server Cabinet -->\n      <rect x=\"70\" y=\"30\" width=\"100\" height=\"210\" rx=\"4\" fill=\"#0f172a\" stroke=\"#475569\" stroke-width=\"2.5\"/>\n      <!-- Server Blades -->\n      <rect x=\"80\" y=\"45\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"90\" cy=\"54\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"98\" cy=\"54\" r=\"2.5\" fill=\"#10b981\"/>\n      <rect x=\"80\" y=\"70\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"90\" cy=\"79\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"98\" cy=\"79\" r=\"2.5\" fill=\"#f59e0b\"/>\n      <rect x=\"80\" y=\"95\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"90\" cy=\"104\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"98\" cy=\"104\" r=\"2.5\" fill=\"#10b981\"/>\n      <rect x=\"80\" y=\"120\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"90\" cy=\"129\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"98\" cy=\"129\" r=\"2.5\" fill=\"#ef4444\"/>\n      <rect x=\"80\" y=\"145\" width=\"80\" height=\"35\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <!-- Cable bundles on side -->\n      <path d=\"M 165 50 Q 185 100, 165 170\" fill=\"none\" stroke=\"#0284c7\" stroke-width=\"4\"/>\n      <path d=\"M 168 60 Q 190 120, 168 190\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"3\"/>\n\n      <!-- Right Server Cabinet -->\n      <rect x=\"330\" y=\"30\" width=\"100\" height=\"210\" rx=\"4\" fill=\"#0f172a\" stroke=\"#475569\" stroke-width=\"2.5\"/>\n      <rect x=\"340\" y=\"45\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"350\" cy=\"54\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"358\" cy=\"54\" r=\"2.5\" fill=\"#10b981\"/>\n      <rect x=\"340\" y=\"70\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"350\" cy=\"79\" r=\"2.5\" fill=\"#10b981\"/>\n      <rect x=\"340\" y=\"95\" width=\"80\" height=\"18\" fill=\"#1e293b\" stroke=\"#334155\"/>\n      <circle cx=\"350\" cy=\"104\" r=\"2.5\" fill=\"#10b981\"/>\n      <circle cx=\"358\" cy=\"104\" r=\"2.5\" fill=\"#10b981\"/>\n      <!-- Ventilation Grilles -->\n      <line x1=\"350\" y1=\"130\" x2=\"410\" y2=\"130\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n      <line x1=\"350\" y1=\"140\" x2=\"410\" y2=\"140\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n      <line x1=\"350\" y1=\"150\" x2=\"410\" y2=\"150\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n\n      <!-- Technician standing in corridor holding diagnostic tablet -->\n      <rect x=\"235\" y=\"110\" width=\"30\" height=\"60\" rx=\"4\" fill=\"#1e3a8a\"/>\n      <circle cx=\"250\" cy=\"95\" r=\"12\" fill=\"#f8fafc\"/>\n      <line x1=\"240\" y1=\"170\" x2=\"240\" y2=\"240\" stroke=\"#0f172a\" stroke-width=\"9\"/>\n      <line x1=\"260\" y1=\"170\" x2=\"260\" y2=\"240\" stroke=\"#0f172a\" stroke-width=\"9\"/>\n      <!-- Tablet glowing blue in hands -->\n      <rect x=\"238\" y=\"130\" width=\"24\" height=\"16\" rx=\"2\" fill=\"#38bdf8\" stroke=\"#ffffff\" stroke-width=\"1\"/>\n      <!-- Identification Badge on lanyard -->\n      <rect x=\"247\" y=\"118\" width=\"6\" height=\"8\" rx=\"1\" fill=\"#f59e0b\"/>\n    </svg>",
+    "stem": "Look at the photograph and select the statement that best describes what you see.",
+    "audioText": "(A) Server racks are being disassembled on the floor. (B) A technician is inspecting equipment in a server room. (C) The data center is completely vacant. (D) Heavy boxes are stacked in front of the doorway.",
+    "choices": [
+      "Server racks are being disassembled on the floor.",
+      "A technician is inspecting equipment in a server room.",
+      "The data center is completely vacant.",
+      "Heavy boxes are stacked in front of the doorway."
+    ],
+    "answer": 1,
+    "explanation_vi": "Hình vẽ thể hiện rõ một kỹ thuật viên cầm máy tính bảng chẩn đoán đang đứng kiểm tra các tủ máy chủ trong phòng trung tâm dữ liệu -> Câu (B) miêu tả hoàn toàn chính xác.",
+    "trap": "Câu (A) bẫy 'being disassembled' (tháo rời); Câu (C) bẫy 'completely vacant' (hoàn toàn vắng người trong khi có kỹ thuật viên đứng đó); Câu (D) không có thùng hàng nào.",
+    "examTip": "Cảnh giác với thì tiếp diễn bị động 'being + V3' trong Part 1: Cụm từ 'are being disassembled' chỉ đúng khi có người đang tháo các thanh tủ.",
+    "tags": {
+      "part": "Part 1",
+      "category": "Photographs",
+      "topic": "Server Room",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "inspect",
+        "ipa": "/ɪnˈspekt/",
+        "pos": "v",
+        "meaning": "thanh tra, kiểm tra kỹ lưỡng"
+      },
+      {
+        "word": "rack",
+        "ipa": "/ræk/",
+        "pos": "n",
+        "meaning": "giá đỡ, tủ chứa máy chủ"
+      }
+    ]
+  },
+  {
+    "id": "c1-p4-01",
+    "chapter": 1,
+    "part": 4,
+    "talkId": "talk-c1-01",
+    "speaker": "Helen Kang (CISO Broadcast)",
+    "dialogue_en": "Good morning, NovaBank staff. This is Chief Information Security Officer Helen Kang with an urgent security broadcast. Late last night, our Security Operations Center detected a coordinated phishing campaign attempting to compromise employee credentials. While perimeter firewalls intercepted the majority of suspicious messages, several malicious attachments may have reached internal mailboxes. As a precautionary measure, all personnel are required to change their network passwords before five o'clock this afternoon using our self-service portal. Please make sure your new password contains at least fourteen characters, including numbers and symbols. If you notice any unusual password reset requests or unprompted authentication prompts on your mobile device, please report them to extension four-one-one-zero immediately. Thank you for your vigilance.",
+    "dialogue_vi": "Xin chào toàn thể nhân viên NovaBank. Tôi là Giám đốc An toàn Thông tin Helen Kang với thông báo an ninh khẩn. Đêm qua, Trung tâm SOC đã phát hiện một chiến dịch phishing quy mô lớn nhắm vào tài khoản nhân viên. Mặc dù tường lửa đã chặn phần lớn, một số tệp đính kèm độc hại có thể đã lọt vào hộp thư nội bộ. Để phòng ngừa, tất cả nhân viên phải đổi mật khẩu mạng trước 17:00 chiều nay qua cổng tự phục vụ. Mật khẩu mới phải dài ít nhất 14 ký tự gồm chữ số và ký tự đặc biệt. Nếu thấy bất kỳ yêu cầu đặt lại mật khẩu đáng ngờ nào trên điện thoại, hãy báo ngay cho máy lẻ 4110. Cảm ơn sự cảnh giác của các bạn.",
+    "situation_vi": "01:00 - Lắng nghe thông báo an ninh khẩn cấp từ Giám đốc CISO Helen Kang phát trên loa nội bộ ngân hàng.",
+    "stem": "What is the primary purpose of the broadcast announcement?",
+    "audioText": "Good morning, NovaBank staff. This is Chief Information Security Officer Helen Kang with an urgent security broadcast. Late last night, our Security Operations Center detected a coordinated phishing campaign attempting to compromise employee credentials. While perimeter firewalls intercepted the majority of suspicious messages, several malicious attachments may have reached internal mailboxes. As a precautionary measure, all personnel are required to change their network passwords before five o'clock this afternoon using our self-service portal. Please make sure your new password contains at least fourteen characters, including numbers and symbols. If you notice any unusual password reset requests or unprompted authentication prompts on your mobile device, please report them to extension four-one-one-zero immediately. Thank you for your vigilance. Question: What is the primary purpose of the broadcast announcement?",
+    "choices": [
+      "To announce an urgent requirement for password changes",
+      "To introduce a newly appointed department manager",
+      "To schedule routine server hardware maintenance",
+      "To review quarterly corporate financial earnings"
+    ],
+    "answer": 0,
+    "explanation_vi": "CISO Helen Kang phát đi thông báo khẩn: 'As a precautionary measure, all personnel are required to change their network passwords before five o'clock this afternoon' -> Mục đích chính là thông báo yêu cầu đổi mật khẩu khẩn cấp.",
+    "trap": "Bẫy bảo trì máy chủ (server maintenance) và bẫy công bố báo cáo tài chính quý.",
+    "examTip": "Câu hỏi mục đích chính (purpose/topic) của bài nói Part 4 luôn được giải đáp ngay trong 2-3 câu mở đầu của người nói.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Security Broadcast",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "precautionary",
+        "ipa": "/prɪˈkɔː.ʃən.ər.i/",
+        "pos": "adj",
+        "meaning": "có tính chất phòng ngừa"
+      },
+      {
+        "word": "vigilance",
+        "ipa": "/ˈvɪdʒ.əl.əns/",
+        "pos": "n",
+        "meaning": "sự cảnh giác, tỉnh táo"
+      }
+    ]
+  },
+  {
+    "id": "c1-p4-02",
+    "chapter": 1,
+    "part": 4,
+    "talkId": "talk-c1-01",
+    "speaker": "Helen Kang (CISO Broadcast)",
+    "dialogue_en": "All personnel are required to change their network passwords before five o'clock this afternoon using our self-service portal.",
+    "dialogue_vi": "Tất cả nhân viên bắt buộc phải đổi mật khẩu mạng trước 17:00 chiều nay qua cổng tự phục vụ.",
+    "situation_vi": "01:00 - Câu hỏi chi tiết về thời hạn và yêu cầu thực hiện của thông báo CISO.",
+    "stem": "What are employees instructed to do before 5:00 PM today?",
+    "audioText": "Question: What are employees instructed to do before 5:00 PM today?",
+    "choices": [
+      "Submit their overtime timesheets to payroll",
+      "Update their network passwords via the self-service portal",
+      "Attend an emergency briefing in the auditorium",
+      "Shut down their desktop workstations completely"
+    ],
+    "answer": 1,
+    "explanation_vi": "Helen Kang chỉ thị: 'all personnel are required to change their network passwords before five o'clock this afternoon using our self-service portal' -> Cập nhật mật khẩu qua cổng tự phục vụ.",
+    "trap": "Bẫy 'shut down workstations' và bẫy nộp bảng chấm công 'timesheets'.",
+    "examTip": "Khi nghe thấy mốc thời gian ('before five o'clock'), hãy tập trung ghi nhớ động từ hành động đi kèm ngay trước hoặc sau mốc thời gian đó.",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Deadline Instruction",
+      "difficulty": "Easy"
+    },
+    "vocab": [
+      {
+        "word": "portal",
+        "ipa": "/ˈpɔː.təl/",
+        "pos": "n",
+        "meaning": "cổng thông tin điện tử nội bộ"
+      },
+      {
+        "word": "personnel",
+        "ipa": "/ˌpɜː.sənˈel/",
+        "pos": "n",
+        "meaning": "toàn thể nhân viên, nhân sự"
+      }
+    ]
+  },
+  {
+    "id": "c1-p4-03",
+    "chapter": 1,
+    "part": 4,
+    "talkId": "talk-c1-01",
+    "speaker": "Helen Kang (CISO Broadcast)",
+    "dialogue_en": "If you notice any unusual password reset requests or unprompted authentication prompts on your mobile device, please report them to extension four-one-one-zero immediately.",
+    "dialogue_vi": "Nếu thấy yêu cầu đặt lại mật khẩu bất thường hoặc thông báo xác thực không rõ nguồn gốc trên điện thoại, hãy báo ngay cho số máy lẻ 4110.",
+    "situation_vi": "01:00 - Câu hỏi về kênh liên hệ khi phát hiện bất thường.",
+    "stem": "How should staff members report suspicious activity?",
+    "audioText": "Question: How should staff members report suspicious activity?",
+    "choices": [
+      "By sending an email to the marketing director",
+      "By posting a message on the public company website",
+      "By calling telephone extension 4110 immediately",
+      "By submitting a written memo by the end of the week"
+    ],
+    "answer": 2,
+    "explanation_vi": "Thông báo nêu rõ: 'please report them to extension four-one-one-zero immediately' -> Gọi điện ngay cho số máy lẻ 4110.",
+    "trap": "Bẫy gửi email cho giám đốc marketing hoặc gửi văn bản vào cuối tuần (trái ngược với tính chất khẩn cấp 'immediately').",
+    "examTip": "Số máy lẻ (extension number) trong bài nghe TOEIC thường được đọc từng chữ số riêng biệt ('four-one-one-zero' thay vì 'four thousand...').",
+    "tags": {
+      "part": "Part 4",
+      "category": "Listening",
+      "topic": "Contact Protocol",
+      "difficulty": "Medium"
+    },
+    "vocab": [
+      {
+        "word": "extension",
+        "ipa": "/ɪkˈsten.ʃən/",
+        "pos": "n",
+        "meaning": "số máy lẻ điện thoại nội bộ"
+      },
+      {
+        "word": "unprompted",
+        "ipa": "/ʌnˈprɒmp.tɪd/",
+        "pos": "adj",
+        "meaning": "tự phát, không có yêu cầu trước"
       }
     ]
   }

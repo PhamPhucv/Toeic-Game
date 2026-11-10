@@ -1,18 +1,47 @@
 # SOURCES & COPYRIGHT COMPLIANCE DOCUMENTATION
 **Project:** NovaBank Cyber Siege: TOEIC SOC Adventure (550–750)  
 **Date of Access & Curation:** November 10, 2026  
+**Version:** 2.2.0 (Full ETS 7-Part Coverage & 120m Simulation)  
 **License & Usage:** Educational Fair Use & Original Content Creation  
 
 ---
 
 ## 1. QUY TẮC BẢN QUYỀN VÀ TÍNH NGUYÊN BẢN (ORIGINALITY & COPYRIGHT STATEMENT)
-- Toàn bộ 198 câu hỏi (84 câu hỏi nền tảng + 114 câu hỏi mới bổ sung), 95 mục từ vựng, các đoạn hội thoại, tình huống trực chiến SOC và đoạn văn đọc hiểu trong ứng dụng này đều được **VIẾT MỚI 100% (ORIGINALLY AUTHORED)**.
+- Toàn bộ **218 câu hỏi** phủ trọn vẹn cả 7 Part (Part 1, 2, 3, 4, 5, 6, 7), 90 mục từ vựng chuyên ngành, các đoạn hội thoại, tình huống trực chiến SOC, đồ họa SVG vector và đoạn văn đọc hiểu trong ứng dụng này đều được **VIẾT MỚI VÀ THIẾT KẾ NGUYÊN BẢN 100% (ORIGINALLY AUTHORED & DESIGNED)**.
 - **TUYỆT ĐỐI KHÔNG SAO CHÉP** nguyên văn bất kỳ câu hỏi nào từ các đề thi TOEIC thật có bản quyền của Educational Testing Service (ETS), sách luyện thi ETS TOEIC Official Test-Preparation Guide, hoặc các tài liệu thương mại khác.
 - Dự án sử dụng cấu trúc định dạng chuẩn của bài thi TOEIC Listening & Reading nhằm mục đích giáo dục phi lợi nhuận (Educational / Pedagogical Purpose) cho sinh viên ngành An toàn thông tin và Công nghệ thông tin.
 
 ---
 
-## 2. DANH MỤC CÁC NGUỒN TÀI LIỆU THAM KHẢO CÔNG KHAI HỢP PHÁP
+## 2. NÂNG CẤP ĐỘ PHỦ ĐỀ THI V2.2.0 (FULL 7-PART COVERAGE)
+
+### A. Bổ sung Part 1 (Photographs - Mô tả tranh bằng SVG vector tương tác):
+- 8 bức tranh SVG tự hành được vẽ thủ công với độ sắc nét cao, tương thích cả giao diện Sáng và Tối (Dark / Light Theme), chạy 100% offline không cần kết nối mạng hay tải ảnh ngoài:
+  1. *SOC Monitoring Workstation:* Bàn làm việc trung tâm giám sát an ninh với cụm 3 màn hình SIEM.
+  2. *Server Room & Rack Maintenance:* Tủ rack máy chủ datacenter và kỹ thuật viên cầm tablet chẩn đoán.
+  3. *Digital Forensics Lab:* Bàn thí nghiệm phân tích chứng cứ phần cứng, ổ cứng tháo rời, kính hiển vi vi mạch.
+  4. *Banking Hall & ATM Station:* Quầy giao dịch viên với vách kính an toàn và máy ATM.
+  5. *Biometric Turnstile Security:* Cổng xoay kiểm soát ra vào bằng thẻ từ RFID và vân tay.
+  6. *CISO War Room:* Phòng họp tác chiến với màn hình máy chiếu lưu đồ sự cố an ninh.
+  7. *Utility & Emergency Generator:* Trạm máy phát điện dự phòng diesel và tủ ắc quy UPS.
+  8. *Executive Boardroom:* Bục phát biểu và bảng trắng hiển thị chỉ số phục hồi an ninh mạng.
+
+### B. Bổ sung Part 4 (Short Talks - Độc thoại ngắn nghiệp vụ ngân hàng):
+- 12 câu hỏi thuộc 4 bài độc thoại điển hình trong ngân hàng và SOC (mỗi bài nói kèm 3 câu hỏi liên hoàn):
+  1. *Talk 1 (CISO Emergency Broadcast):* Thông báo khẩn cấp của CISO Helen Kang yêu cầu đổi mật khẩu sau đợt phishing.
+  2. *Talk 2 (Incident Response Voicemail):* Tin nhắn thoại của Trưởng ca Dave triệu tập họp khẩn tại phòng War Room.
+  3. *Talk 3 (Security Workshop Opening Address):* Diễn văn khai mạc hội thảo nâng cao nhận thức an ninh của chuyên gia.
+  4. *Talk 4 (Automated Phone System Announcement):* Thông báo tự động của tổng đài về lịch bảo trì mạng Core Banking Swift.
+
+### C. Nâng cấp Trung Tâm Thi Thử Chuẩn Hóa (Full ETS Simulation Center):
+- **Mini-Test (30 câu - 15 phút):** 10 câu Listening + 20 câu Reading, ôn tập phản xạ nhanh.
+- **Standard Test (100 câu - 60 phút):** Tùy chọn 3 phân hệ (Tổng hợp 40L/60R, Listening Mastery 50 câu, Reading Specialist 50 câu).
+- **Full Simulation Test (200 câu - 120 phút):** Mô phỏng 100% kỳ thi thật ETS TOEIC Listening & Reading. Rút ngẫu nhiên 200 câu từ ngân hàng 218 câu (phủ đều Part 1 -> Part 7), bấm giờ nghiêm ngặt 120:00, tự động khóa giải thích trong phòng thi, gắn cờ xem lại 🚩, và tự động nộp bài khi hết giờ.
+- **Chế độ Xem lại (Post-Exam Review Mode):** Hiển thị chi tiết từng câu đúng/sai, đáp án chính xác, phân tích bẫy đề thi và mẹo làm nhanh 5 giây.
+
+---
+
+## 3. DANH MỤC CÁC NGUỒN TÀI LIỆU THAM KHẢO CÔNG KHAI HỢP PHÁP
 
 ### A. Nguồn tham chiếu Cấu trúc Bài thi TOEIC (Test Specifications):
 1. **Educational Testing Service (ETS) Official TOEIC Listening and Reading Overview**
@@ -29,7 +58,7 @@
 3. **Purdue Online Writing Lab (OWL) - ESL Guides & Mechanics**
    - *Tổ chức:* Purdue University Department of English.
    - *URL:* https://owl.purdue.edu/owl/general_writing/grammar/index.html
-   - *Nội dung tham khảo:* Danh mục chủ điểm ngữ pháp cốt lõi cho người học tiếng Anh: Word Forms (Danh - Động - Tính - Trạng), Subject-Verb Agreement, Verb Tenses & Passive Voice, Pronouns (Subject, Object, Possessive Adjective/Pronoun, Reflexive), Prepositions & Fixed Collocations, Relative Clauses.
+   - *Nội dung tham khảo:* Danh mục chủ điểm ngữ pháp cốt lõi cho người học tiếng Anh: Word Forms (Danh - Động - Tính - Trạng), Subject-Verb Agreement, Verb Tenses & Passive Voice, Pronouns, Prepositions & Fixed Collocations, Relative Clauses.
 
 4. **British Council LearnEnglish - Business & Academic English Framework**
    - *Tổ chức:* British Council.
@@ -40,21 +69,17 @@
 5. **NIST CSRC Glossary (Computer Security Resource Center)**
    - *Tổ chức:* National Institute of Standards and Technology (NIST), U.S. Department of Commerce.
    - *URL:* https://csrc.nist.gov/glossary
-   - *Nội dung tham khảo:* Các định nghĩa chuẩn hóa quốc tế:
-     - *Vulnerability:* Điểm yếu trong hệ thống thông tin, quy trình kiểm soát nội bộ mà kẻ tấn công có thể khai thác.
-     - *Incident Response:* Quy trình xử lý, cô lập và khắc phục vi phạm chính sách bảo mật (NIST SP 800-61 Rev. 2).
-     - *Phishing:* Hành vi lừa gạt người dùng nhằm đánh cắp thông tin đăng nhập hoặc thông tin tài chính cá nhân.
-     - *Multi-Factor Authentication (MFA):* Cơ chế xác thực yêu cầu từ 2 yếu tố độc lập trở lên (NIST SP 800-63B).
+   - *Nội dung tham khảo:* Định nghĩa chuẩn hóa: Vulnerability, Incident Response (SP 800-61 Rev. 2), MFA (SP 800-63B), Least Privilege.
 
 6. **CISA Cybersecurity Terminology & Security Advisories**
    - *Tổ chức:* Cybersecurity and Infrastructure Security Agency (CISA), USA.
    - *URL:* https://www.cisa.gov/cybersecurity-resources
-   - *Nội dung tham khảo:* Thuật ngữ tấn công Spear-Phishing, Ransomware, Zero-day vulnerability, Threat Intelligence, Subnet Isolation.
+   - *Nội dung tham khảo:* Spear-Phishing, Ransomware, Zero-day vulnerability, Threat Intelligence, Subnet Isolation.
 
 7. **OWASP Top 10 Web Application Security Risks**
    - *Tổ chức:* Open Worldwide Application Security Project (OWASP Foundation).
    - *URL:* https://owasp.org/www-project-top-ten/
-   - *Nội dung tham khảo:* Cơ chế kiểm soát truy cập (Broken Access Control), mã hóa dữ liệu (Cryptographic Failures), tiêm nhiễm mã độc (Injection), cấu hình sai an ninh (Security Misconfiguration).
+   - *Nội dung tham khảo:* Broken Access Control, Cryptographic Failures, Injection, Security Misconfiguration.
 
 8. **SANS Institute - Information Security Glossary & Incident Handler Handbook**
    - *Tổ chức:* SANS Institute.
@@ -63,8 +88,7 @@
 
 ---
 
-## 3. BẢNG PHÂN LOẠI TỪ VỰNG DUAL-USE (TOEIC BUSINESS x CYBERSECURITY)
-Các từ vựng trong game được chọn lọc nhằm tối đa hóa hiệu quả ôn thi TOEIC đồng thời làm quen với thuật ngữ chuyên ngành:
+## 4. BẢNG PHÂN LOẠI TỪ VỰNG DUAL-USE (TOEIC BUSINESS x CYBERSECURITY)
 
 | Từ vựng | Nghĩa trong TOEIC Công sở | Nghĩa trong Bối cảnh SOC / An toàn thông tin |
 | :--- | :--- | :--- |
@@ -80,6 +104,5 @@ Các từ vựng trong game được chọn lọc nhằm tối đa hóa hiệu q
 | **contingency** | Kế hoạch dự phòng sự cố kinh doanh | Kế hoạch ứng phó thảm họa CNTT (Disaster Recovery Plan) |
 | **scrutinize** | Soi xét, kiểm tra kỹ lưỡng báo cáo | Rà soát phân tích log nhật ký máy chủ và tường lửa |
 | **substantiate** | Cung cấp hóa đơn chứng từ chi phí | Cung cấp bằng chứng pháp y số chứng minh vụ xâm nhập |
-
----
-*Tất cả định nghĩa tiếng Việt và ví dụ đi kèm trong game đã được biên soạn lại hoàn toàn để phù hợp nhất với năng lực của sinh viên đại học Việt Nam chuẩn bị thi TOEIC 550–750.*
+| **turnstile** | Cổng xoay kiểm soát lối vào | Cổng phân làn an ninh sinh trắc học thẻ từ |
+| **partition** | Vách ngăn phân chia văn phòng | Vách kính chống đạn bảo vệ quầy giao dịch viên |

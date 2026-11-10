@@ -804,6 +804,126 @@ function buildHtml() {
       outline-offset: 1px;
     }
 
+    .exam-nav-btn.flagged {
+      border-color: var(--accent-amber) !important;
+      position: relative;
+    }
+
+    .exam-nav-btn.flagged::after {
+      content: '🚩';
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 0.65rem;
+      line-height: 1;
+    }
+
+    .exam-nav-btn.review-correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--accent-emerald) !important;
+      color: var(--accent-emerald) !important;
+    }
+
+    .exam-nav-btn.review-wrong {
+      background: rgba(244, 63, 94, 0.25) !important;
+      border-color: var(--accent-rose) !important;
+      color: var(--accent-rose) !important;
+    }
+
+    .photo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+      padding: 0.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .photo-container svg {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      display: block;
+    }
+
+    .exam-modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .exam-mode-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .exam-mode-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.15);
+    }
+
+    .exam-mode-card.featured {
+      border-color: var(--accent-amber);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.06) 0%, var(--bg-card) 100%);
+    }
+
+    .exam-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+
+    .exam-badge.badge-mini {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+    }
+
+    .exam-badge.badge-standard {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+    }
+
+    .exam-badge.badge-full {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid var(--accent-amber);
+    }
+
+    .exam-filter-chip {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .exam-filter-chip.active {
+      background: var(--accent-cyan);
+      color: #0b1120;
+      border-color: var(--accent-cyan);
+    }
+
     .exam-timer-chip {
       background: rgba(244, 63, 94, 0.15);
       color: var(--accent-rose);
@@ -1566,7 +1686,7 @@ function buildHtml() {
         🎯 Luyện theo dạng (Practice)
       </button>
       <button class="tab-btn" data-tab="mockexam" onclick="gameApp.switchView('mockexam')">
-        ⏱️ Thi thử (Mini Test 30)
+        ⏱️ Thi thử Chuẩn hóa (Simulation)
       </button>
       <button class="tab-btn" data-tab="speedrun" onclick="gameApp.switchView('speedrun')">
         ⚡ Sinh tồn (Speed Run)
@@ -1642,8 +1762,10 @@ function buildHtml() {
         </p>
         <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
           <button class="rate-btn active" onclick="gameApp.filterPractice('all', this)">Tất cả dạng bài</button>
+          <button class="rate-btn" onclick="gameApp.filterPractice('p1', this)">🖼️ Part 1 (Mô tả tranh SVG)</button>
           <button class="rate-btn" onclick="gameApp.filterPractice('p2', this)">🎧 Part 2 (Hỏi - Đáp nghe)</button>
           <button class="rate-btn" onclick="gameApp.filterPractice('p3', this)">🗣️ Part 3 (Hội thoại nghe)</button>
+          <button class="rate-btn" onclick="gameApp.filterPractice('p4', this)">🎙️ Part 4 (Độc thoại ngắn)</button>
           <button class="rate-btn" onclick="gameApp.filterPractice('p5', this)">📝 Part 5 (Điền từ vào câu)</button>
           <button class="rate-btn" onclick="gameApp.filterPractice('p6', this)">📄 Part 6 (Điền đoạn văn)</button>
           <button class="rate-btn" onclick="gameApp.filterPractice('p7', this)">📑 Part 7 (Đọc hiểu văn bản)</button>
@@ -1654,23 +1776,116 @@ function buildHtml() {
       <div id="practiceQuestionSlot"></div>
     </section>
 
-    <!-- VIEW 3: MOCK EXAM (MINI TEST 30) -->
+    <!-- VIEW 3: MOCK EXAM (EXAM SIMULATION CENTER) -->
     <section id="viewMockExam" class="view-panel">
-      <div class="story-header-card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <h2 style="font-size: 1.25rem; margin-bottom: 0.25rem;">⏱️ Thi thử Mini Test 30 câu (Quy đổi chuẩn ETS TOEIC)</h2>
-          <p style="color: var(--text-sub); font-size: 0.88rem;">30 câu tổng hợp (Listening & Reading) - Giới hạn thời gian 25:00 phút.</p>
+      <!-- CONTAINER 1: EXAM HUB SELECTION -->
+      <div id="examHubContainer">
+        <div class="story-header-card">
+          <h2 style="font-size: 1.35rem; margin-bottom: 0.35rem; color: var(--accent-cyan);">⏱️ Trung Tâm Thi Thử Chuẩn Hóa TOEIC (ETS Simulation Center)</h2>
+          <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">
+            Lựa chọn cấp độ thi thử phù hợp với mục tiêu và quỹ thời gian của bạn. Hệ thống bấm giờ nghiêm ngặt, tự động khóa giải thích trong phòng thi và quy đổi điểm số ước lượng 10–990 theo chuẩn ETS.
+          </p>
         </div>
-        <div class="exam-timer-chip" id="examTimerDisplay">
-          ⏱️ 25:00
+
+        <div class="exam-modes-grid">
+          <!-- CARD 1: MINI TEST 30 -->
+          <div class="exam-mode-card">
+            <div>
+              <span class="exam-badge badge-mini">⚡ ÔN NHANH HÀNG NGÀY</span>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-main);">Mini-Test 30 Câu</h3>
+              <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1rem; line-height: 1.45;">
+                Bài thi rút gọn gồm 10 câu Listening (Part 1, 2, 3, 4) và 20 câu Reading (Part 5, 6, 7). Phù hợp kiểm tra nhanh phản xạ đầu ca trực.
+              </p>
+              <div style="font-size: 0.82rem; color: var(--text-sub); margin-bottom: 1.25rem;">
+                <div>⏱️ <b>Thời gian:</b> 15:00 phút</div>
+                <div>📊 <b>Quy mô:</b> 30 câu hỏi ngẫu nhiên</div>
+                <div>🎯 <b>Thang điểm:</b> Ước lượng 10–990</div>
+              </div>
+            </div>
+            <button class="btn-next" style="width: 100%; justify-content: center;" onclick="gameApp.startExamWithConfig('mini')">
+              ▶️ Bắt đầu Mini-Test 30
+            </button>
+          </div>
+
+          <!-- CARD 2: STANDARD TEST 100 -->
+          <div class="exam-mode-card">
+            <div>
+              <span class="exam-badge badge-standard">🎯 CHUYÊN SÂU KỸ NĂNG</span>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-main);">Standard Test 100 Câu</h3>
+              <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1rem; line-height: 1.45;">
+                Luyện tập chuyên sâu kỹ năng hoặc làm bài thi tiêu chuẩn 100 câu kết hợp, rèn luyện sự tập trung cao độ.
+              </p>
+              <div style="margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <button class="choice-btn" style="padding: 0.5rem 0.75rem; font-size: 0.82rem;" onclick="gameApp.startExamWithConfig('standard_combined')">
+                  ⚖️ <b>Tổng hợp:</b> 40 Nghe + 60 Đọc (60 phút)
+                </button>
+                <button class="choice-btn" style="padding: 0.5rem 0.75rem; font-size: 0.82rem;" onclick="gameApp.startExamWithConfig('standard_listening')">
+                  🎧 <b>Listening Mastery:</b> 50 câu Nghe (45 phút)
+                </button>
+                <button class="choice-btn" style="padding: 0.5rem 0.75rem; font-size: 0.82rem;" onclick="gameApp.startExamWithConfig('standard_reading')">
+                  📖 <b>Reading Specialist:</b> 50 câu Đọc (60 phút)
+                </button>
+              </div>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); text-align: center;">Chọn một phân hệ để bắt đầu</div>
+          </div>
+
+          <!-- CARD 3: FULL SIMULATION 200 -->
+          <div class="exam-mode-card featured">
+            <div>
+              <span class="exam-badge badge-full">👑 MÔ PHỎNG ETS 100%</span>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--accent-amber);">Full Test 200 Câu (120 Phút)</h3>
+              <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 1rem; line-height: 1.45;">
+                Mô phỏng trọn vẹn 100% kỳ thi thật ETS TOEIC Listening & Reading. Phủ trọn vẹn cả 7 Part (Part 1 -> Part 7), đồng hồ 120 phút nghiêm ngặt, tự động nộp bài khi hết giờ!
+              </p>
+              <div style="font-size: 0.82rem; color: var(--text-sub); margin-bottom: 1.25rem;">
+                <div>⏱️ <b>Thời gian:</b> 120:00 phút (2 tiếng)</div>
+                <div>📋 <b>Cấu trúc:</b> Trọn vẹn Part 1, 2, 3, 4, 5, 6, 7</div>
+                <div>🔒 <b>Quy chế:</b> Khóa giải thích, gắn cờ xem lại 🚩</div>
+              </div>
+            </div>
+            <button class="btn-next" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000; font-weight: 800;" onclick="gameApp.startExamWithConfig('full')">
+              🏆 Bắt đầu Full Test 200 Câu
+            </button>
+          </div>
         </div>
       </div>
-      <div class="exam-nav-grid" id="examNavGrid"></div>
-      <div id="examQuestionSlot"></div>
-      <div style="display: flex; justify-content: space-between; margin-top: 1.25rem;">
-        <button class="btn-toggle-trans" onclick="gameApp.prevExamQuestion()">⬅️ Câu trước</button>
-        <button class="btn-next" onclick="gameApp.submitExam()">Nộp bài thi & Xem kết quả 🏁</button>
-        <button class="btn-toggle-trans" onclick="gameApp.nextExamQuestion()">Câu sau ➡️</button>
+
+      <!-- CONTAINER 2: ACTIVE EXAM & REVIEW INTERFACE -->
+      <div id="examActiveContainer" style="display: none;">
+        <div class="story-header-card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 id="examActiveTitle" style="font-size: 1.25rem; margin-bottom: 0.25rem;">⏱️ Đang làm bài thi</h2>
+            <p id="examActiveSubtitle" style="color: var(--text-sub); font-size: 0.88rem;">Khóa giải thích theo quy chế ETS</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="exam-timer-chip" id="examTimerDisplay">⏱️ 00:00</div>
+            <button class="btn-toggle-trans" onclick="gameApp.exitExamToHub()" title="Thoát bài thi để chọn đề khác">
+              ❌ Thoát
+            </button>
+          </div>
+        </div>
+
+        <!-- EXAM FILTER CHIPS BAR -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 0.82rem; color: var(--text-sub); font-weight: 700;">Lọc câu hỏi:</span>
+          <button class="exam-filter-chip active" id="chipFilterAll" onclick="gameApp.filterExamNav('all', this)">Tất cả</button>
+          <button class="exam-filter-chip" id="chipFilterUnanswered" onclick="gameApp.filterExamNav('unanswered', this)">Chưa làm</button>
+          <button class="exam-filter-chip" id="chipFilterAnswered" onclick="gameApp.filterExamNav('answered', this)">Đã làm</button>
+          <button class="exam-filter-chip" id="chipFilterFlagged" onclick="gameApp.filterExamNav('flagged', this)">Đã gắn cờ 🚩</button>
+        </div>
+
+        <div class="exam-nav-grid" id="examNavGrid"></div>
+        <div id="examQuestionSlot"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+          <button class="btn-toggle-trans" onclick="gameApp.prevExamQuestion()">⬅️ Câu trước</button>
+          <button class="btn-toggle-trans" id="btnToggleFlag" onclick="gameApp.toggleExamFlag()" style="border-color: var(--accent-amber); color: var(--accent-amber);">
+            🚩 Gắn cờ xem lại
+          </button>
+          <button class="btn-next" id="btnSubmitExam" onclick="gameApp.confirmSubmitExam()">Nộp bài thi & Xem kết quả 🏁</button>
+          <button class="btn-toggle-trans" onclick="gameApp.nextExamQuestion()">Câu sau ➡️</button>
+        </div>
       </div>
     </section>
 
@@ -2598,7 +2813,7 @@ function buildHtml() {
       if (viewName === "vocab") this.renderSRS();
       if (viewName === "analytics") this.updateAnalyticsUI();
       if (viewName === "practice" && !this.practiceInitialized) this.filterPractice("all");
-      if (viewName === "mockexam" && !this.examTimer) this.startMockExam();
+      if (viewName === "mockexam" && !this.examActive && !this.isExamReviewMode) this.showExamHub();
       if (viewName === "speedrun" && !this.speedTimer) this.startSpeedRun();
       if (viewName === "phishing") this.loadPhishingMail(this.currentPhishingIndex);
     }
@@ -2685,6 +2900,11 @@ function buildHtml() {
             </div>
           </div>
       \`;
+
+      // If Part 1 SVG Photograph
+      if (q.part === 1 && q.imageSvg) {
+        html += \`<div class="photo-container">\${q.imageSvg}</div>\`;
+      }
 
       // If Part 6 / 7 passage
       if (q.passage) {
@@ -2968,8 +3188,10 @@ function buildHtml() {
       this.practiceInitialized = true;
       let filtered = [...GAME_QUESTIONS];
 
-      if (filterKey === "p2") filtered = filtered.filter(q => q.part === 2);
+      if (filterKey === "p1") filtered = filtered.filter(q => q.part === 1);
+      else if (filterKey === "p2") filtered = filtered.filter(q => q.part === 2);
       else if (filterKey === "p3") filtered = filtered.filter(q => q.part === 3);
+      else if (filterKey === "p4") filtered = filtered.filter(q => q.part === 4);
       else if (filterKey === "p5") filtered = filtered.filter(q => q.part === 5);
       else if (filterKey === "p6") filtered = filtered.filter(q => q.part === 6);
       else if (filterKey === "p7") filtered = filtered.filter(q => q.part === 7);
@@ -2988,7 +3210,15 @@ function buildHtml() {
             <span class="badge-tag tag-category">\${q.tags?.category || 'General'}</span>
             <span class="badge-tag tag-diff-\${(q.tags?.difficulty || 'Medium').toLowerCase()}">\${q.tags?.difficulty || 'Medium'}</span>
           </div>
+          \${q.part === 1 && q.imageSvg ? \`<div class="photo-container">\${q.imageSvg}</div>\` : ''}
           \${q.passage ? \`<div class="passage-box" style="max-height: 180px;">\${q.passage}</div>\` : ''}
+          \${q.audioText ? \`
+            <div class="audio-player-card" style="margin-bottom: 0.75rem;">
+              <button class="btn-play-audio" onclick="gameApp.speech.speak('\${q.audioText.replace(/'/g, "\\\\'")}')">
+                🔊 Nghe Audio (Part \${q.part})
+              </button>
+            </div>
+          \` : ''}
           <div class="question-stem">\${q.stem}</div>
           <div class="choices-list">
             \${q.choices.map((c, cIdx) => \`
@@ -3019,23 +3249,85 @@ function buildHtml() {
       if (tip) tip.style.display = "block";
     }
 
-    /* ================= MOCK EXAM (MINI TEST 30) ================= */
-    startMockExam() {
-      const pool = [...GAME_QUESTIONS].sort(() => 0.5 - Math.random());
-      this.examQuestions = pool.slice(0, 30);
+    /* =========================================================================
+       MOCK EXAM & FULL ETS SIMULATION CENTER (Mini 30, Standard 100, Full 200)
+       ========================================================================= */
+    showExamHub() {
+      if (this.examTimer) clearInterval(this.examTimer);
+      this.examActive = false;
+      this.isExamReviewMode = false;
+
+      const hub = document.getElementById("examHubContainer");
+      const active = document.getElementById("examActiveContainer");
+      if (hub) hub.style.display = "block";
+      if (active) active.style.display = "none";
+    }
+
+    startExamWithConfig(mode) {
+      this.sound.playClick();
+      this.examMode = mode;
+      this.examQuestions = this.buildExamQuestions(mode);
       this.examCurrentIdx = 0;
       this.examUserAnswers = {};
-      this.examTimeRemaining = 25 * 60;
+      this.examFlaggedQuestions = new Set();
+      this.examNavFilter = "all";
+      this.examActive = true;
+      this.isExamReviewMode = false;
 
+      // Set time duration
+      let durationSecs = 15 * 60;
+      let title = "Mini-Test 30 Câu";
+      let subtitle = "15:00 phút • Khóa giải thích theo quy chế phòng thi ETS";
+
+      if (mode === "mini") {
+        durationSecs = 15 * 60;
+        title = "Mini-Test 30 Câu (Kiểm tra nhanh)";
+        subtitle = "15:00 phút • 10 câu Listening + 20 câu Reading";
+      } else if (mode === "standard_combined") {
+        durationSecs = 60 * 60;
+        title = "Standard Test 100 Câu (Tổng hợp Nghe & Đọc)";
+        subtitle = "60:00 phút • 40 câu Listening + 60 câu Reading";
+      } else if (mode === "standard_listening") {
+        durationSecs = 45 * 60;
+        title = "Standard Test 50 Câu (Listening Mastery)";
+        subtitle = "45:00 phút • 50 câu Nghe chuyên sâu (Part 1, 2, 3, 4)";
+      } else if (mode === "standard_reading") {
+        durationSecs = 60 * 60;
+        title = "Standard Test 50 Câu (Reading Specialist)";
+        subtitle = "60:00 phút • 50 câu Đọc chuyên sâu (Part 5, 6, 7)";
+      } else if (mode === "full") {
+        durationSecs = 120 * 60;
+        title = "Full Simulation Test 200 Câu (Mô phỏng 100% ETS)";
+        subtitle = "120:00 phút • Trọn vẹn Part 1, 2, 3, 4, 5, 6, 7 • Tự động nộp bài khi hết giờ";
+      }
+
+      this.examTimeRemaining = durationSecs;
+
+      // Update UI panels
+      const hub = document.getElementById("examHubContainer");
+      const active = document.getElementById("examActiveContainer");
+      if (hub) hub.style.display = "none";
+      if (active) active.style.display = "block";
+
+      document.getElementById("examActiveTitle").innerText = "⏱️ " + title;
+      document.getElementById("examActiveSubtitle").innerText = subtitle;
+      document.getElementById("btnSubmitExam").style.display = "inline-flex";
+      document.getElementById("btnToggleFlag").style.display = "inline-flex";
+
+      // Reset filters
+      this.filterExamNav("all");
+
+      // Start Countdown Timer
       if (this.examTimer) clearInterval(this.examTimer);
+      this.updateExamTimerDisplay();
+
       this.examTimer = setInterval(() => {
         this.examTimeRemaining--;
-        const mins = String(Math.floor(this.examTimeRemaining / 60)).padStart(2, "0");
-        const secs = String(this.examTimeRemaining % 60).padStart(2, "0");
-        document.getElementById("examTimerDisplay").innerText = \`⏱️ \${mins}:\${secs}\`;
+        this.updateExamTimerDisplay();
+
         if (this.examTimeRemaining <= 0) {
           clearInterval(this.examTimer);
-          alert("Hết giờ làm bài thi!");
+          alert("⏱️ HẾT GIỜ LÀM BÀI! Hệ thống đang tự động nộp bài và tổng hợp phiếu điểm của bạn...");
           this.submitExam();
         }
       }, 1000);
@@ -3044,13 +3336,119 @@ function buildHtml() {
       this.renderExamCurrentQuestion();
     }
 
+    updateExamTimerDisplay() {
+      const display = document.getElementById("examTimerDisplay");
+      if (!display) return;
+      const hours = Math.floor(this.examTimeRemaining / 3600);
+      const mins = Math.floor((this.examTimeRemaining % 3600) / 60);
+      const secs = this.examTimeRemaining % 60;
+      const pad = n => (n < 10 ? "0" : "") + n;
+      const timeStr = hours > 0
+        ? pad(hours) + ":" + pad(mins) + ":" + pad(secs)
+        : pad(mins) + ":" + pad(secs);
+      display.innerText = "⏱️ " + timeStr;
+
+      if (this.examTimeRemaining <= 300) {
+        display.style.background = "rgba(244, 63, 94, 0.35)";
+        display.style.animation = "pulse 1s infinite";
+      } else if (this.examTimeRemaining <= 900) {
+        display.style.background = "rgba(245, 158, 11, 0.25)";
+        display.style.color = "var(--accent-amber)";
+        display.style.borderColor = "var(--accent-amber)";
+      } else {
+        display.style.background = "rgba(244, 63, 94, 0.15)";
+        display.style.color = "var(--accent-rose)";
+        display.style.borderColor = "var(--accent-rose)";
+        display.style.animation = "none";
+      }
+    }
+
+    buildExamQuestions(mode) {
+      const shuffle = arr => [...arr].sort(() => 0.5 - Math.random());
+      const p1 = GAME_QUESTIONS.filter(q => q.part === 1);
+      const p2 = GAME_QUESTIONS.filter(q => q.part === 2);
+      const p3 = GAME_QUESTIONS.filter(q => q.part === 3);
+      const p4 = GAME_QUESTIONS.filter(q => q.part === 4);
+      const p5 = GAME_QUESTIONS.filter(q => q.part === 5);
+      const p6 = GAME_QUESTIONS.filter(q => q.part === 6);
+      const p7 = GAME_QUESTIONS.filter(q => q.part === 7);
+
+      if (mode === "mini") {
+        const listening = shuffle([...p1, ...p2, ...p3, ...p4]).slice(0, 10);
+        const reading = shuffle([...p5, ...p6, ...p7]).slice(0, 20);
+        return [...listening, ...reading];
+      } else if (mode === "standard_listening") {
+        return shuffle([...p1, ...p2, ...p3, ...p4]).slice(0, 50);
+      } else if (mode === "standard_reading") {
+        return shuffle([...p5, ...p6, ...p7]).slice(0, 50);
+      } else if (mode === "standard_combined") {
+        const listening = shuffle([...p1, ...p2, ...p3, ...p4]).slice(0, 40);
+        const reading = shuffle([...p5, ...p6, ...p7]).slice(0, 60);
+        return [...listening, ...reading];
+      } else if (mode === "full") {
+        const listening = shuffle([...p1, ...p2, ...p3, ...p4]);
+        const reading = shuffle([...p5, ...p6, ...p7]);
+        const neededReading = 200 - listening.length;
+        const selectedReading = reading.slice(0, neededReading);
+        const pool = [...listening, ...selectedReading];
+        if (pool.length < 200) {
+          const remaining = shuffle(GAME_QUESTIONS.filter(q => !pool.includes(q))).slice(0, 200 - pool.length);
+          pool.push(...remaining);
+        }
+        return pool;
+      }
+      return shuffle(GAME_QUESTIONS).slice(0, 30);
+    }
+
+    filterExamNav(filterKey, btnEl) {
+      this.examNavFilter = filterKey;
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll(".exam-filter-chip").forEach(b => b.classList.remove("active"));
+        btnEl.classList.add("active");
+      }
+      this.renderExamNav();
+    }
+
     renderExamNav() {
       const grid = document.getElementById("examNavGrid");
-      grid.innerHTML = this.examQuestions.map((q, idx) => {
+      if (!grid) return;
+
+      const indices = this.examQuestions.map((q, idx) => idx).filter(idx => {
+        const isAnswered = this.examUserAnswers[idx] !== undefined;
+        const isFlagged = this.examFlaggedQuestions.has(idx);
+        if (this.examNavFilter === "unanswered") return !isAnswered;
+        if (this.examNavFilter === "answered") return isAnswered;
+        if (this.examNavFilter === "flagged") return isFlagged;
+        return true;
+      });
+
+      // Update chip counts
+      const answeredCount = Object.keys(this.examUserAnswers).length;
+      const unansweredCount = this.examQuestions.length - answeredCount;
+      const flaggedCount = this.examFlaggedQuestions.size;
+      const chipAll = document.getElementById("chipFilterAll");
+      const chipUnanswered = document.getElementById("chipFilterUnanswered");
+      const chipAnswered = document.getElementById("chipFilterAnswered");
+      const chipFlagged = document.getElementById("chipFilterFlagged");
+      if (chipAll) chipAll.innerText = "Tất cả (" + this.examQuestions.length + ")";
+      if (chipUnanswered) chipUnanswered.innerText = "Chưa làm (" + unansweredCount + ")";
+      if (chipAnswered) chipAnswered.innerText = "Đã làm (" + answeredCount + ")";
+      if (chipFlagged) chipFlagged.innerText = "Đã gắn cờ 🚩 (" + flaggedCount + ")";
+
+      grid.innerHTML = indices.map(idx => {
+        const q = this.examQuestions[idx];
         const isAnswered = this.examUserAnswers[idx] !== undefined;
         const isCurrent = this.examCurrentIdx === idx;
+        const isFlagged = this.examFlaggedQuestions.has(idx);
+
+        let reviewClass = "";
+        if (this.isExamReviewMode) {
+          const isCorrect = this.examUserAnswers[idx] === q.answer;
+          reviewClass = isCorrect ? "review-correct" : "review-wrong";
+        }
+
         return \`
-          <button class="exam-nav-btn \${isAnswered ? 'answered' : ''} \${isCurrent ? 'current' : ''}" onclick="gameApp.goToExamQuestion(\${idx})">
+          <button class="exam-nav-btn \${isAnswered ? 'answered' : ''} \${isCurrent ? 'current' : ''} \${isFlagged ? 'flagged' : ''} \${reviewClass}" onclick="gameApp.goToExamQuestion(\${idx})">
             \${idx + 1}
           </button>
         \`;
@@ -3075,37 +3473,133 @@ function buildHtml() {
       }
     }
 
+    toggleExamFlag() {
+      if (this.examFlaggedQuestions.has(this.examCurrentIdx)) {
+        this.examFlaggedQuestions.delete(this.examCurrentIdx);
+      } else {
+        this.examFlaggedQuestions.add(this.examCurrentIdx);
+      }
+      this.sound.playClick();
+      this.renderExamNav();
+      this.renderExamCurrentQuestion();
+    }
+
     renderExamCurrentQuestion() {
       const slot = document.getElementById("examQuestionSlot");
       const q = this.examQuestions[this.examCurrentIdx];
       const selected = this.examUserAnswers[this.examCurrentIdx];
+      const isFlagged = this.examFlaggedQuestions.has(this.examCurrentIdx);
+
+      // Update flag button label
+      const flagBtn = document.getElementById("btnToggleFlag");
+      if (flagBtn) {
+        flagBtn.innerHTML = isFlagged ? "🚩 Bỏ cờ câu này" : "🏳️ Gắn cờ xem lại";
+        flagBtn.style.color = isFlagged ? "var(--accent-amber)" : "var(--text-sub)";
+      }
 
       let html = \`
         <div class="question-card">
           <div class="question-header">
-            <span class="badge-tag tag-part">Part \${q.part}</span>
-            <span class="badge-tag tag-category">\${q.tags?.category || 'TOEIC'}</span>
-            <span style="font-size: 0.85rem; font-weight: 700;">Câu \${this.examCurrentIdx + 1} / 30</span>
+            <div class="tag-group">
+              <span class="badge-tag tag-part">Part \${q.part}</span>
+              <span class="badge-tag tag-category">\${q.tags?.category || 'TOEIC'}</span>
+              <span class="badge-tag tag-diff-\${(q.tags?.difficulty || 'Medium').toLowerCase()}">\${q.tags?.difficulty || 'Medium'}</span>
+              \${isFlagged ? '<span class="badge-tag" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid var(--accent-amber);">🚩 Đang gắn cờ</span>' : ''}
+            </div>
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);">
+              Câu \${this.examCurrentIdx + 1} / \${this.examQuestions.length}
+            </span>
           </div>
-          \${q.passage ? \`<div class="passage-box" style="max-height: 220px;">\${q.passage}</div>\` : ''}
-          \${q.audioText ? \`
-            <div class="audio-player-card">
+      \`;
+
+      // If Part 1 SVG Photograph
+      if (q.part === 1 && q.imageSvg) {
+        html += \`<div class="photo-container">\${q.imageSvg}</div>\`;
+      }
+
+      // If Reading Passage (Part 6, 7)
+      if (q.passage) {
+        html += \`<div class="passage-box" style="max-height: 240px;">\${q.passage}</div>\`;
+      }
+
+      // If Listening Audio (Part 1, 2, 3, 4)
+      if (q.audioText) {
+        html += \`
+          <div class="audio-player-card" style="margin-bottom: 1rem;">
+            <div class="audio-ctrl-group">
               <button class="btn-play-audio" onclick="gameApp.speech.speak('\${q.audioText.replace(/'/g, "\\\\'")}')">
                 🔊 Nghe audio câu hỏi
               </button>
+              <button class="rate-btn \${this.speech.rate === 0.8 ? 'active' : ''}" onclick="gameApp.setSpeechRate(0.8, this)">0.8x</button>
+              <button class="rate-btn \${this.speech.rate === 1.0 ? 'active' : ''}" onclick="gameApp.setSpeechRate(1.0, this)">1.0x</button>
+              <button class="rate-btn \${this.speech.rate === 1.2 ? 'active' : ''}" onclick="gameApp.setSpeechRate(1.2, this)">1.2x</button>
             </div>
-          \` : ''}
-          <div class="question-stem">\${q.stem}</div>
-          <div class="choices-list">
-            \${q.choices.map((c, idx) => \`
-              <button class="choice-btn \${selected === idx ? 'selected-correct' : ''}" onclick="gameApp.recordExamAnswer(\${idx})">
-                <span class="choice-key">\${["A", "B", "C", "D"][idx]}</span>
-                <span class="choice-text">\${c}</span>
+            \${this.isExamReviewMode ? \`
+              <button class="btn-toggle-trans" onclick="gameApp.toggleAudioTranscript()">
+                👁️ Xem Transcript
               </button>
-            \`).join("")}
+              <div class="audio-transcript-box" id="audioTranscriptSlot">\${q.audioText}</div>
+            \` : ''}
           </div>
-        </div>
-      \`;
+        \`;
+      }
+
+      html += \`<div class="question-stem">\${q.stem}</div>\`;
+
+      // Choices
+      html += \`<div class="choices-list">\`;
+      q.choices.forEach((c, idx) => {
+        let choiceClass = "";
+        if (this.isExamReviewMode) {
+          if (idx === q.answer) {
+            choiceClass = "reveal-correct";
+          } else if (selected === idx && selected !== q.answer) {
+            choiceClass = "selected-wrong";
+          }
+        } else {
+          if (selected === idx) {
+            choiceClass = "selected-correct";
+          }
+        }
+
+        html += \`
+          <button class="choice-btn \${choiceClass}" onclick="\${this.isExamReviewMode ? '' : 'gameApp.recordExamAnswer(' + idx + ')'}">
+            <span class="choice-key">\${["A", "B", "C", "D"][idx]}</span>
+            <span class="choice-text">\${c}</span>
+          </button>
+        \`;
+      });
+      html += \`</div>\`;
+
+      // If Review Mode: render detailed explanation & traps
+      if (this.isExamReviewMode) {
+        const isCorrect = selected === q.answer;
+        html += \`
+          <div class="explanation-card visible" style="margin-top: 1.25rem;">
+            <div class="exp-title \${isCorrect ? 'correct' : 'wrong'}">
+              \${isCorrect ? '✅ BẠN ĐÃ CHỌN ĐÚNG!' : ('❌ BẠN ĐÃ CHỌN SAI (Đáp án đúng là ' + ["A", "B", "C", "D"][q.answer] + ')')}
+            </div>
+            <div class="exp-section"><strong>Giải thích chi tiết:</strong> \${q.explanation_vi}</div>
+            \${q.trap ? \`<div class="tip-box">⚠️ <strong>Cảnh giác bẫy đề thi:</strong> \${q.trap}</div>\` : ''}
+            \${q.examTip ? \`<div class="tip-box" style="border-color: var(--accent-cyan); background: rgba(6, 182, 212, 0.1);">💡 <strong>Mẹo làm nhanh TOEIC:</strong> \${q.examTip}</div>\` : ''}
+            \${q.vocab && q.vocab.length ? \`
+              <div class="exp-section" style="margin-top: 0.5rem;">
+                <strong>Từ vựng cần nhớ:</strong>
+                <div class="vocab-chips-list">
+                  \${q.vocab.map(v => \`
+                    <div class="vocab-chip">
+                      <b>\${v.word}</b> \${v.ipa || ''}: \${v.meaning}
+                      <button onclick="gameApp.addWordToSRS('\${v.word}', '\${v.ipa || ''}', '\${v.pos || 'noun'}', '\${v.meaning}')" title="Thêm vào Sổ tay">⭐</button>
+                    </div>
+                  \`).join("")}
+                </div>
+              </div>
+            \` : ''}
+          </div>
+        \`;
+      }
+
+      html += \`</div>\`;
       slot.innerHTML = html;
     }
 
@@ -3116,50 +3610,190 @@ function buildHtml() {
       this.renderExamCurrentQuestion();
     }
 
+    confirmSubmitExam() {
+      const answeredCount = Object.keys(this.examUserAnswers).length;
+      const total = this.examQuestions.length;
+      const unanswered = total - answeredCount;
+
+      let msg = "Bạn đã hoàn thành " + answeredCount + " / " + total + " câu hỏi.";
+      if (unanswered > 0) {
+        msg += " Còn " + unanswered + " câu chưa làm!\\n\\nBạn có chắc chắn muốn nộp bài thi ngay không?";
+      } else {
+        msg += " Bạn có chắc chắn muốn nộp bài thi để xem phiếu điểm?";
+      }
+
+      if (confirm(msg)) {
+        this.submitExam();
+      }
+    }
+
     submitExam() {
       if (this.examTimer) clearInterval(this.examTimer);
+      this.examActive = false;
 
+      let totalCount = this.examQuestions.length;
       let correctCount = 0;
-      let partBreakdown = { 2: { c: 0, t: 0 }, 3: { c: 0, t: 0 }, 5: { c: 0, t: 0 }, 6: { c: 0, t: 0 }, 7: { c: 0, t: 0 } };
+      let listeningCorrect = 0, listeningTotal = 0;
+      let readingCorrect = 0, readingTotal = 0;
+
+      let partBreakdown = {
+        1: { c: 0, t: 0, name: "Part 1 (Photographs)" },
+        2: { c: 0, t: 0, name: "Part 2 (Question-Response)" },
+        3: { c: 0, t: 0, name: "Part 3 (Conversations)" },
+        4: { c: 0, t: 0, name: "Part 4 (Short Talks)" },
+        5: { c: 0, t: 0, name: "Part 5 (Incomplete Sentences)" },
+        6: { c: 0, t: 0, name: "Part 6 (Text Completion)" },
+        7: { c: 0, t: 0, name: "Part 7 (Reading Comprehension)" }
+      };
 
       this.examQuestions.forEach((q, idx) => {
         const p = q.part;
-        if (!partBreakdown[p]) partBreakdown[p] = { c: 0, t: 0 };
+        if (!partBreakdown[p]) partBreakdown[p] = { c: 0, t: 0, name: "Part " + p };
         partBreakdown[p].t++;
+
+        const isListening = p <= 4;
+        if (isListening) listeningTotal++; else readingTotal++;
 
         if (this.examUserAnswers[idx] === q.answer) {
           correctCount++;
           partBreakdown[p].c++;
+          if (isListening) listeningCorrect++; else readingCorrect++;
         }
       });
 
-      const ratio = correctCount / 30;
-      const estListening = Math.round(5 + ratio * 480);
-      const estReading = Math.round(5 + ratio * 475);
+      // ETS Diagnostic Scaled Score Formula
+      let estListening = 5;
+      if (listeningTotal > 0) {
+        estListening = Math.min(495, Math.max(5, Math.round(5 + (listeningCorrect / listeningTotal) * 490)));
+      }
+      let estReading = 5;
+      if (readingTotal > 0) {
+        estReading = Math.min(495, Math.max(5, Math.round(5 + (readingCorrect / readingTotal) * 490)));
+      }
       const estTotal = Math.min(990, Math.max(10, estListening + estReading));
 
+      // CEFR Rating
+      let cefr = "A1 (Beginner)";
+      let cefrBadge = "🌱";
+      if (estTotal >= 785) { cefr = "C1 (Advanced Cyber Commander)"; cefrBadge = "👑"; }
+      else if (estTotal >= 605) { cefr = "B2 (Vantage - SOC Senior)"; cefrBadge = "🛡️"; }
+      else if (estTotal >= 405) { cefr = "B1 (Threshold - SOC Junior)"; cefrBadge = "⚙️"; }
+      else if (estTotal >= 255) { cefr = "A2 (Waystage - SOC Trainee)"; cefrBadge = "📘"; }
+
+      this.lastExamResult = {
+        mode: this.examMode,
+        date: new Date().toLocaleDateString("vi-VN"),
+        correctCount,
+        totalCount,
+        estListening,
+        estReading,
+        estTotal,
+        cefr
+      };
+
+      // Record to history
+      if (!this.statsHistory.examScores) this.statsHistory.examScores = [];
+      this.statsHistory.examScores.push(this.lastExamResult);
+      this.saveStorage();
+
+      // Render Score Screen
       const slot = document.getElementById("examQuestionSlot");
       slot.innerHTML = \`
-        <div class="ending-card" style="max-width: 700px;">
-          <div class="ending-badge">🎖️</div>
-          <div class="ending-title" style="color: var(--accent-cyan);">KẾT QUẢ BÀI THI MINI TEST 30 CÂU</div>
+        <div class="ending-card" style="max-width: 720px;">
+          <div class="ending-badge">\${cefrBadge}</div>
+          <div class="ending-title" style="color: var(--accent-cyan); font-size: 1.4rem;">
+            PHIẾU ĐIỂM THI THỬ CHUẨN HÓA TOEIC
+          </div>
+          <div style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            \${this.examMode === 'full' ? 'Mô phỏng Full ETS Test 200 câu (120 phút)' : (this.examMode === 'mini' ? 'Mini-Test 30 câu (15 phút)' : 'Standard Test 100 câu')}
+          </div>
+
           <div class="score-hero">
             <div class="score-number">\${estTotal}</div>
-            <div class="score-scale">Ước tính TOEIC Scaled Score (Đúng \${correctCount} / 30 câu)</div>
+            <div class="score-scale">
+              Điểm ước lượng ETS TOEIC • Đúng \${correctCount} / \${totalCount} câu (\${Math.round((correctCount / totalCount) * 100)}%)
+            </div>
           </div>
-          <div style="font-size: 0.95rem; display: flex; justify-content: space-around; margin-bottom: 1rem;">
-            <span>🎧 Listening: <b>\${estListening}</b> / 495</span>
-            <span>📖 Reading: <b>\${estReading}</b> / 495</span>
+
+          <div style="font-size: 1rem; display: flex; justify-content: space-around; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div class="stat-pill" style="font-size: 0.95rem; padding: 0.6rem 1.25rem;">
+              🎧 Listening: <b>\${estListening}</b> / 495 (\${listeningCorrect}/\${listeningTotal})
+            </div>
+            <div class="stat-pill" style="font-size: 0.95rem; padding: 0.6rem 1.25rem;">
+              📖 Reading: <b>\${estReading}</b> / 495 (\${readingCorrect}/\${readingTotal})
+            </div>
           </div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; text-align: center; line-height: 1.5;">
-            ⚠️ Lưu ý: Điểm số trên là điểm ước lượng tham khảo dựa trên thuật toán mô phỏng điểm số TOEIC chuẩn hóa. Viện Khảo thí Giáo dục Hoa Kỳ (ETS) không công bố bảng quy đổi điểm chính thức áp dụng chung cho mọi đề thi.
+
+          <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.25rem; text-align: left;">
+            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem; font-size: 0.9rem;">
+              📊 Thống kê năng lực theo từng Part:
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; font-size: 0.82rem;">
+              \${Object.keys(partBreakdown).filter(p => partBreakdown[p].t > 0).map(p => {
+                const b = partBreakdown[p];
+                const pct = Math.round((b.c / b.t) * 100);
+                return '<div>• <b>' + b.name + ':</b> ' + b.c + '/' + b.t + ' (' + pct + '%)</div>';
+              }).join("")}
+            </div>
+            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-main);">
+              🎯 Đánh giá khung CEFR: <b style="color: var(--accent-amber);">\${cefr}</b>
+            </div>
           </div>
-          <button class="btn-next" onclick="gameApp.switchView('analytics')">
-            Xem Phân tích Chi tiết & Xuất Báo cáo PDF 📊
-          </button>
+
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.5rem; text-align: center; line-height: 1.5;">
+            ⚠️ Lưu ý: Điểm số trên là điểm chẩn đoán ước lượng tham khảo dựa trên thuật toán chuẩn hóa ETS. Viện Khảo thí Giáo dục Hoa Kỳ (ETS) không công bố bảng quy đổi điểm chính thức áp dụng chung cho mọi đề thi.
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap;">
+            <button class="btn-next" onclick="gameApp.startExamReview()">
+              🔍 Xem Lại Toàn Bộ Bài Thi & Lời Giải
+            </button>
+            <button class="btn-toggle-trans" onclick="gameApp.exitExamToHub()">
+              🔄 Chọn Đề Thi Khác
+            </button>
+          </div>
         </div>
       \`;
+
+      // Hide active controls during score screen
+      const navGrid = document.getElementById("examNavGrid");
+      if (navGrid) navGrid.innerHTML = "";
+      document.getElementById("btnSubmitExam").style.display = "none";
+      document.getElementById("btnToggleFlag").style.display = "none";
     }
+
+    startExamReview() {
+      this.isExamReviewMode = true;
+      this.examCurrentIdx = 0;
+      this.examNavFilter = "all";
+
+      document.getElementById("examActiveTitle").innerText = "🔍 Chế độ Xem Lại Bài Thi & Giải Thích Chi Tiết";
+      document.getElementById("examActiveSubtitle").innerText = "Xem lại từng câu, phân tích bẫy đề thi và tra cứu mẹo làm nhanh";
+
+      document.getElementById("btnSubmitExam").style.display = "none";
+      const flagBtn = document.getElementById("btnToggleFlag");
+      if (flagBtn) flagBtn.style.display = "none";
+
+      this.renderExamNav();
+      this.renderExamCurrentQuestion();
+    }
+
+    exitExamToHub() {
+      if (this.examActive) {
+        if (!confirm("Bạn có chắc chắn muốn hủy bài thi đang làm dở và trở về màn hình chọn đề?")) {
+          return;
+        }
+      }
+      this.showExamHub();
+    }
+
+    updateHeaderCounts() {
+      const el = document.getElementById("headerCountsDisplay");
+      if (el) {
+        el.innerText = GAME_QUESTIONS.length + " câu hỏi • " + (this.srsVocab ? this.srsVocab.length : GAME_VOCAB.length) + " từ vựng";
+      }
+    }
+
 
     /* =========================================================================
        8. NÂNG CẤP 3: CHẾ ĐỘ SINH TỒN VÔ TẬN (SPEED RUN DEFENSE)
